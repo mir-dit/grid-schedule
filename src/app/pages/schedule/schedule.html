@@ -1,5 +1,19 @@
 <div ng-controller="ScheduleCtrl">
-    {{ schedule.title }}
+
+    <div class="page-header container-fluid shedlure__header">
+        <div class="row">
+            <div class="col-xs-8">
+                <h2 class="shedlure__title">{{ schedule.title }}</h2>
+            </div>
+            <div class="col-xs-4">
+                <div class="btn-group shedlure__time-gap">
+                    <label class="btn btn-success" ng-model="timeGap" btn-radio="'1day'" uncheckable>1 День</label>
+                    <label class="btn btn-success" ng-model="timeGap" btn-radio="'2days'" uncheckable>2 Дня</label>
+                    <label class="btn btn-success" ng-model="timeGap" btn-radio="'week'" uncheckable>Неделя</label>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <app-table name="'Сетка расписания'"></app-table>
 </div>

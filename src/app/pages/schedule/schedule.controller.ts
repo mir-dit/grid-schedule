@@ -3,8 +3,9 @@ import {IController} from "angular";
 export class ScheduleCtrl implements IController{
   private title: string;
 
-  constructor() {
-    this.title = 'Контроллер страницы';
+  constructor($scope) {
+    this.title = 'Расписание специалистов';
+    $scope.timeGap = 'week';
   }
 
   $onInit(): void {
