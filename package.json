@@ -6,7 +6,7 @@
   "dependencies": {
     "@types/angular": "^1.6.57",
     "@types/jquery": "^3.3.34",
-    "angular": "^1.4.1",
+    "angular": "^1.7.9",
     "angular-route": "^1.4.1",
     "angular-ui-bootstrap": "^0.13.4",
     "jquery": "^2.1.4",
