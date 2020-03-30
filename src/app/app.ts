@@ -1,5 +1,6 @@
 import * as angular from 'angular';
 import * as router from 'angular-route';
+import bootstrap from 'angular-ui-bootstrap';
 import {routes} from './app.routes';
 import {IController, IScope} from "angular";
 import {tableDirective} from "./components/table/tabe.directive";
@@ -26,6 +27,7 @@ const moduleName = 'appSchedule';
 
 const app = angular.module(moduleName, [
   router,
+  bootstrap,
 ]);
 app.directive(moduleName, Application);
 app.controller('AppCtrl', AppCtrl);
