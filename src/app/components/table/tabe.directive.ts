@@ -1,18 +1,26 @@
-import {IAugmentedJQuery, IDirective, IDirectiveFactory, ILocationService, IScope, IAttributes} from "angular";
+import {IAugmentedJQuery, IDirective, IDirectiveFactory, ILocationService, IScope, IAttributes} from 'angular'';
+
+export interface IColumn {
+  date: Date,
+  doctor: String,
+  specialty: String,
+  adress: String,
+}
+
+interface ITableScope implements IScope {
+  columns: IColumn[],
+}
 
 export class tableDirective implements IDirective {
-  restrict = 'E';
-  scope = {
-    'name': '='
+  public restrict = 'E';
+  public template = require('./table.html');
+  public scope = {
+    columns: '=',
   };
-  template = require('./table.html');
 
   constructor(private $location: ILocationService) {}
 
-  link = (scope: IScope, element: IAugmentedJQuery, attrs: IAttributes, ctrl: any) => {
-    console.log(this.$location);
-    console.log(scope);
-  };
+  public link: (scope: ITableScope, element: IAugmentedJQuery, attrs: IAttributes, ctrl: any) => void;
 
   static factory(): IDirectiveFactory {
     const directive = ($location: ILocationService) => new tableDirective($location);
