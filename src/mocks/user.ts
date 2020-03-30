@@ -1,4 +1,4 @@
-interface IUser {
+export interface IUser {
     id: number,
     name: string,
     role: Role,
@@ -6,9 +6,9 @@ interface IUser {
     schedule?: string
 }
 
-type Role = 'patient' | 'specialist'
+export type Role = 'patient' | 'specialist'
 
-const users: IUser[] = [
+export const users: IUser[] = [
     {
         id: 1,
         name: 'Елисеева Е.Е.',

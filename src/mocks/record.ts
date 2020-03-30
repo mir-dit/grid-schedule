@@ -1,4 +1,4 @@
-interface IRecord {
+export interface IRecord {
     id: number,
     message: string,
     userId: number,
@@ -6,7 +6,7 @@ interface IRecord {
     end: Date
 }
 
-const records: IRecord[] = [
+export const records: IRecord[] = [
     {
         id: 1,
         message: 'Врач не принимает',
