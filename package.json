@@ -9,7 +9,7 @@
     "angular": "^1.4.1",
     "angular-route": "^1.4.1",
     "angular-ui-bootstrap": "^0.13.4",
-    "jquery": "^2.1.4",
+    "jquery": "^3.4.0",
     "perfect-scrollbar": "^0.6.10"
   },
   "devDependencies": {
