@@ -1,4 +1,4 @@
-import {IAugmentedJQuery, IDirective, IDirectiveFactory, ILocationService, IScope, IAttributes} from 'angular'';
+import {IAugmentedJQuery, IDirective, IDirectiveFactory, ILocationService, IScope, IAttributes} from 'angular';
 
 export interface IColumn {
   date: Date,
