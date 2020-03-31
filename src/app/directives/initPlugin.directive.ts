@@ -16,7 +16,6 @@ export class initPluginDirective implements IDirective {
 
   link = (scope: ICurrentScope, element: IAugmentedJQuery, attrs: IAttributes) => {
     const pluginName: string = attrs.initPlugin;
-    console.log(scope.params);
     switch (pluginName) {
       case 'scrollbar':
         initPluginDirective.initScrollbar(element, scope.params);
@@ -36,8 +35,6 @@ export class initPluginDirective implements IDirective {
       wheelPropagation: true,
       minScrollbarLength: 20
     };
-    console.log(params);
-    console.log({...defaultOptions, ...params});
     PerfectScrollbar.initialize(elem[0], {...defaultOptions, ...params});
   }
 }
