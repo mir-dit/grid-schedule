@@ -1,6 +1,6 @@
 import {IController} from "angular";
 
-export class ScheduleCtrl implements IController{
+export class ScheduleCtrl implements IController {
   private title: string;
 
   constructor() {
