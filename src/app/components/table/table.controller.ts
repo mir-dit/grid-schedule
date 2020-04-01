@@ -24,7 +24,7 @@ export class TableCtrl implements IController {
       { '1': {time: date}, '2': {time: date}, '3': {time: date}, '5': {time: date}},
       { '1': {time: date}, '2': {reason: 'Курит мануалы'}, '3': {time: date}, '5': {time: date}},
       { '1': {time: date}, '3': {time: date}},
-      { '1': {time: date}, '3': {time: date}},
+      { '1': {time: date}, '3': {time: date, patient: 'Сергеев С.С.'}},
     ];
 
     $scope.offset = 0;

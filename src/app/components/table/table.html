@@ -20,9 +20,13 @@
                     'table__cell-affairs': cell.reason,
                     'table__cell-busy': !column.interval,
                     'table__cell-busy_last': !column.interval && isLastRow,
-                    'table__cell-free': cell.time && !cell.paitent,
+                    'table__cell-free': cell.time && !cell.patient,
                     'table__cell-empty': column.interval && !cell,
-                }">{{cell ? (cell.reason || (cell.time | date: 'HH:mm')) : '' }}</td>
+                    'table__cell-used': cell.patient,
+                }">
+                    <span class="table__text" ng-if="cell">{{ cell.reason || (cell.time | date: 'HH:mm') }}</span>
+                    <span class="table__patient" ng-if="cell.patient">{{ cell.patient }}</span>
+                </td>
         </tr>
     </table>
 </div>

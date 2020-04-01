@@ -84,6 +84,9 @@
     width: 170px; // ???
     color: #000000;
     vertical-align: top;
+}
+
+.table__text {
     padding: 2px 5px 4px;
 }
 
@@ -109,8 +112,15 @@
     border-bottom: dashed 1px $table-border-color;
 }
 
-.table__cell_used {
-    // TODO
+.table__cell-used {
+    display: flex;
+    border: solid 1px $table-used-border-color;
+}
+
+.table__patient {
+    background-color: $table-used-color;
+    flex-grow: 1;
+    padding: 2px 5px 4px;
 }
 
 .table__cell-empty {

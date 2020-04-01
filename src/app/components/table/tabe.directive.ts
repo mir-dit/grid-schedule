@@ -7,7 +7,7 @@ export interface IRowAffairs  {
 
 export interface IRowUsed {
   time: Date;
-  paitent: String;
+  patient: String;
 }
 
 export interface IRowFree {
