@@ -1,10 +1,10 @@
 export interface IRecord {
-    id: number,
-    message: string,
-    userId: number,
-    start: Date,
-    end: Date,
-    type: IRecordType,
+    id: number;
+    message: string;
+    userId: number;
+    start: Date;
+    end: Date;
+    type: IRecordType;
 }
 
 export type IRecordType = 'secondary' | 'success' | 'danger' | 'primary'
