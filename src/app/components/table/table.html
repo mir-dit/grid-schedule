@@ -1,1 +1,27 @@
-<div>Здесь будет таблица: {{name}}</div>
+<div class="table" init-plugin="scrollbar">
+    <div class="table__header">
+        <div class="table__header-column" ng-repeat="column in columns" ng-class="{'table__header-column_busy': !column.interval}">
+            <div class="table__header-cell table__header-date">{{ column.date | tableDate}}</div>
+            <div class="table__header-cell table__header-doctor-name">{{ column.doctor }}</div>
+            <div class="table__header-cell table__header-doctor-specialty">{{ column.specialty }}</div>
+            <div class="table__header-cell table__header-doctor-adress" ng-class="column.interval ? 'table__header-adress_free' : 'table__header-adress_busy'">{{ column.adress }}</div>
+            <div class="table__header-cell table__header_interval" ng-class="column.interval ? 'table__header-interval_free' : 'table__header-interval_busy'">{{ column.interval || column.busy }}</div>
+        </div>
+    </div>
+    <table class="table__body" ng-style="{ top: offset + 'px', position: 'relative' }">
+        <tr ng-repeat="row in rows" ng-init="rowIndex = $index - 1; isFirstRow = $first; isLastRow = $last;">
+            <td
+                ng-repeat="column in columns"
+                ng-init="cell = row[column.key]"
+                class="table__cell"
+                rowspan="{{ cell && cell.reason ? 2 : 1 }}"
+                ng-class="{
+                    'table__cell-affairs': cell && cell.reason,
+                    'table__cell-busy': !column.interval,
+                    'table__cell-busy_last': !column.interval && isLastRow,
+                    'table__cell-free': cell && cell.time && !cell.paitent,
+                    'table__cell-empty': column.interval && !cell,
+                }">{{cell ? (cell.reason || (cell.time | date: 'HH:mm')) : '' }}</td>
+        </tr>
+    </table>
+</div>

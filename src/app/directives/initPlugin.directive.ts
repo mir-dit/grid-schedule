@@ -1,4 +1,4 @@
-import {IAugmentedJQuery, IDirective, IDirectiveFactory, IScope, IAttributes} from "angular";
+import {IAugmentedJQuery, IDirective, IDirectiveFactory, IScope, IAttributes, IRootScopeService} from "angular";
 import PerfectScrollbar from 'perfect-scrollbar';
 import {IEntry} from "../models/entry.model";
 
@@ -19,6 +19,10 @@ export class initPluginDirective implements IDirective {
     switch (pluginName) {
       case 'scrollbar':
         initPluginDirective.initScrollbar(element, scope.params);
+        element.bind('ps-scroll-y', (event) => {
+          scope.$emit('ps-scroll-y', event.target);
+          scope.$applyAsync();
+        });
         break;
       default:
         console.error(`Плагин с названием ${pluginName} не найден!`);

@@ -1,0 +1,118 @@
+.table {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.table__header {
+    display: flex;
+}
+
+.table__header-column {
+    margin-left: 5px;
+    width: 170px;
+    text-align: center;
+    border: solid 2px transparent;
+    border-radius: 2px 2px 0 0;
+    background-color: $table-empty-color;
+    border-bottom: unset;
+    flex-shrink: 0;
+}
+
+.table__header-column_busy {
+    background-color: $table-busy-color;
+    border-radius: 2px 2px 0 0;
+    border: solid 2px $table-busy-border-color;
+    border-bottom: unset;
+}
+
+.table__header-cell {
+    padding: 5px 19px 7px;
+}
+
+.table__header-date {
+    background-color: $table-date-color;
+    color: #ffffff;
+}
+
+.table__header-doctor-name {
+    background-color: $table-doctor-info-color;
+    color: #ffffff;
+    border-bottom: 1px solid $table-hr-color;
+}
+
+.table__header-doctor-specialty{
+    background-color: $table-doctor-info-color;
+    color: #ffffff;
+    font-style: italic;
+}
+
+.table__header-adress {
+    color: #000000;
+}
+
+.table__header-adress_free {
+    background-color: $table-adress-free-color;
+}
+
+.table__header-adress_busy {
+    background-color: $table-adress-busy-color;
+}
+
+.table__header-interval {
+    color: #000000;
+}
+
+.table__header-interval_free {
+    background-color: $table-interval-free-color;
+}
+
+.table__header-interval_busy {
+    background-color: $table-interval-busy-color;
+}
+
+// end table__header
+
+.table__body {
+    table-layout: fixed;
+    border-spacing: 5px 0;
+    border-collapse: separate;
+}
+
+.table__cell {
+    min-width: 170px;
+    width: 170px; // ???
+    color: #000000;
+    vertical-align: top;
+    padding: 2px 5px 4px;
+}
+
+.table__cell-affairs {
+    background-color: $table-affairs-color;
+    border-bottom: dashed 1px $table-border-color;
+}
+
+.table__cell-busy {
+    background-color: $table-busy-color;
+    border: solid 2px $table-busy-border-color;
+    border-bottom: unset;
+    border-top: unset;
+}
+
+.table__cell-busy_last {
+    border-radius: 0 0 2px 2px;
+    border-bottom: solid 2px $table-busy-border-color;
+}
+
+.table__cell-free {
+    background-color: $table-free-color;
+    border-bottom: dashed 1px $table-border-color;
+}
+
+.table__cell_used {
+    // TODO
+}
+
+.table__cell-empty {
+    background-color: $table-empty-color;
+}
