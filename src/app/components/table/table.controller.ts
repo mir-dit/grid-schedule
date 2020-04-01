@@ -33,7 +33,9 @@ export class TableCtrl implements IController {
   }
 
   private scroll = (event: any, target: any): void => {
-    this.$scope.offset = -target.scrollTop;
+    this.$scope.$apply(() => {
+      this.$scope.offset = target.scrollTop;
+    });
   }
 
 }

@@ -19,10 +19,7 @@ export class initPluginDirective implements IDirective {
     switch (pluginName) {
       case 'scrollbar':
         initPluginDirective.initScrollbar(element, scope.params);
-        element.bind('ps-scroll-y', (event) => {
-          scope.$emit('ps-scroll-y', event.target);
-          scope.$applyAsync();
-        });
+        element.bind('ps-scroll-y', (event) => scope.$emit('ps-scroll-y', event.target));
         break;
       default:
         console.error(`Плагин с названием ${pluginName} не найден!`);

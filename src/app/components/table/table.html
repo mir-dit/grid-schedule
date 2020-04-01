@@ -1,5 +1,5 @@
 <div class="table" init-plugin="scrollbar">
-    <div class="table__header">
+    <div class="table__header" ng-style="{ top: offset + 'px' }">
         <div class="table__header-column" ng-repeat="column in columns" ng-class="{'table__header-column_busy': !column.interval}">
             <div class="table__header-cell table__header-date">{{ column.date | tableDate}}</div>
             <div class="table__header-cell table__header-doctor-name">{{ column.doctor }}</div>
@@ -8,7 +8,7 @@
             <div class="table__header-cell table__header_interval" ng-class="column.interval ? 'table__header-interval_free' : 'table__header-interval_busy'">{{ column.interval || column.busy }}</div>
         </div>
     </div>
-    <table class="table__body" ng-style="{ top: offset + 'px', position: 'relative' }">
+    <table class="table__body">
         <tr ng-repeat="row in rows" ng-init="rowIndex = $index; isLastRow = $last;">
             <td
                 ng-repeat="column in columns"
