@@ -1,13 +1,13 @@
 import {IController, IScope, ILogService} from 'angular';
-import {Columns} from '../../components/table/tabe.directive';
+import {Column} from '../../components/table/tabe.directive';
 import {users, ISpecialist} from '../../../mocks/user';
-import {records} from '../../../mocks/record';
+import {records, IRecord} from '../../../mocks/record';
 
 const specialists = users.filter((user: ISpecialist) => user.schedule) as ISpecialist[];
 
 interface ISheldureScope extends IScope {
   timeGap: String;
-  columns: Columns;
+  columns: Column[];
 }
 
 function addDays(date: Date, days: number): Date {
@@ -36,23 +36,31 @@ export class ScheduleCtrl implements IController {
     }
   }
 
+  private getUserBusyRecord(user: ISpecialist, date: Date): IRecord | undefined {
+    return records.find((record) => record.userId === user.id && record.type === 'danger' && record.start <= date && record.end >= date);
+  }
+
   private getSpecialistsForDate(date: Date): ISpecialist[] {
     return specialists.filter(user => user.schedule.days.includes(date.getDay()));
   }
 
-  private createColumn(user, date) {
+  private createColumn(user: ISpecialist, date: Date): Column {
+    const busy = this.getUserBusyRecord(user, date);
     return {
       date,
       doctor: user.name,
       specialty: user.specialty,
       adress: user.hospital,
-      interval: user.schedule.title,
+      ...(busy ? {busy: busy.message} : {interval:  user.schedule.title})
     };
   }
 
   private updateColumns = (): void => {
-    const dates = this.generateDates(new Date());
-    this.$scope.columns = dates.map(date => this.getSpecialistsForDate(date).map((user) => this.createColumn(user, date))).flat();
+    const dates = this.generateDates(new Date(2019, 4, 1));
+    this.$scope.columns = dates.map(date => 
+      this.getSpecialistsForDate(date)
+          .map((user) => this.createColumn(user, date))
+    ).flat();
   }
 
 }

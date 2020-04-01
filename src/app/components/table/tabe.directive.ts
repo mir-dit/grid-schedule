@@ -19,7 +19,6 @@ export interface IRow  {
 }
 
 export interface IColumn {
-  key: String;
   date: Date;
   doctor: String;
   specialty: String;
@@ -34,11 +33,11 @@ export interface IColumnFree extends IColumn {
   interval: String;
 }
 
-export type Columns = (IColumnBusy | IColumnFree)[];
+export type Column = IColumnBusy | IColumnFree;
 export type Rows = IRow[];
 
 interface ITableScope extends IScope {
-  columns: Columns;
+  columns: Column[];
   rows: Rows;
 }
 

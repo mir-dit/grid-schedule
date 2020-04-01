@@ -1,34 +1,22 @@
 import {IController, IScope, ILogService, IWindowService} from 'angular';
-import {Columns, Rows} from './tabe.directive';
-import {users} from '../../../mocks/user';
+import {Column, Rows} from './tabe.directive';
 
 interface ITableScope extends IScope {
-  columns: Columns;
-  rows: Rows;
+  columns: Column[];
   offset: Number;
 }
 
 export class TableCtrl implements IController {
 
-  constructor(private $scope: ITableScope, private $window: IWindowService, private $timeout) {
-    const date = new Date();
-    $scope.columns = [
-      {key: '1', date, doctor: users[0].name, specialty: String(users[0].specialty), adress: 'teafsddfdfdfdffdfdf', interval: users[0].schedule || ''},
-      {key: '2', date, doctor: users[1].name, specialty: String(users[1].specialty), adress: 'teafsdaf', interval: users[1].schedule || ''},
-      {key: '3', date, doctor: users[2].name, specialty: String(users[2].specialty), adress: 'teafsdaf', interval: users[2].schedule || ''},
-      {key: '4', date, doctor: users[3].name, specialty: String(users[3].specialty), adress: 'teafsdaf', busy: 'Врач на больничном' },
-      {key: '5', date, doctor: users[4].name, specialty: String(users[4].specialty), adress: 'teafsdaf', interval: users[4].schedule || ''},
-    ];
-    $scope.rows = [
-      { '1': {time: date}, '2': {time: date}, '3': {time: date}, '5': {time: date}},
-      { '1': {time: date}, '2': {time: date}, '3': {time: date}, '5': {time: date}},
-      { '1': {time: date}, '2': {reason: 'Курит мануалы'}, '3': {time: date}, '5': {time: date}},
-      { '1': {time: date}, '3': {time: date}},
-      { '1': {time: date}, '3': {time: date, patient: 'Сергеев С.С.'}},
-    ];
-
+  constructor(private $scope: ITableScope) {
+    // $scope.columns.push({
+    //   date: new Date(),
+    //   doctor: specialists[3].name,
+    //   specialty: specialists[3].specialty,
+    //   adress: specialists[3].hospital,
+    //   busy: 'Врач на больничном',
+    // });
     $scope.offset = 0;
-
     $scope.$on('ps-scroll-y', this.scroll);
   }
 
