@@ -9,17 +9,18 @@
         </div>
     </div>
     <table class="table__body" ng-style="{ top: offset + 'px', position: 'relative' }">
-        <tr ng-repeat="row in rows" ng-init="rowIndex = $index - 1; isFirstRow = $first; isLastRow = $last;">
+        <tr ng-repeat="row in rows" ng-init="rowIndex = $index; isLastRow = $last;">
             <td
                 ng-repeat="column in columns"
                 ng-init="cell = row[column.key]"
                 class="table__cell"
-                rowspan="{{ cell && cell.reason ? 2 : 1 }}"
+                ng-if="!rows[rowIndex - 1][column.key].reason"
+                rowspan="{{ cell.reason ? 2 : 1 }}"
                 ng-class="{
-                    'table__cell-affairs': cell && cell.reason,
+                    'table__cell-affairs': cell.reason,
                     'table__cell-busy': !column.interval,
                     'table__cell-busy_last': !column.interval && isLastRow,
-                    'table__cell-free': cell && cell.time && !cell.paitent,
+                    'table__cell-free': cell.time && !cell.paitent,
                     'table__cell-empty': column.interval && !cell,
                 }">{{cell ? (cell.reason || (cell.time | date: 'HH:mm')) : '' }}</td>
         </tr>
