@@ -26,6 +26,14 @@ function addMinutes(date: Date, minutes: number): Date {
   return clone;
 }
 
+function setTime(date: Date, time: Date): Date {
+  const clone = cloneDate(date);
+  clone.setHours(time.getHours())
+  clone.setMinutes(time.getMinutes());
+  clone.setSeconds(time.getSeconds());
+  return clone;
+}
+
 export class ScheduleCtrl implements IController {
   private title: string = 'Расписание специалистов';
 
@@ -41,43 +49,63 @@ export class ScheduleCtrl implements IController {
     return dates;
   }
 
-  private getUserRows(user: ISpecialist): Row[] {
-    const times = [user.schedule.start];
-    const diff = 60 / user.step;
-    do {
-      times.push(addMinutes(times[times.length - 1], diff));
-    }  while (times[times.length - 1] <= user.schedule.end);
-    return times.map((time) => ({ time }));
-  }
-
-  private getUserBusyRecord(user: ISpecialist, date: Date): IRecord | undefined {
-    return records.find((record) => record.userId === user.id && record.type === 'danger' && record.start <= date && record.end >= date);
+  private getUserRecords(user: ISpecialist, date: Date): IRecord[] {
+    return records.filter((record) => record.userId === user.id && record.start <= date &&  date <= record.end);
   }
 
   private getSpecialistsForDate(date: Date): ISpecialist[] {
     return specialists.filter(user => user.schedule.days.includes(date.getDay()));
   }
 
-  private createColumn(user: ISpecialist, date: Date): Column {
-    const busy = this.getUserBusyRecord(user, date);
-    return {
-      date,
-      doctor: user.name,
-      specialty: user.specialty,
-      adress: user.hospital,
-      ...(busy ? {busy: busy.message} : {
-        interval:  user.schedule.title,
-        rows: this.getUserRows(user),
-      }),
-    };
+  private getUserTimes(user: ISpecialist, date: Date): Date[] {
+    const start = setTime(date, user.schedule.start);
+    const end = setTime(date, user.schedule.end);
+    const times = [start];
+    const diff = 60 / user.step;
+    do {
+      times.push(addMinutes(times[times.length - 1], diff));
+    }  while (times[times.length - 1] <= end);
+    return times;
+  }
+
+  private createRows(user: ISpecialist, date: Date): Row[] {
+    const times = this.getUserTimes(user, date);
+    const affairs = times
+      .map((time) => this.getUserRecords(user, time).filter((record) => record.type !== 'danger' && record.type !== 'primary'))
+      .flat()
+      .filter((record, index, arr) => arr.findIndex((r: IRecord) => record.id === r.id) === index);
+    return times
+      .filter((time) => !affairs.find((affair) => affair.start <= time && time <= affair.end))
+      .reduce((acc: Row[], time, index, arr) => {
+        const nextIndex = index + 1;
+        const postAffair = nextIndex !== arr.length ? affairs.find((affair) =>  time < affair.start && affair.end < arr[nextIndex]) : false;
+        if (postAffair)
+          return [...acc, { time }, { reason: postAffair.message }];
+        const preAffair = nextIndex === arr.length ? affairs.find((affair) =>  affair.start > arr[index - 1] && affair.end < time) : false; // FIXME
+        if (preAffair)
+          return [...acc, { reason: preAffair.message }, { time }];
+        return [...acc, { time }];
+      }, []);
+  }
+
+  private createColumns(users: ISpecialist[], date: Date): Column[] {
+    return users.map((user) => {
+      const busy = this.getUserRecords(user, date).find((record) => record.type === 'danger');
+      return {
+        date,
+        doctor: user.name,
+        specialty: user.specialty,
+        adress: user.hospital,
+        ...(busy ? {busy: busy.message} : {
+          interval:  user.schedule.title,
+          rows: this.createRows(user, date),
+        }),
+      };
+    });
   }
 
   private updateColumns = (): void => {
-    const dates = this.generateDates(new Date(2019, 4, 1));
-    this.$scope.columns = dates.map(date => 
-      this.getSpecialistsForDate(date)
-          .map((user) => this.createColumn(user, date))
-    ).flat();
+    this.$scope.columns = this.generateDates(new Date(2019, 4, 1)).map(date => this.createColumns(this.getSpecialistsForDate(date), date)).flat();
   }
 
 }
