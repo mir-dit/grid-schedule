@@ -5,7 +5,7 @@ function orderBy(fn: Function, array: any[], ...filters: String[]) {
 
 function tableOrderColumn($filter: any) {
   return (array) => {
-    return orderBy($filter('orderBy'), array, "'interval'", "'specialty'", "'doctor'", "'date'");
+    return orderBy($filter('orderBy'), array, "'interval'", "'specialty'", "'doctor'", "'date' | date: 'd'", "'date' | date: 'M'", "'date' | date: 'yy'");
   }
 }
 
