@@ -45,8 +45,8 @@ export class ScheduleCtrl implements IController {
     const times = [user.schedule.start];
     const diff = 60 / user.step;
     do {
-      times.push(addMinutes(user.schedule.start, diff));
-    }  while (times[times.length] <= user.schedule.end);
+      times.push(addMinutes(times[times.length - 1], diff));
+    }  while (times[times.length - 1] <= user.schedule.end);
     return times.map((time) => ({ time }));
   }
 

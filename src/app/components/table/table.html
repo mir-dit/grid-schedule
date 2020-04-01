@@ -1,6 +1,6 @@
 <div class="table" init-plugin="scrollbar">
     <div class="table__header" ng-style="{ top: offset + 'px' }">
-        <div class="table__header-column" ng-repeat="column in columns" ng-class="{'table__header-column_busy': !column.interval}">
+        <div class="table__column table__header-column" ng-repeat="column in columns | tableOrderColumn" ng-class="{'table__column_busy': !column.interval}">
             <div class="table__header-cell table__header-date">{{ column.date | tableDate}}</div>
             <div class="table__header-cell table__header-doctor-name">{{ column.doctor }}</div>
             <div class="table__header-cell table__header-doctor-specialty">{{ column.specialty }}</div>
@@ -8,25 +8,19 @@
             <div class="table__header-cell table__header_interval" ng-class="column.interval ? 'table__header-interval_free' : 'table__header-interval_busy'">{{ column.interval || column.busy }}</div>
         </div>
     </div>
-    <table class="table__body">
-        <tr ng-repeat="row in rows" ng-init="rowIndex = $index; isLastRow = $last;">
-            <td
-                ng-repeat="column in columns"
-                ng-init="cell = row[column.key]"
+    <div class="table__body">
+        <div class="table__column table__body-column" ng-repeat="column in columns | tableOrderColumn" ng-class="{'table__column_busy': !column.interval}">
+            <div
+                ng-repeat="cell in column.rows"
                 class="table__cell"
-                ng-if="!rows[rowIndex - 1][column.key].reason"
-                rowspan="{{ cell.reason ? 2 : 1 }}"
                 ng-class="{
                     'table__cell-affairs': cell.reason,
-                    'table__cell-busy': !column.interval,
-                    'table__cell-busy_last': !column.interval && isLastRow,
                     'table__cell-free': cell.time && !cell.patient,
-                    'table__cell-empty': column.interval && !cell,
                     'table__cell-used': cell.patient,
                 }">
-                    <span class="table__text" ng-if="cell">{{ cell.reason || (cell.time | date: 'HH:mm') }}</span>
+                    <span class="table__text">{{ cell.reason || (cell.time | date: 'HH:mm') }}</span>
                     <span class="table__patient" ng-if="cell.patient">{{ cell.patient }}</span>
-                </td>
-        </tr>
-    </table>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,3 +1,5 @@
+$cell-height: 30px;
+
 .table {
     position: relative;
     height: 100%;
@@ -9,21 +11,22 @@
     display: flex;
 }
 
-.table__header-column {
-    margin-left: 5px;
+.table__column {
+    margin-right: 5px;
     width: 170px;
-    text-align: center;
     border: solid 2px transparent;
-    border-radius: 2px 2px 0 0;
     background-color: $table-empty-color;
-    border-bottom: unset;
     flex-shrink: 0;
 }
 
-.table__header-column_busy {
+.table__column_busy {
     background-color: $table-busy-color;
-    border-radius: 2px 2px 0 0;
     border: solid 2px $table-busy-border-color;
+}
+
+.table__header-column {
+    text-align: center;
+    border-radius: 2px 2px 0 0;
     border-bottom: unset;
 }
 
@@ -75,41 +78,25 @@
 // end table__header
 
 .table__body {
-    table-layout: fixed;
-    border-spacing: 5px 0;
-    border-collapse: separate;
+    display: flex;
 }
 
-.table__cell {
-    min-width: 170px;
-    width: 170px; // ???
-    color: #000000;
-    vertical-align: top;
-}
-
-.table__text {
-    padding: 2px 5px 4px;
-}
-
-.table__cell-affairs {
-    background-color: $table-affairs-color;
-    border-bottom: dashed 1px $table-border-color;
-}
-
-.table__cell-busy {
-    background-color: $table-busy-color;
-    border: solid 2px $table-busy-border-color;
-    border-bottom: unset;
+.table__body-column {
+    border-radius: 0 0 2px 2px ;
     border-top: unset;
 }
 
-.table__cell-busy_last {
-    border-radius: 0 0 2px 2px;
-    border-bottom: solid 2px $table-busy-border-color;
+.table__cell {
+    height: $cell-height;
 }
 
 .table__cell-free {
     background-color: $table-free-color;
+    border-bottom: dashed 1px $table-border-color;
+}
+
+.table__cell-affairs {
+    background-color: $table-affairs-color;
     border-bottom: dashed 1px $table-border-color;
 }
 
@@ -118,12 +105,12 @@
     border: solid 1px $table-used-border-color;
 }
 
+.table__text {
+    padding: 2px 5px 4px;
+}
+
 .table__patient {
     background-color: $table-used-color;
     flex-grow: 1;
     padding: 2px 5px 4px;
-}
-
-.table__cell-empty {
-    background-color: $table-empty-color;
 }
