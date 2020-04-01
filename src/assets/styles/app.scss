@@ -1,6 +1,9 @@
 @import 'colors';
+@import "utils/helpers";
+@import "utils/fonts";
 
-body {
+html, body {
+  font-family: 'Roboto', sans-serif;
   background-color: $bg-color;
 }
 
@@ -9,3 +12,4 @@ body {
 @import "modules/header";
 @import "modules/main";
 @import "modules/footer";
+@import "modules/aside";

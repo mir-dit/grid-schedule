@@ -1,0 +1,50 @@
+<aside class="aside">
+    <div class="aside__field" ng-repeat="field in fields">
+        <label for="{{field.key}}" class="custom-label">{{field.label}}</label>
+        <div class="switch" ng-switch on="field.type">
+            <div class="input-group" ng-switch-when="search">
+                <input
+                        type="text"
+                        id="{{field.key}}"
+                        class="form-control"
+                        placeholder="{{field.placeholder}}"
+                        ng-model="field.value"
+                >
+                <button type="button" class="btn input-group-addon aside__field-btn">
+                    <i class="glyphicon glyphicon-zoom-in"></i>
+                </button>
+            </div>
+            <div class="input-group" ng-switch-when="date">
+                <input
+                    type="text"
+                    class="form-control"
+                    datepicker-popup="{{datepicker.format}}"
+                    ng-model="field.value"
+                    is-open="datepicker.status.opened"
+                    min-date="datepicker.minDate"
+                    max-date="datepicker.maxDate"
+                    datepicker-options="datepicker.dateOptions"
+                    close-text="Закрыть"
+                    clear-text="Очистить"
+                    current-text="Сегодня"
+                    placeholder="{{field.placeholder}}"
+                />
+                <button type="button"
+                        class="btn btn-default"
+                        ng-click="datepicker.open($event)">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+            </div>
+            <div class="input-group" ng-switch-default>
+                <input
+                        type="text"
+                        id="{{field.key}}"
+                        class="form-control"
+                        placeholder="{{field.placeholder}}"
+                        ng-model="field.value"
+                >
+            </div>
+        </div>
+        <hr ng-if="$index !== fields.length - 1">
+    </div>
+</aside>

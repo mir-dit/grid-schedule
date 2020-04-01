@@ -3,7 +3,7 @@ import {IAugmentedJQuery, IDirective, IDirectiveFactory, ILocationService, IScop
 export class defaultLayoutDirective implements IDirective {
   restrict = 'E';
   scope = {};
-  template = require('./defaultLayout.html');
+  template = require('./defaultLayout.template.html');
 
   constructor(private $location: ILocationService) {}
 
