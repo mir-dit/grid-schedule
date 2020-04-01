@@ -7,6 +7,7 @@ import {tableDirective} from "./components/table/tabe.directive";
 import {ScheduleCtrl} from "./pages/schedule/schedule.controller";
 import {tableDate} from './filters/tableDate.filter';
 import initPluginDirective from "./directives/initPlugin.directive";
+import {tableOrderColumn} from './filters/tableOrderColumn.filter';
 
 const Application = () => {
   return {
@@ -36,6 +37,7 @@ app.controller('AppCtrl', AppCtrl);
 app.controller('ScheduleCtrl', ScheduleCtrl);
 app.directive('appTable', tableDirective.factory());
 app.filter('tableDate', tableDate);
+app.filter('tableOrderColumn', tableOrderColumn);
 app.directive('initPlugin', initPluginDirective.factory());
 app.config(['$routeProvider', routes]);
 
