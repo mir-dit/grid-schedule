@@ -15,7 +15,7 @@ export interface IRowFree {
 }
 
 export interface IRow  {
-  [propName: string]: (IRowAffairs | IRowFree | IRowUsed);
+  [columnKey: string]: (IRowAffairs | IRowFree | IRowUsed);
 }
 
 export interface IColumn {
