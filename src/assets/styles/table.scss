@@ -31,7 +31,9 @@ $cell-height: 30px;
 }
 
 .table__header-cell {
+    position: relative;
     padding: 5px 19px 7px;
+    z-index: 10;
 }
 
 .table__header-date {
@@ -78,7 +80,9 @@ $cell-height: 30px;
 // end table__header
 
 .table__body {
+    position: relative;
     display: flex;
+    z-index: 5;
 }
 
 .table__body-column {
