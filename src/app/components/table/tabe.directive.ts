@@ -14,10 +14,6 @@ export interface IRowFree {
   time: Date;
 }
 
-export interface IRow  {
-  [columnKey: string]: (IRowAffairs | IRowFree | IRowUsed);
-}
-
 export interface IColumn {
   date: Date;
   doctor: String;
@@ -31,14 +27,15 @@ export interface IColumnBusy extends IColumn {
 
 export interface IColumnFree extends IColumn {
   interval: String;
+  rows: Row[];
 }
 
 export type Column = IColumnBusy | IColumnFree;
-export type Rows = IRow[];
+export type Row = IRowAffairs | IRowFree | IRowUsed;
+
 
 interface ITableScope extends IScope {
   columns: Column[];
-  rows: Rows;
 }
 
 export class tableDirective implements IDirective {
@@ -47,7 +44,6 @@ export class tableDirective implements IDirective {
   public controller = TableCtrl;
   public scope = {
     columns: '=',
-    rows: '=',
   };
 
   constructor(private $location: ILocationService) {}
