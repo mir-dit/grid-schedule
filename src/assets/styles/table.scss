@@ -4,123 +4,124 @@ $cell-height: 30px;
     position: relative;
     height: 100%;
     width: 100%;
-}
 
-.table__header {
-    position: relative;
-    display: flex;
-}
+    &__header {
+        position: relative;
+        display: flex;
 
-.table__column {
-    margin-right: 5px;
-    width: 170px;
-    background-color: $table-empty-color;
-    flex-shrink: 0;
-}
+        &-column {
+            text-align: center;
+        }
+    
+        &-cell {
+            position: relative;
+            padding: 5px 19px 7px;
+            z-index: 10;
+        }
+    
+        &-date {
+            border-radius: 2px 2px 0 0;
+            background-color: $table-date-color;
+            color: #ffffff;
+        }
 
-.table__column_busy {
-    background-color: $table-busy-color;
-    border: solid 2px $table-busy-border-color;
-    border-radius: 2px 2px 0 0;
-    border-bottom: unset;
-}
+        &-doctor {
+            &-name {
+                background-color: $table-doctor-info-color;
+                color: #ffffff;
+                border-bottom: 1px solid $table-hr-color;
+            }
+        
+            &-specialty{
+                background-color: $table-doctor-info-color;
+                color: #ffffff;
+                font-style: italic;
+            }
+        }
 
-.table__header-column {
-    text-align: center;
-}
+        &-address {
+            color: #000000;
+    
+            &_free {
+                background-color: $table-address-free-color;
+            }
+    
+            &_busy {
+                background-color: $table-address-busy-color;
+            }
+        }
+    
+        &-interval {
+            color: #000000;
+    
+            &_free {
+                background-color: $table-interval-free-color;
+            }
+    
+            &_busy {
+                background-color: $table-interval-busy-color;
+            }
+    
+            &_rolled {
+                height: $cell-height * 2;
+                cursor: pointer;
+            }
+        }
+    }
 
-.table__header-cell {
-    position: relative;
-    padding: 5px 19px 7px;
-    z-index: 10;
-}
+    &__column {
+        margin-right: 5px;
+        width: 170px;
+        background-color: $table-empty-color;
+        flex-shrink: 0;
 
-.table__header-date {
-    border-radius: 2px 2px 0 0;
-    background-color: $table-date-color;
-    color: #ffffff;
-}
+        &_busy {
+            background-color: $table-busy-color;
+            border: solid 2px $table-busy-border-color;
+            border-radius: 2px 2px 0 0;
+            border-bottom: unset;
+        }
+    }
 
-.table__header-doctor-name {
-    background-color: $table-doctor-info-color;
-    color: #ffffff;
-    border-bottom: 1px solid $table-hr-color;
-}
+    &__body {
+        position: relative;
+        display: flex;
+        z-index: 5;
 
-.table__header-doctor-specialty{
-    background-color: $table-doctor-info-color;
-    color: #ffffff;
-    font-style: italic;
-}
+        &-column {
+            border-radius: 0 0 2px 2px ;
+            border-top: unset;
+        }
+    }
 
-.table__header-address {
-    color: #000000;
-}
+    &__cell {
+        height: $cell-height;
 
-.table__header-address_free {
-    background-color: $table-address-free-color;
-}
+        &-free {
+            background-color: $table-free-color;
+            border-bottom: dashed 1px $table-border-color;
+        }
 
-.table__header-address_busy {
-    background-color: $table-address-busy-color;
-}
+        &-affairs {
+            height: $cell-height * 2;
+            background-color: $table-affairs-color;
+            border-bottom: dashed 1px $table-border-color;
+        }
 
-.table__header-interval {
-    color: #000000;
-}
+        &-used {
+            display: flex;
+            border: solid 1px $table-used-border-color;
+        }
+    }
 
-.table__header-interval_free {
-    background-color: $table-interval-free-color;
-}
+    &__text {
+        padding: 2px 5px 4px;
+    }
 
-.table__header-interval_busy {
-    background-color: $table-interval-busy-color;
-}
-
-.table__header-interval_rolled {
-    height: $cell-height * 2;
-    cursor: pointer;
-}
-
-// end table__header
-
-.table__body {
-    position: relative;
-    display: flex;
-    z-index: 5;
-}
-
-.table__body-column {
-    border-radius: 0 0 2px 2px ;
-    border-top: unset;
-}
-
-.table__cell {
-    height: $cell-height;
-}
-
-.table__cell-free {
-    background-color: $table-free-color;
-    border-bottom: dashed 1px $table-border-color;
-}
-
-.table__cell-affairs {
-    height: $cell-height * 2;
-    background-color: $table-affairs-color;
-    border-bottom: dashed 1px $table-border-color;
-}
-
-.table__cell-used {
-    display: flex;
-    border: solid 1px $table-used-border-color;
-}
-
-.table__text {
-    padding: 2px 5px 4px;
-}
-
-.table__patient {
-    background-color: $table-used-color;
-    flex-grow: 1;
-    padding: 2px 5px 4px;
+    &__patient {
+        background-color: $table-used-color;
+        flex-grow: 1;
+        padding: 2px 5px 4px;
+    }
+    
 }
