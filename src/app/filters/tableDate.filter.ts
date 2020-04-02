@@ -1,7 +1,9 @@
+import {IFilterFunction} from 'angular';
+
 const months = ['янв.', 'фев.', 'мар.', 'апр.', 'мая', 'июн.', 'июл.', 'авг.', 'сен.', 'окт.', 'ноя.', 'дек.'];
 const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 
-export function tableDate() {
+export function tableDate(): IFilterFunction {
   return (date: Date) => {
     return days[date.getDay()] + '. ' + date.getDate() + ' ' +  months[date.getMonth()];
   }
