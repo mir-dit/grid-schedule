@@ -18,7 +18,7 @@ export interface IColumn {
   date: Date;
   doctor: string;
   specialty: string;
-  adress: string;
+  address: string;
 }
 
 export interface IColumnBusy extends IColumn {

@@ -75,13 +75,13 @@ export class ScheduleCtrl implements IController {
       .flat()
       .filter((record, index, arr) => arr.findIndex((r: IRecord) => record.id === r.id) === index);
     return times
-      .filter((time) => !affairs.find((affair) => affair.start <= time && time <= affair.end))
+      .filter((time) => !affairs.find((affair) => affair.start < time && time < affair.end))
       .reduce((acc: Row[], time, index, arr) => {
-        const firstAffair = index === 0 && affairs.find((affair) => affair.end < time);
+        const firstAffair = index === 0 && affairs.find((affair) => affair.end <= time);
         if (firstAffair)
           return [{ reason: firstAffair.message }, { time }];
         const nextIndex = index + 1;
-        const affair = affairs.find((affair) => time < affair.start && (nextIndex === arr.length || affair.end < arr[nextIndex]));
+        const affair = affairs.find((affair) => time <= affair.start && (nextIndex === arr.length || affair.end <= arr[nextIndex]));
         return affair ? [...acc, { time }, { reason: affair.message }] : [...acc, { time }];
       }, []);
   }
@@ -93,7 +93,7 @@ export class ScheduleCtrl implements IController {
         date,
         doctor: user.name,
         specialty: user.specialty,
-        adress: user.hospital,
+        address: user.hospital,
         ...(busy ? {busy: busy.message} : {
           interval:  user.schedule.title,
           rows: this.createRows(user, date),

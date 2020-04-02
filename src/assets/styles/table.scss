@@ -53,16 +53,16 @@ $cell-height: 30px;
     font-style: italic;
 }
 
-.table__header-adress {
+.table__header-address {
     color: #000000;
 }
 
-.table__header-adress_free {
-    background-color: $table-adress-free-color;
+.table__header-address_free {
+    background-color: $table-address-free-color;
 }
 
-.table__header-adress_busy {
-    background-color: $table-adress-busy-color;
+.table__header-address_busy {
+    background-color: $table-address-busy-color;
 }
 
 .table__header-interval {

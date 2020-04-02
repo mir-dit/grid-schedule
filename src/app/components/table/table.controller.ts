@@ -4,7 +4,7 @@ import {Column} from './tabe.directive';
 interface ITableHeigts {
   doctor: number;
   specialty: number;
-  adress: number;
+  address: number;
 }
 
 export interface ITableScope extends IScope {
@@ -19,7 +19,7 @@ export interface ITableScope extends IScope {
 interface IHeaderColumn {
   doctorHeight: number;
   specialtyHeight: number;
-  adressHeight: number;
+  addressHeight: number;
   intervalHalfOffset: number;
   isMax: boolean;
   isBusy: boolean;
@@ -28,7 +28,7 @@ interface IHeaderColumn {
 enum HeaderColumnDiv {
   doctor = 1,
   specialty,
-  adress,
+  address,
   interval,
 }
 
@@ -68,7 +68,7 @@ export class TableCtrl implements IController {
       return {
         doctorHeight: (columnDiv.children[HeaderColumnDiv.doctor] as HTMLDivElement).offsetHeight,
         specialtyHeight: (columnDiv.children[HeaderColumnDiv.specialty] as HTMLDivElement).offsetHeight,
-        adressHeight: (columnDiv.children[HeaderColumnDiv.adress] as HTMLDivElement).offsetHeight,
+        addressHeight: (columnDiv.children[HeaderColumnDiv.address] as HTMLDivElement).offsetHeight,
         intervalHalfOffset: columnDiv.offsetHeight - intervalDiv.offsetTop - intervalDiv.offsetHeight / 2,
         isMax: columnDiv.offsetHeight === intervalDiv.offsetTop + intervalDiv.offsetHeight,
         isBusy: Boolean(columnDiv.getElementsByClassName('table__header-interval_busy').length),
@@ -109,7 +109,7 @@ export class TableCtrl implements IController {
     this.$scope.heights = {
       doctor: Math.max(...rollableColumns.map(({ doctorHeight }) => doctorHeight)),
       specialty: Math.max(...rollableColumns.map(({ specialtyHeight }) => specialtyHeight)),
-      adress: Math.max(...rollableColumns.map(({ adressHeight }) => adressHeight)),
+      address: Math.max(...rollableColumns.map(({ addressHeight }) => addressHeight)),
     };
   }
 
