@@ -1,5 +1,5 @@
 import {IController, IScope, IAugmentedJQuery, ITimeoutService} from 'angular';
-import {Column} from './tabe.directive';
+import {Column} from './table.model';
 
 interface ITableHeigts {
   doctor: number;

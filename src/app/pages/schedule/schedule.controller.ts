@@ -1,5 +1,5 @@
 import {IController, IScope} from 'angular';
-import {Column, Row} from '../../components/table/tabe.directive';
+import {Column, Row} from '../../components/table/table.model';
 import {users, ISpecialist} from '../../../mocks/user';
 import {records, IRecord} from '../../../mocks/record';
 

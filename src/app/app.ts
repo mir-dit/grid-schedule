@@ -3,7 +3,7 @@ import * as router from 'angular-route';
 import bootstrap from 'angular-ui-bootstrap';
 import {routes} from './app.routes';
 import {IController, IScope} from "angular";
-import {tableDirective} from "./components/table/tabe.directive";
+import {tableDirective} from "./components/table/table.directive";
 import {ScheduleCtrl} from "./pages/schedule/schedule.controller";
 import {tableDateFilter} from './filters/tableDate.filter';
 import initPluginDirective from "./directives/initPlugin.directive";
