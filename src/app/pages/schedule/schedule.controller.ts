@@ -6,7 +6,7 @@ import {records, IRecord} from '../../../mocks/record';
 const specialists = users.filter((user: ISpecialist) => user.schedule) as ISpecialist[];
 
 interface ISheldureScope extends IScope {
-  timeGap: Number;
+  timeGap: number;
   columns: Column[];
 }
 
