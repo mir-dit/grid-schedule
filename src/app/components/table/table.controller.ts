@@ -46,7 +46,7 @@ export class TableCtrl implements IController {
   private updateIntervals = (): void => {
     this.headerColumns = Array.from(this.$scope.element[0].getElementsByClassName('table__header-interval')).map((element: HTMLDivElement) => ({
       interval: element.parentElement.offsetHeight - element.offsetTop - element.offsetHeight / 2,
-      isMax: element.parentElement.offsetHeight - element.offsetTop - element.offsetHeight === - 1, // FIXME
+      isMax: element.parentElement.offsetHeight === element.offsetTop + element.offsetHeight,
       isBusy: Boolean(element.parentElement.getElementsByClassName('table__header-interval_busy').length),
     }));
   }

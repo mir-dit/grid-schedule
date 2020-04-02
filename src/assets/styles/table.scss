@@ -14,7 +14,6 @@ $cell-height: 30px;
 .table__column {
     margin-right: 5px;
     width: 170px;
-    border: solid 2px transparent;
     background-color: $table-empty-color;
     flex-shrink: 0;
 }
@@ -22,12 +21,12 @@ $cell-height: 30px;
 .table__column_busy {
     background-color: $table-busy-color;
     border: solid 2px $table-busy-border-color;
+    border-radius: 2px 2px 0 0;
+    border-bottom: unset;
 }
 
 .table__header-column {
     text-align: center;
-    border-radius: 2px 2px 0 0;
-    border-bottom: unset;
 }
 
 .table__header-cell {
@@ -37,6 +36,7 @@ $cell-height: 30px;
 }
 
 .table__header-date {
+    border-radius: 2px 2px 0 0;
     background-color: $table-date-color;
     color: #ffffff;
 }
