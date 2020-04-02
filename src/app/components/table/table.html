@@ -11,13 +11,16 @@
                 ng-class="column.interval ? 'table__header-address_free' : 'table__header-address_busy'"
                 >{{ column.address }}</div>
             <div
-                ng-if="column.interval"
-                class="table__header-cell table__header-interval table__header-interval_free"
-                ng-click="unroll($index)"
+                class="table__header-cell table__header-interval"
+                ng-click="column.interval && unroll($index)"
                 ng-class=" {
+                    'table__header-interval_free': column.interval,
+                    'table__header-interval_busy': column.busy,
                     'table__header-interval_rolled': rolled.includes($index),
-                }">{{ rolled.includes($index) ? 'Врач работает' : column.interval }}</div>
-            <div ng-if="column.busy" class="table__header-cell table__header-interval table__header-interval_busy">{{ column.busy }}</div>
+                }">
+                    <span ng-if="column.interval">{{ rolled.includes($index) ? 'Врач работает' : column.interval }}</span>
+                    <span ng-if="column.busy">{{ column.busy }}</span>
+            </div>
         </div>
     </div>
     <div class="table__body">

@@ -67,13 +67,14 @@ $cell-height: 30px;
                 @include bg("interval-free");
             }
     
+            &_rolled {
+                height: 50px;
+                cursor: pointer;
+            }
+
             &_busy {
                 @include bg("interval-busy");
-            }
-    
-            &_rolled {
-                height: $cell-height * 2;
-                cursor: pointer;
+                cursor: unset;
             }
         }
     }

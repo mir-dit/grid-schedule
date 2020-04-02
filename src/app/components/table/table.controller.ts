@@ -23,7 +23,6 @@ interface IHeaderColumn {
   addressHeight: number;
   intervalHalfOffset: number;
   isMax: boolean;
-  isBusy: boolean;
 }
 
 enum HeaderColumnDiv {
@@ -74,7 +73,6 @@ export class TableCtrl implements IController {
         addressHeight: (columnDiv.children[HeaderColumnDiv.address] as HTMLDivElement).offsetHeight,
         intervalHalfOffset: columnDiv.offsetHeight - intervalDiv.offsetTop - intervalDiv.offsetHeight / 2,
         isMax: columnDiv.offsetHeight === intervalDiv.offsetTop + intervalDiv.offsetHeight,
-        isBusy: Boolean(columnDiv.getElementsByClassName('table__header-interval_busy').length),
       };
     });
   }
@@ -84,16 +82,15 @@ export class TableCtrl implements IController {
   }
 
   private updateRolled = (): void => {
-    const rollableColumns = this.headerColumns.filter(({isBusy}) => !isBusy);
-    if (rollableColumns.length === 0) {
+    if (this.headerColumns.length === 0) {
       this.$scope.rolled = [];
       return;
     }
-    if (rollableColumns.every(this.isHeaderColumnRolled)) {
-      this.$scope.rolled = rollableColumns.map((headerColumn) => this.headerColumns.indexOf(headerColumn));
+    if (this.headerColumns.every(this.isHeaderColumnRolled)) {
+      this.$scope.rolled = this.headerColumns.map((headerColumn) => this.headerColumns.indexOf(headerColumn));
       return;
     }
-    const maxHeaderColumns = rollableColumns.filter(({isMax}) => isMax);
+    const maxHeaderColumns = this.headerColumns.filter(({isMax}) => isMax);
     if (maxHeaderColumns.length === 0)
       throw new Error('isMax determenition logic is broken');
     if (!this.isHeaderColumnRolled(maxHeaderColumns[0])) {
@@ -104,15 +101,14 @@ export class TableCtrl implements IController {
   }
 
   private updateHeights = (): void => {
-    const rollableColumns = this.headerColumns.filter(({isBusy}) => !isBusy);
-    if (this.$scope.rolled.length === 0 || rollableColumns.length !== this.$scope.rolled.length) {
+    if (this.$scope.rolled.length === 0 || this.headerColumns.length !== this.$scope.rolled.length) {
       this.$scope.heights = null;
       return;
     }
     this.$scope.heights = {
-      doctor: Math.max(...rollableColumns.map(({ doctorHeight }) => doctorHeight)),
-      specialty: Math.max(...rollableColumns.map(({ specialtyHeight }) => specialtyHeight)),
-      address: Math.max(...rollableColumns.map(({ addressHeight }) => addressHeight)),
+      doctor: Math.max(...this.headerColumns.map(({ doctorHeight }) => doctorHeight)),
+      specialty: Math.max(...this.headerColumns.map(({ specialtyHeight }) => specialtyHeight)),
+      address: Math.max(...this.headerColumns.map(({ addressHeight }) => addressHeight)),
     };
   }
 
