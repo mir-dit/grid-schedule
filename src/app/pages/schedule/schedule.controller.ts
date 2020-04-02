@@ -2,36 +2,13 @@ import {IController, IScope} from 'angular';
 import {Column, Row} from '../../components/table/table.model';
 import {users, ISpecialist} from '../../../mocks/user';
 import {records, IRecord} from '../../../mocks/record';
+import {addDays, setTime, addMinutes} from '../../helpers/date';
 
 const specialists = users.filter((user: ISpecialist) => user.schedule) as ISpecialist[];
 
 interface ISheldureScope extends IScope {
   timeGap: number;
   columns: Column[];
-}
-
-function cloneDate(date: Date): Date {
-  return new Date(date.valueOf());
-}
-
-function addDays(date: Date, days: number): Date {
-  const clone = cloneDate(date);
-  clone.setDate(date.getDate() + days);
-  return clone;
-}
-
-function addMinutes(date: Date, minutes: number): Date {
-  const clone = cloneDate(date);
-  clone.setMinutes(date.getMinutes() + minutes );
-  return clone;
-}
-
-function setTime(date: Date, time: Date): Date {
-  const clone = cloneDate(date);
-  clone.setHours(time.getHours())
-  clone.setMinutes(time.getMinutes());
-  clone.setSeconds(time.getSeconds());
-  return clone;
 }
 
 export class ScheduleCtrl implements IController {
