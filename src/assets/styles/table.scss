@@ -3,7 +3,7 @@
 $cell-height: 30px;
 
 @mixin bg($color) {
-    background-color: map.get($table-colors, $color);
+    background-color: map_get($table-colors, $color);
 }
 
 .table {
@@ -28,19 +28,18 @@ $cell-height: 30px;
         &-date {
             @include bg("date");
             border-radius: 2px 2px 0 0;
-            background-color: $table-date-color;
             color: #ffffff;
         }
 
         &-doctor {
             &-name {
-                background-color: $table-doctor-info-color;
+                @include bg("doctor-info");
                 color: #ffffff;
-                border-bottom: 1px solid $table-hr-color;
+                border-bottom: 1px solid map_get($table-colors, "hr");
             }
         
             &-specialty{
-                background-color: $table-doctor-info-color;
+                @include bg("doctor-info");
                 color: #ffffff;
                 font-style: italic;
             }
@@ -50,11 +49,11 @@ $cell-height: 30px;
             color: #000000;
     
             &_free {
-                background-color: $table-address-free-color;
+                @include bg("address-free");
             }
     
             &_busy {
-                background-color: $table-address-busy-color;
+                @include bg("address-busy");
             }
         }
     
@@ -62,11 +61,11 @@ $cell-height: 30px;
             color: #000000;
     
             &_free {
-                background-color: $table-interval-free-color;
+                @include bg("interval-free");
             }
     
             &_busy {
-                background-color: $table-interval-busy-color;
+                @include bg("interval-busy");
             }
     
             &_rolled {
@@ -77,14 +76,14 @@ $cell-height: 30px;
     }
 
     &__column {
+        @include bg("empty");
         margin-right: 5px;
         width: 170px;
-        background-color: $table-empty-color;
         flex-shrink: 0;
 
         &_busy {
-            background-color: $table-busy-color;
-            border: solid 2px $table-busy-border-color;
+            @include bg("busy");
+            border: solid 2px map_get($table-colors, "busy-border");
             border-radius: 2px 2px 0 0;
             border-bottom: unset;
         }
@@ -105,19 +104,19 @@ $cell-height: 30px;
         height: $cell-height;
 
         &-free {
-            background-color: $table-free-color;
-            border-bottom: dashed 1px $table-border-color;
+            @include bg("free");
+            border-bottom: dashed 1px map_get($table-colors, "border");
         }
 
         &-affairs {
+            @include bg("affairs");
             height: $cell-height * 2;
-            background-color: $table-affairs-color;
-            border-bottom: dashed 1px $table-border-color;
+            border-bottom: dashed 1px map_get($table-colors, "border");
         }
 
         &-used {
             display: flex;
-            border: solid 1px $table-used-border-color;
+            border: solid 1px map_get($table-colors, "used-border");
         }
     }
 
@@ -126,7 +125,7 @@ $cell-height: 30px;
     }
 
     &__patient {
-        background-color: $table-used-color;
+        @include bg("used");
         flex-grow: 1;
         padding: 2px 5px 4px;
     }
