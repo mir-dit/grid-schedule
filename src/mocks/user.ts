@@ -14,7 +14,7 @@ export interface ISchedule {
     title: string;
     start: Date; // ~
     end: Date; // ~
-    days: Number[]; // days of week
+    days: Number[]; // days of week, 0 = Sunday
 }
 
 export const users: Array<IUser | ISpecialist> = [
@@ -23,7 +23,7 @@ export const users: Array<IUser | ISpecialist> = [
         name: 'Елисеева Е.Е.',
         specialty: 'офтальмолог',
         schedule: {
-            title: '08:00 - 18:00 Работа с документами (14:30 - 14:55) Работа с докементами (16:20 - 16:40)',
+            title: '08:00 - 18:00 Работа с документами (14:30 - 14:55) Работа с документами (16:20 - 16:40)',
             start: new Date(2019,4,1, 8, 0),
             end: new Date(2019,4,1, 18, 0),
             days: [1, 2, 3, 4, 5]
