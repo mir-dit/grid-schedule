@@ -5,9 +5,10 @@ import {routes} from './app.routes';
 import {IController, IScope} from "angular";
 import {tableDirective} from "./components/table/tabe.directive";
 import {ScheduleCtrl} from "./pages/schedule/schedule.controller";
-import {tableDate} from './filters/tableDate.filter';
+import {tableDateFilter} from './filters/tableDate.filter';
 import initPluginDirective from "./directives/initPlugin.directive";
-import {tableOrderColumn} from './filters/tableOrderColumn.filter';
+import {tableOrderColumnFilter} from './filters/tableOrderColumn.filter';
+import {tooltipDirective} from './directives/tooltip.directive';
 
 const Application = () => {
   return {
@@ -36,9 +37,10 @@ app.directive(moduleName, Application);
 app.controller('AppCtrl', AppCtrl);
 app.controller('ScheduleCtrl', ScheduleCtrl);
 app.directive('appTable', tableDirective.factory());
-app.filter('tableDate', tableDate);
-app.filter('tableOrderColumn', tableOrderColumn);
+app.filter('tableDate', tableDateFilter);
+app.filter('tableOrderColumn', tableOrderColumnFilter);
 app.directive('initPlugin', initPluginDirective.factory());
+app.directive('tooltip', tooltipDirective.factory());
 app.config(['$routeProvider', routes]);
 
 export default app;
