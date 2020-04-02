@@ -1,7 +1,7 @@
 <div class="table" init-plugin="scrollbar">
     <div ng-if="offset > 0" ng-style="{ height: headerLockedHeight + 'px' }"></div>
     <div class="table__header" ng-class="{'table__header_scrolled': offset > 0}" ng-style="{ top: offset + 'px' }">
-        <div class="table__column table__header-column" ng-repeat="column in columns | tableOrderColumn" ng-class="{'table__column_busy': !column.interval}">
+        <div class="table__column table__header-column" ng-repeat="column in columns | tableOrderColumn" ng-class="{'table__column_busy table__header-column_busy': !column.interval}">
             <div class="table__header-cell table__header-date">{{ column.date | tableDate}}</div>
             <div class="table__header-cell table__header-doctor-name" ng-style="{ height: heights.doctor + 'px' }">{{ column.doctor }}</div>
             <div class="table__header-cell table__header-doctor-specialty" ng-style="{ height: heights.specialty + 'px' }">{{ column.specialty }}</div>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="table__body">
-        <div class="table__column table__body-column" ng-repeat="column in columns | tableOrderColumn" ng-class="{'table__column_busy': !column.interval}">
+        <div class="table__column table__body-column" ng-repeat="column in columns | tableOrderColumn" ng-class="{'table__column_busy table__body-column_busy': !column.interval}">
             <div
                 ng-repeat="cell in column.rows"
                 class="table__cell"

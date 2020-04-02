@@ -11,6 +11,19 @@ $cell-height: 30px;
     height: 100%;
     width: 100%;
 
+    &__column {
+        @include bg("empty");
+        margin-right: 5px;
+        width: 170px;
+        flex-shrink: 0;
+
+        &_busy {
+            @include bg("busy");
+            border: solid 2px map_get($table-colors, "busy-border");
+        }
+    }
+
+
     &__header {
         display: flex;
 
@@ -77,17 +90,8 @@ $cell-height: 30px;
                 cursor: unset;
             }
         }
-    }
 
-    &__column {
-        @include bg("empty");
-        margin-right: 5px;
-        width: 170px;
-        flex-shrink: 0;
-
-        &_busy {
-            @include bg("busy");
-            border: solid 2px map_get($table-colors, "busy-border");
+        &-column_busy {
             border-radius: 2px 2px 0 0;
             border-bottom: unset;
         }
@@ -98,7 +102,7 @@ $cell-height: 30px;
         display: flex;
         z-index: 5;
 
-        &-column {
+        &-column_busy {
             border-radius: 0 0 2px 2px ;
             border-top: unset;
         }
