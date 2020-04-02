@@ -1,4 +1,4 @@
-import {IAugmentedJQuery, IDirective, IDirectiveFactory, ILocationService, IScope, IAttributes} from 'angular';
+import {IAugmentedJQuery, IDirective, IDirectiveFactory, ILocationService, IAttributes} from 'angular';
 import {TableCtrl, ITableScope} from './table.controller';
 
 export interface IRowAffairs  {

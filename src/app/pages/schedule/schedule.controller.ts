@@ -1,4 +1,4 @@
-import {IController, IScope, ILogService} from 'angular';
+import {IController, IScope} from 'angular';
 import {Column, Row} from '../../components/table/tabe.directive';
 import {users, ISpecialist} from '../../../mocks/user';
 import {records, IRecord} from '../../../mocks/record';

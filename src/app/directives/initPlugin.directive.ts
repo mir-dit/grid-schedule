@@ -1,4 +1,4 @@
-import {IAugmentedJQuery, IDirective, IDirectiveFactory, IScope, IAttributes, IRootScopeService} from "angular";
+import {IAugmentedJQuery, IDirective, IDirectiveFactory, IScope, IAttributes} from "angular";
 import PerfectScrollbar from 'perfect-scrollbar';
 import {IEntry} from "../models/entry.model";
 
