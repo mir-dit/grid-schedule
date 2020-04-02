@@ -1,22 +1,32 @@
 import {IController, IScope, IAugmentedJQuery, ITimeoutService} from 'angular';
 import {Column} from './tabe.directive';
 
+interface ITableHeigts {
+  doctor: number;
+  specialty: number;
+  adress: number;
+}
+
 export interface ITableScope extends IScope {
   columns: Column[];
-  offset: Number;
+  offset: number;
   element: IAugmentedJQuery;
-  rolled: Number[];
-  unroll: Function;
+  rolled: number[];
+  unroll: (index: number) => void;
+  heights: ITableHeigts | null;
 }
 
 interface IHeaderColumn {
-  intervalHalfOffset: Number;
-  isMax: Boolean;
-  isBusy: Boolean;
+  doctorHeight: number;
+  specialtyHeight: number;
+  adressHeight: number;
+  intervalHalfOffset: number;
+  isMax: boolean;
+  isBusy: boolean;
 }
 
 enum HeaderColumnDiv {
-  name = 1,
+  doctor = 1,
   specialty,
   adress,
   interval,
@@ -29,6 +39,7 @@ export class TableCtrl implements IController {
   constructor(private $scope: ITableScope, $timeout: ITimeoutService) {
     $scope.offset = 0;
     $scope.rolled = [];
+    this.$scope.heights = null;
     $scope.$on('ps-scroll-y', this.scroll);
     $scope.$watch('columns', () => {
       $scope.offset = 0;
@@ -36,10 +47,11 @@ export class TableCtrl implements IController {
       $timeout(this.updateIntervals, 0);
     });
     $scope.$watch('offset', this.updateRolled);
+    $scope.$watch('rolled', this.updateHeights);
     $scope.unroll = this.unroll;
   }
 
-  private unroll = (index: Number): void => {
+  private unroll = (index: number): void => {
     if (this.$scope.rolled.includes(index))
       this.$scope.rolled.splice(this.$scope.rolled.indexOf(index), 1);
   }
@@ -52,8 +64,14 @@ export class TableCtrl implements IController {
 
   private updateIntervals = (): void => {
     this.headerColumns = Array.from(this.$scope.element[0].getElementsByClassName('table__header-column')).map((columnDiv: HTMLDivElement) => {
+      const doctorDiv = columnDiv.children[HeaderColumnDiv.doctor] as HTMLDivElement;
+      const specialtyDiv = columnDiv.children[HeaderColumnDiv.specialty] as HTMLDivElement;
+      const adressDiv = columnDiv.children[HeaderColumnDiv.adress] as HTMLDivElement;
       const intervalDiv = columnDiv.children[HeaderColumnDiv.interval] as HTMLDivElement;
       return {
+        doctorHeight: doctorDiv.offsetHeight,
+        specialtyHeight: specialtyDiv.offsetHeight,
+        adressHeight: adressDiv.offsetHeight,
         intervalHalfOffset: columnDiv.offsetHeight - intervalDiv.offsetTop - intervalDiv.offsetHeight / 2,
         isMax: columnDiv.offsetHeight === intervalDiv.offsetTop + intervalDiv.offsetHeight,
         isBusy: Boolean(columnDiv.getElementsByClassName('table__header-interval_busy').length),
@@ -63,15 +81,14 @@ export class TableCtrl implements IController {
 
   private isHeaderColumnRolled = (headerColumn: IHeaderColumn): Boolean => {
     return headerColumn.intervalHalfOffset < this.$scope.offset;
-
   }
 
   private updateRolled = (): void => {
-    if (this.headerColumns.length === 0) {
+    const rollableColumns = this.headerColumns.filter(({isBusy}) => !isBusy);
+    if (rollableColumns.length === 0) {
       this.$scope.rolled = [];
       return;
     }
-    const rollableColumns = this.headerColumns.filter(({isBusy}) => !isBusy);
     if (rollableColumns.every(this.isHeaderColumnRolled)) {
       this.$scope.rolled = rollableColumns.map((headerColumn) => this.headerColumns.indexOf(headerColumn));
       return;
@@ -84,6 +101,19 @@ export class TableCtrl implements IController {
       return;
     }
     this.$scope.rolled = maxHeaderColumns.map((headerColumn) => this.headerColumns.indexOf(headerColumn));
+  }
+
+  private updateHeights = (): void => {
+    const rollableColumns = this.headerColumns.filter(({isBusy}) => !isBusy);
+    if (this.$scope.rolled.length === 0 || rollableColumns.length !== this.$scope.rolled.length) {
+      this.$scope.heights = null;
+      return;
+    }
+    this.$scope.heights = {
+      doctor: Math.max(...rollableColumns.map(({ doctorHeight }) => doctorHeight)),
+      specialty: Math.max(...rollableColumns.map(({ specialtyHeight }) => specialtyHeight)),
+      adress: Math.max(...rollableColumns.map(({ adressHeight }) => adressHeight)),
+    };
   }
 
 }
