@@ -18,8 +18,7 @@ export class initPluginDirective implements IDirective {
     const pluginName: string = attrs.initPlugin;
     switch (pluginName) {
       case 'scrollbar':
-        initPluginDirective.initScrollbar(element, scope.params);
-        element.bind('ps-scroll-y', (event) => scope.$emit('ps-scroll-y', event.target));
+        initPluginDirective.initScrollbar(element, scope);
         break;
       default:
         console.error(`Плагин с названием ${pluginName} не найден!`);
@@ -30,13 +29,14 @@ export class initPluginDirective implements IDirective {
     return () => new initPluginDirective();
   }
 
-  static initScrollbar(elem: IAugmentedJQuery, params: IEntry): void {
+  static initScrollbar(elem: IAugmentedJQuery, scope: ICurrentScope): void {
     const defaultOptions = {
       wheelSpeed: 2,
       wheelPropagation: true,
       minScrollbarLength: 20
     };
-    PerfectScrollbar.initialize(elem[0], {...defaultOptions, ...params});
+    PerfectScrollbar.initialize(elem[0], {...defaultOptions, ...scope.params});
+    elem.bind('ps-scroll-y', (event) => scope.$emit('ps-scroll-y', event.target));
   }
 }
 
