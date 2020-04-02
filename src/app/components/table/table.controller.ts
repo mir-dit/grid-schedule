@@ -64,14 +64,11 @@ export class TableCtrl implements IController {
 
   private updateIntervals = (): void => {
     this.headerColumns = Array.from(this.$scope.element[0].getElementsByClassName('table__header-column')).map((columnDiv: HTMLDivElement) => {
-      const doctorDiv = columnDiv.children[HeaderColumnDiv.doctor] as HTMLDivElement;
-      const specialtyDiv = columnDiv.children[HeaderColumnDiv.specialty] as HTMLDivElement;
-      const adressDiv = columnDiv.children[HeaderColumnDiv.adress] as HTMLDivElement;
       const intervalDiv = columnDiv.children[HeaderColumnDiv.interval] as HTMLDivElement;
       return {
-        doctorHeight: doctorDiv.offsetHeight,
-        specialtyHeight: specialtyDiv.offsetHeight,
-        adressHeight: adressDiv.offsetHeight,
+        doctorHeight: (columnDiv.children[HeaderColumnDiv.doctor] as HTMLDivElement).offsetHeight,
+        specialtyHeight: (columnDiv.children[HeaderColumnDiv.specialty] as HTMLDivElement).offsetHeight,
+        adressHeight: (columnDiv.children[HeaderColumnDiv.adress] as HTMLDivElement).offsetHeight,
         intervalHalfOffset: columnDiv.offsetHeight - intervalDiv.offsetTop - intervalDiv.offsetHeight / 2,
         isMax: columnDiv.offsetHeight === intervalDiv.offsetTop + intervalDiv.offsetHeight,
         isBusy: Boolean(columnDiv.getElementsByClassName('table__header-interval_busy').length),
