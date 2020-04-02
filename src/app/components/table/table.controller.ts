@@ -1,4 +1,4 @@
-import {IController, IScope, IAugmentedJQuery, IIntervalService, ITimeoutService} from 'angular';
+import {IController, IScope, IAugmentedJQuery, ITimeoutService} from 'angular';
 import {Column} from './tabe.directive';
 
 export interface ITableScope extends IScope {
@@ -10,9 +10,16 @@ export interface ITableScope extends IScope {
 }
 
 interface IHeaderColumn {
-  interval: Number;
+  intervalHalfOffset: Number;
   isMax: Boolean;
   isBusy: Boolean;
+}
+
+enum HeaderColumnDiv {
+  name = 1,
+  specialty,
+  adress,
+  interval,
 }
 
 export class TableCtrl implements IController {
@@ -34,7 +41,7 @@ export class TableCtrl implements IController {
 
   private unroll = (index: Number): void => {
     if (this.$scope.rolled.includes(index))
-      this.$scope.rolled.push(index);
+      this.$scope.rolled.splice(this.$scope.rolled.indexOf(index), 1);
   }
   
   private scroll = (event: any, target: any): void => {
@@ -44,15 +51,18 @@ export class TableCtrl implements IController {
   }
 
   private updateIntervals = (): void => {
-    this.headerColumns = Array.from(this.$scope.element[0].getElementsByClassName('table__header-interval')).map((element: HTMLDivElement) => ({
-      interval: element.parentElement.offsetHeight - element.offsetTop - element.offsetHeight / 2,
-      isMax: element.parentElement.offsetHeight === element.offsetTop + element.offsetHeight,
-      isBusy: Boolean(element.parentElement.getElementsByClassName('table__header-interval_busy').length),
-    }));
+    this.headerColumns = Array.from(this.$scope.element[0].getElementsByClassName('table__header-column')).map((columnDiv: HTMLDivElement) => {
+      const intervalDiv = columnDiv.children[HeaderColumnDiv.interval] as HTMLDivElement;
+      return {
+        intervalHalfOffset: columnDiv.offsetHeight - intervalDiv.offsetTop - intervalDiv.offsetHeight / 2,
+        isMax: columnDiv.offsetHeight === intervalDiv.offsetTop + intervalDiv.offsetHeight,
+        isBusy: Boolean(columnDiv.getElementsByClassName('table__header-interval_busy').length),
+      };
+    });
   }
 
   private isHeaderColumnRolled = (headerColumn: IHeaderColumn): Boolean => {
-    return headerColumn.interval < this.$scope.offset;
+    return headerColumn.intervalHalfOffset < this.$scope.offset;
 
   }
 
