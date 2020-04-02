@@ -1,6 +1,6 @@
 import {IFilterFunction} from 'angular';
 
-function orderBy(fn: Function, array: any[], ...filters: String[]): any[] {
+function orderBy(fn: Function, array: any[], ...filters: string[]): any[] {
   return filters.length > 1 ? orderBy(fn, fn(array, filters[0], false), ...filters.slice(1)) : fn(array, filters[0], false);
 }
 

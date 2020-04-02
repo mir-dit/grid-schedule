@@ -2,12 +2,12 @@ import {IAugmentedJQuery, IDirective, IDirectiveFactory, ILocationService, IAttr
 import {TableCtrl, ITableScope} from './table.controller';
 
 export interface IRowAffairs  {
-  reason: String;
+  reason: string;
 }
 
 export interface IRowUsed {
   time: Date;
-  patient: String;
+  patient: string;
 }
 
 export interface IRowFree {
@@ -16,17 +16,17 @@ export interface IRowFree {
 
 export interface IColumn {
   date: Date;
-  doctor: String;
-  specialty: String;
-  adress: String;
+  doctor: string;
+  specialty: string;
+  adress: string;
 }
 
 export interface IColumnBusy extends IColumn {
-  busy: String;
+  busy: string;
 }
 
 export interface IColumnFree extends IColumn {
-  interval: String;
+  interval: string;
   rows: Row[];
 }
 
