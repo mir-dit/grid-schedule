@@ -5,7 +5,14 @@
             <div class="table__header-cell table__header-doctor-name">{{ column.doctor }}</div>
             <div class="table__header-cell table__header-doctor-specialty">{{ column.specialty }}</div>
             <div class="table__header-cell table__header-doctor-adress" ng-class="column.interval ? 'table__header-adress_free' : 'table__header-adress_busy'">{{ column.adress }}</div>
-            <div class="table__header-cell table__header_interval" ng-class="column.interval ? 'table__header-interval_free' : 'table__header-interval_busy'">{{ column.interval || column.busy }}</div>
+            <div
+                ng-if="column.interval"
+                class="table__header-cell table__header-interval table__header-interval_free"
+                ng-click="unroll($index)"
+                ng-class=" {
+                    'table__header-interval_rolled': rolled.includes($index),
+                }">{{ rolled.includes($index) ? 'Врач работает' : column.interval }}</div>
+            <div ng-if="column.busy" class="table__header-cell table__header-interval table__header-interval_busy">{{ column.busy }}</div>
         </div>
     </div>
     <div class="table__body">

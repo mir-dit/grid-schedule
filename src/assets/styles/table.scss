@@ -77,6 +77,11 @@ $cell-height: 30px;
     background-color: $table-interval-busy-color;
 }
 
+.table__header-interval_rolled {
+    height: $cell-height * 2;
+    cursor: pointer;
+}
+
 // end table__header
 
 .table__body {

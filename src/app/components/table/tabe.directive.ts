@@ -1,5 +1,5 @@
 import {IAugmentedJQuery, IDirective, IDirectiveFactory, ILocationService, IScope, IAttributes} from 'angular';
-import {TableCtrl} from './table.controller';
+import {TableCtrl, ITableScope} from './table.controller';
 
 export interface IRowAffairs  {
   reason: String;
@@ -34,10 +34,6 @@ export type Column = IColumnBusy | IColumnFree;
 export type Row = IRowAffairs | IRowFree | IRowUsed;
 
 
-interface ITableScope extends IScope {
-  columns: Column[];
-}
-
 export class tableDirective implements IDirective {
   public restrict = 'E';
   public template = require('./table.html');
@@ -47,6 +43,10 @@ export class tableDirective implements IDirective {
   };
 
   constructor(private $location: ILocationService) {}
+
+  link = ($scope: ITableScope, element: IAugmentedJQuery, attrs: IAttributes) => {
+    $scope.element = element;
+  }
 
   static factory(): IDirectiveFactory {
     const directive = ($location: ILocationService) => new tableDirective($location);
