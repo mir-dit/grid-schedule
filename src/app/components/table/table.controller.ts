@@ -14,6 +14,7 @@ export interface ITableScope extends IScope {
   rolled: number[];
   unroll: (index: number) => void;
   heights: ITableHeigts | null;
+  headerLockedHeight: Number;
 }
 
 interface IHeaderColumn {
@@ -63,7 +64,9 @@ export class TableCtrl implements IController {
   }
 
   private updateIntervals = (): void => {
-    this.headerColumns = Array.from(this.$scope.element[0].getElementsByClassName('table__header-column')).map((columnDiv: HTMLDivElement) => {
+    const columns = Array.from(this.$scope.element[0].getElementsByClassName('table__header-column')) as HTMLDivElement[];
+    this.$scope.headerLockedHeight = columns[0].offsetHeight;
+    this.headerColumns = columns.map((columnDiv: HTMLDivElement) => {
       const intervalDiv = columnDiv.children[HeaderColumnDiv.interval] as HTMLDivElement;
       return {
         doctorHeight: (columnDiv.children[HeaderColumnDiv.doctor] as HTMLDivElement).offsetHeight,

@@ -12,8 +12,11 @@ $cell-height: 30px;
     width: 100%;
 
     &__header {
-        position: relative;
         display: flex;
+
+        &_scrolled {
+            position: absolute;
+        }
 
         &-column {
             text-align: center;
@@ -129,5 +132,5 @@ $cell-height: 30px;
         flex-grow: 1;
         padding: 2px 5px 4px;
     }
-    
+
 }
