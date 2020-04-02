@@ -77,14 +77,12 @@ export class ScheduleCtrl implements IController {
     return times
       .filter((time) => !affairs.find((affair) => affair.start <= time && time <= affair.end))
       .reduce((acc: Row[], time, index, arr) => {
+        const firstAffair = index === 0 && affairs.find((affair) => affair.end < time);
+        if (firstAffair)
+          return [{ reason: firstAffair.message }, { time }];
         const nextIndex = index + 1;
-        const postAffair = nextIndex !== arr.length ? affairs.find((affair) =>  time < affair.start && affair.end < arr[nextIndex]) : false;
-        if (postAffair)
-          return [...acc, { time }, { reason: postAffair.message }];
-        const preAffair = nextIndex === arr.length ? affairs.find((affair) =>  affair.start > arr[index - 1] && affair.end < time) : false; // FIXME
-        if (preAffair)
-          return [...acc, { reason: preAffair.message }, { time }];
-        return [...acc, { time }];
+        const affair = affairs.find((affair) => time < affair.start && (nextIndex === arr.length || affair.end < arr[nextIndex]));
+        return affair ? [...acc, { time }, { reason: affair.message }] : [...acc, { time }];
       }, []);
   }
 
