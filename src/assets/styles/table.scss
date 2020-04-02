@@ -1,4 +1,10 @@
+@use "sass:map";
+
 $cell-height: 30px;
+
+@mixin bg($color) {
+    background-color: map.get($table-colors, $color);
+}
 
 .table {
     position: relative;
@@ -20,6 +26,7 @@ $cell-height: 30px;
         }
     
         &-date {
+            @include bg("date");
             border-radius: 2px 2px 0 0;
             background-color: $table-date-color;
             color: #ffffff;

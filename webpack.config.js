@@ -26,7 +26,13 @@ const config = {
                 exclude: /node_modules/,
                 use: [
                     'style-loader',
-                    'css-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: false,
+                            importLoaders: 2
+                        }
+                    },
                     {
                         loader: 'postcss-loader',
                         options: {
