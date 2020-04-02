@@ -8,7 +8,6 @@ import {ScheduleCtrl} from "./pages/schedule/schedule.controller";
 import {tableDateFilter} from './filters/tableDate.filter';
 import initPluginDirective from "./directives/initPlugin.directive";
 import {tableOrderColumnFilter} from './filters/tableOrderColumn.filter';
-import {tooltipDirective} from './directives/tooltip.directive';
 
 const Application = () => {
   return {
@@ -40,7 +39,6 @@ app.directive('appTable', tableDirective.factory());
 app.filter('tableDate', tableDateFilter);
 app.filter('tableOrderColumn', tableOrderColumnFilter);
 app.directive('initPlugin', initPluginDirective.factory());
-app.directive('tooltip', tooltipDirective.factory());
 app.config(['$routeProvider', routes]);
 
 export default app;
