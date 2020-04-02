@@ -14,7 +14,7 @@ export interface ISchedule {
     title: string;
     start: Date; // ~
     end: Date; // ~
-    days: Number[]; // days of week, 0 = Sunday
+    days: number[]; // days of week, 0 = Sunday
 }
 
 export const users: Array<IUser | ISpecialist> = [
