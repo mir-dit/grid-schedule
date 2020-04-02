@@ -9,6 +9,7 @@ const specialists = users.filter((user: ISpecialist) => user.schedule) as ISpeci
 interface ISheldureScope extends IScope {
   timeGap: number;
   columns: Column[];
+  updateColumns: () => void;
 }
 
 export class ScheduleCtrl implements IController {
@@ -16,7 +17,8 @@ export class ScheduleCtrl implements IController {
 
   constructor(private $scope: ISheldureScope) {
     $scope.timeGap = 1;
-    $scope.$watch('timeGap', this.updateColumns)
+    $scope.updateColumns = this.updateColumns;
+    this.updateColumns();
   }
 
   private generateDates(from: Date): Date[] {

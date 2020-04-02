@@ -7,9 +7,9 @@
             </div>
             <div class="col-xs-4">
                 <div class="btn-group shedlure__time-gap">
-                    <label class="btn btn-success" ng-model="timeGap" btn-radio="1" uncheckable>1 День</label>
-                    <label class="btn btn-success" ng-model="timeGap" btn-radio="2" uncheckable>2 Дня</label>
-                    <label class="btn btn-success" ng-model="timeGap" btn-radio="14" uncheckable>Неделя</label>
+                    <label class="btn btn-success" ng-model="timeGap" btn-radio="1" uncheckable ng-change="updateColumns()">1 День</label>
+                    <label class="btn btn-success" ng-model="timeGap" btn-radio="2" uncheckable ng-change="updateColumns()">2 Дня</label>
+                    <label class="btn btn-success" ng-model="timeGap" btn-radio="14" uncheckable ng-change="updateColumns()">Неделя</label>
                 </div>
             </div>
         </div>
