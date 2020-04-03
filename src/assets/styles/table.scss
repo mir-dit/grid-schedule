@@ -163,6 +163,10 @@ $cell-height: 30px;
     &__patient {
         @include bg("used");
         padding: 2px 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
     }
 
     &__icon {

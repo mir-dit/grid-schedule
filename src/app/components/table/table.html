@@ -40,8 +40,8 @@
                     'table__cell-cross': cell.cross,
                 }">
                     <span class="table__text">{{ cell.reason || (cell.time | date: 'HH:mm') }}</span>
-                    <span class="table__patient" ng-if="cell.patient">{{ cell.patient }}</span>
-                    <span class="table__patient2" ng-if="cell.patient2">{{ cell.patient2 }}</span>
+                    <span class="table__patient" ng-if="cell.patient" tooltip="{{ cell.patient }}">{{ cell.patient }}</span>
+                    <span class="table__patient" ng-if="cell.patient2" tooltip="{{ cell.patient2 }}">{{ cell.patient2 }}</span>
             </div>
         </div>
     </div>
