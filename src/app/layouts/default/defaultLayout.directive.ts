@@ -5,15 +5,13 @@ export class defaultLayoutDirective implements IDirective {
   scope = {};
   template = require('./defaultLayout.html');
 
-  constructor(private $location: ILocationService) {}
+  constructor() {}
 
-  link = (scope: IScope, element: IAugmentedJQuery, attrs: IAttributes, ctrl: any) => {
-    console.log('$location', this.$location);
-  };
+  link = (scope: IScope, element: IAugmentedJQuery, attrs: IAttributes, ctrl: any) => {};
 
   static factory(): IDirectiveFactory {
-    const directive = ($location: ILocationService) => new defaultLayoutDirective($location);
-    directive.$inject = ['$location'];
+    const directive = () => new defaultLayoutDirective();
+    directive.$inject = [];
     return directive;
   }
 }
