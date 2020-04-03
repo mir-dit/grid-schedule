@@ -1,5 +1,6 @@
 import {IAugmentedJQuery, IDirective, IDirectiveFactory, IScope, IAttributes} from "angular";
-import {datepickerMeta} from "App/dictionary/datepicker"
+import {datepickerMeta} from "App/dictionary/datepicker";
+import {users} from "Mocks/user";
 
 export class asideDirective implements IDirective {
   restrict = 'E';
@@ -23,6 +24,7 @@ export class asideDirective implements IDirective {
       },
       ...datepickerMeta
     }
+    scope.users = users
     // Methods
     this.init(scope);
   };
@@ -32,6 +34,7 @@ export class asideDirective implements IDirective {
   }
 
   init(scope) {
+    console.debug('users', scope.users);
     scope.fields.forEach((el, index) => {
       scope.$watch(`fields[${index}].value`, (newVal, oldVal) => {
         console.debug(el.key, newVal);
