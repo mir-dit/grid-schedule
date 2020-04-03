@@ -44,13 +44,17 @@ export class TableCtrl implements IController {
     this.$scope.heights = null;
     $scope.$on('ps-scroll-y', this.scroll);
     $scope.$watch('columns', () => {
-      $scope.offset = 0;
-      this.$scope.element[0].getElementsByClassName('table')[0].scrollTop = 0;
+      this.resetScroll();
       $timeout(this.updateIntervals, 0);
     });
     $scope.$watch('offset', this.updateRolled);
     $scope.$watch('rolled', this.updateHeights);
     $scope.unroll = this.unroll;
+  }
+
+  private resetScroll(): void {
+    this.$scope.offset = 0;
+    this.$scope.element[0].getElementsByClassName('table')[0].scrollTop = 0;
   }
 
   private unroll = (index: number): void => {
