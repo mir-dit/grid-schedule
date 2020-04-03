@@ -1,4 +1,4 @@
-import {IAugmentedJQuery, IDirective, IDirectiveFactory, ILocationService, IScope, IAttributes} from "angular";
+import {IAugmentedJQuery, IDirective, IDirectiveFactory, IScope, IAttributes} from "angular";
 
 export class defaultLayoutDirective implements IDirective {
   restrict = 'E';
@@ -7,12 +7,10 @@ export class defaultLayoutDirective implements IDirective {
 
   constructor() {}
 
-  link = (scope: IScope, element: IAugmentedJQuery, attrs: IAttributes, ctrl: any) => {};
+  link = (scope: IScope, element: IAugmentedJQuery, attrs: IAttributes) => {};
 
   static factory(): IDirectiveFactory {
-    const directive = () => new defaultLayoutDirective();
-    directive.$inject = [];
-    return directive;
+    return () => new defaultLayoutDirective();
   }
 }
 
