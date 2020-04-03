@@ -55,7 +55,7 @@ export class ScheduleCtrl implements IController {
     const affairs: IRecord[] = records.filter(({type, userId, start, end}: IRecord) => userId === user.id && type !== 'danger' && type !== 'primary' && date < start && end < nextDate);
     for (const time of times) {
       const used: IRecord[] = this.getUserRecords(user, time, 'primary');
-      const affair = affairs.find(({start, end}: IRecord) => start <= time && time <= end); // TODO add 20% (or custom)
+      const affair = affairs.find(({start, end}: IRecord) => start <= time && time <= end);
       if (affair) {
         if (!addedAffairs.includes(affair)) {
           addedAffairs.push(affair);
