@@ -18,7 +18,12 @@
                     'table__header-interval_busy': column.busy,
                     'table__header-interval_rolled': rolled.includes($index),
                 }">
-                    <span ng-if="column.interval">{{ rolled.includes($index) ? 'Врач работает' : column.interval }}</span>
+                    <span ng-if="column.interval && !rolled.includes($index)">{{ column.interval }}</span>
+                    <span ng-if="column.interval && rolled.includes($index)">
+                        <span class="glyphicon glyphicon-triangle-right table__icon" aria-hidden="true"></span>
+                        <span>Врач работает</span>
+                        <span class="glyphicon glyphicon-pencil table__icon" aria-hidden="true"></span>
+                    </span>
                     <span ng-if="column.busy">{{ column.busy }}</span>
             </div>
         </div>
