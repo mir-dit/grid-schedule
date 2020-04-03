@@ -1,4 +1,4 @@
-<div class="table" init-plugin="scrollbar">
+<div class="table" init-plugin="scrollbar" params="{wheelSpeed: 0.15}">
     <div ng-if="offset > 0" ng-style="{ height: headerLockedHeight + 'px' }"></div>
     <div class="table__header" ng-class="{'table__header_scrolled': offset > 0, 'table__header_rolled': offset > headerLockedHeight}" ng-style="{ top: offset + 'px' }">
         <div class="table__column table__header-column" ng-repeat="column in columns | tableOrderColumn" ng-class="{'table__column_busy table__header-column_busy': !column.interval}">
