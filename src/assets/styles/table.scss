@@ -1,5 +1,6 @@
 @use "sass:map";
 
+$border-size: 2px;
 $cell-height: 30px;
 
 @mixin bg($color) {
@@ -19,7 +20,7 @@ $cell-height: 30px;
 
         &_busy {
             @include bg("busy");
-            border: solid 2px map_get($table-colors, "busy-border");
+            border: solid $border-size map_get($table-colors, "busy-border");
         }
     }
 
@@ -30,9 +31,21 @@ $cell-height: 30px;
         &_scrolled {
             position: absolute;
         }
+        
+        &_rolled {
+            background-color: $bg-color;
+            z-index: 15;
+        }
 
         &-column {
+            margin-top: $border-size;
             text-align: center;
+
+            &_busy {
+                margin-top: unset;
+                border-radius: 2px 2px 0 0;
+                border-bottom: unset;
+            }
         }
     
         &-cell {
@@ -45,6 +58,10 @@ $cell-height: 30px;
             @include bg("date");
             border-radius: 2px 2px 0 0;
             color: #ffffff;
+
+            &_busy {
+                border-radius: unset;
+            }
         }
 
         &-doctor {
@@ -91,10 +108,6 @@ $cell-height: 30px;
             }
         }
 
-        &-column_busy {
-            border-radius: 2px 2px 0 0;
-            border-bottom: unset;
-        }
     }
 
     &__body {

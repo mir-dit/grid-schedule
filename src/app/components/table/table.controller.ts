@@ -1,6 +1,8 @@
 import {IController, IScope, IAugmentedJQuery, ITimeoutService} from 'angular';
 import {Column} from './table.model';
 
+const BORDER_SIZE = 2;
+
 interface ITableHeigts {
   doctor: number;
   specialty: number;
@@ -72,7 +74,7 @@ export class TableCtrl implements IController {
         specialtyHeight: (columnDiv.children[HeaderColumnDiv.specialty] as HTMLDivElement).offsetHeight,
         addressHeight: (columnDiv.children[HeaderColumnDiv.address] as HTMLDivElement).offsetHeight,
         intervalHalfOffset: columnDiv.offsetHeight - intervalDiv.offsetTop - intervalDiv.offsetHeight / 2,
-        isMax: columnDiv.offsetHeight === intervalDiv.offsetTop + intervalDiv.offsetHeight,
+        isMax: columnDiv.offsetHeight === intervalDiv.offsetTop + intervalDiv.offsetHeight - BORDER_SIZE,
       };
     });
   }
