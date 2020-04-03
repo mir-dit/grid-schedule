@@ -4,3 +4,9 @@
 body {
   background-color: $bg-color;
 }
+
+
+// Modules
+@import "modules/header";
+@import "modules/main";
+@import "modules/footer";
