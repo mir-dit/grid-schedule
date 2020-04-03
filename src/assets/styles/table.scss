@@ -144,8 +144,13 @@ $cell-height: 30px;
         }
 
         &-used {
+            @include bg("used");
             display: flex;
-            border: solid 1px map_get($table-colors, "used-border");
+        }
+
+        &-cross {
+            display: flex;
+            border: solid 1px map_get($table-colors, "cross-border");
         }
     }
 
