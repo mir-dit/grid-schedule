@@ -1,6 +1,28 @@
 <aside class="aside">
-    <div class="aside__field" ng-repeat="field in fields">
-        <label for="{{field.key}}" class="custom-label">{{field.label}}</label>
+    <div class="aside__field" ng-repeat="(key, field) in fields">
+        <div class="d-flex justify-space-between align-items-center mb-10">
+            <label for="{{field.key}}" class="custom-label">{{field.label}}</label>
+            <div class="aside__field-actions">
+                <div class="btn-group" ng-repeat="action in field.actions" dropdown is-open="fields[{{key}}].actions[{{$index}}].flag">
+                    <button
+                            class="btn btn-success btn-sm dropdown-toggle"
+                            type="button"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            ng-click="toggleAction"
+                    >
+                        <i class="{{action.icon}}"></i> <i class="caret"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <div class="switch" ng-switch on="field.type">
             <div class="input-group" ng-switch-when="search">
                 <input

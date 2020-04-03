@@ -1,13 +1,14 @@
 @import '~perfect-scrollbar/src/css/main';
 @import 'utils/colors';
+@import "utils/mixins";
 @import "utils/helpers";
 @import "utils/fonts";
+@import "utils/shared";
 
 html, body {
   font-family: 'Roboto', sans-serif;
   background-color: $bg-color;
 }
-
 
 // Modules
 @import "modules/header";
@@ -15,5 +16,5 @@ html, body {
 @import "modules/footer";
 
 // Components
-@import 'Components/aside/aside';
+@import "Components/aside/aside";
 @import 'Components/filter-list/filteList';

@@ -1,6 +1,13 @@
-.custom-label {
-  font-size: 18px;
-  color: #000;
-  font-weight: 700;
-  padding-left: 15px;
-}
+// Base indentation
+$spaceamounts: (10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 90, 100);
+@include indents($spaceamounts);
+
+.d-flex {display: flex;flex-wrap: wrap;}
+.justify-content-start {justify-content: flex-start;}
+.justify-content-center {justify-content: center;}
+.justify-content-end {justify-content: flex-end;}
+.justify-space-between {justify-content: space-between;}
+.justify-space-around {justify-content: space-around;}
+.align-items-center {align-items: center;}
+.align-items-stretch {align-items: stretch}
+.flex-column {flex-direction: column;}

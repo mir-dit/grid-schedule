@@ -5,15 +5,16 @@ import {users} from "Mocks/user";
 export class asideDirective implements IDirective {
   restrict = 'E';
   template = require('./aside.template.html');
+  $scope;
 
   constructor() {}
 
   link = (scope: IScope | any, element: IAugmentedJQuery, attrs: IAttributes) => {
     // Property
     scope.fields = [
-      { label: 'Пациент', type: 'search', key: 'patient', placeholder: 'Введите текст для поиска', value: null },
+      { label: 'Пациент', type: 'search', key: 'patient', placeholder: 'Введите текст для поиска', value: null, actions: [{ icon: 'glyphicon glyphicon-user', flag: true, handler: function (e, scope) { console.debug('event 1', e); console.debug(scope) } }] },
       { label: 'Дата записи', type: 'date', key: 'date', placeholder: 'ДД.ММ.ГГГГ', value: null },
-      { label: 'Специалисты', type: 'search', key: 'specialist', placeholder: 'Введите текст для поиска', value: null },
+      { label: 'Специалисты', type: 'search', key: 'specialist', placeholder: 'Введите текст для поиска', value: null, actions: [{ icon: 'glyphicon glyphicon-glass', flag: false, handler: function (e, scope) { console.debug('event 2', e) } }] },
     ];
     scope.datepicker = {
       status: {
@@ -26,6 +27,7 @@ export class asideDirective implements IDirective {
     }
     scope.users = users
     // Methods
+    scope.toggleAction = this.toggleAction()
     this.init(scope);
   };
 
@@ -34,12 +36,14 @@ export class asideDirective implements IDirective {
   }
 
   init(scope) {
-    console.debug('users', scope.users);
     scope.fields.forEach((el, index) => {
       scope.$watch(`fields[${index}].value`, (newVal, oldVal) => {
         console.debug(el.key, newVal);
       })
     })
+  }
+  toggleAction() {
+    // this.$scope
   }
 
 }

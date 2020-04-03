@@ -15,7 +15,10 @@
             "Assets": ["src/assets/"],
             "Mocks": ["src/mocks/"],
             "Src": ["src/"]
-        }
+        },
+        "types": [
+            "node"
+        ]
     },
     "include": [
         "./src/**/*"

@@ -29,7 +29,7 @@ export class filterListDirective implements IDirective {
   }
 
   init(scope) {
-    console.debug(scope)
+
   }
 
 }
