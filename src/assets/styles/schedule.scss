@@ -1,12 +1,14 @@
-.schedule__header {
-    border-bottom: 1px solid $hr-color;
-}
+.schedule {
+    &__header {
+        border-bottom: 1px solid $hr-color;
+    }
 
-.schedule__title {
-    margin-top: 0;
-    margin-bottom: 0;
-}
+    &__title {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 
-.schedule__time-gap {
-    float: right;
+    &__time-gap {
+        float: right;
+    }
 }
