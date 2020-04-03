@@ -37,6 +37,7 @@
                     'table__cell-affairs': cell.reason,
                     'table__cell-free': cell.time && !cell.patient,
                     'table__cell-used': cell.patient,
+                    'table__cell-cross': cell.cross,
                 }">
                     <span class="table__text">{{ cell.reason || (cell.time | date: 'HH:mm') }}</span>
                     <span class="table__patient" ng-if="cell.patient">{{ cell.patient }}</span>

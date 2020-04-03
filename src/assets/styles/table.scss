@@ -146,10 +146,12 @@ $cell-height: 30px;
         &-used {
             @include bg("used");
             display: flex;
+            align-items: center;
         }
 
         &-cross {
             display: flex;
+            align-items: center;
             border: solid 1px map_get($table-colors, "cross-border");
         }
     }

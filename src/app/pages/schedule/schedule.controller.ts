@@ -1,7 +1,7 @@
 import {IController, IScope} from 'angular';
-import {Column, Row} from '../../components/table/table.model';
+import {Column, Row, IRowCross, IRowAffairs} from '../../components/table/table.model';
 import {users, ISpecialist} from '../../../mocks/user';
-import {records, IRecord} from '../../../mocks/record';
+import {records, IRecord, IRecordType} from '../../../mocks/record';
 import {addDays, setTime, addMinutes} from '../../helpers/date';
 
 const specialists = users.filter((user: ISpecialist) => user.schedule) as ISpecialist[];
@@ -28,8 +28,8 @@ export class ScheduleCtrl implements IController {
     return dates;
   }
 
-  private getUserRecords(user: ISpecialist, date: Date): IRecord[] {
-    return records.filter(({userId, start, end}) => userId === user.id && start <= date &&  date <= end);
+  private getUserRecords(user: ISpecialist, date: Date, filter: IRecordType) {
+    return records.filter(({userId, start, end, type}: IRecord) => type === filter && userId === user.id && start <= date && date <= end);
   }
 
   private getSpecialistsForDate(date: Date): ISpecialist[] {
@@ -48,32 +48,47 @@ export class ScheduleCtrl implements IController {
   }
 
   private createRows(user: ISpecialist, date: Date): Row[] {
+    const nextDate: Date = addDays(date, 1);
     const times: Date[] = this.getUserTimes(user, date);
-    const affairs: IRecord[] = times
-      .map((time: Date) => this.getUserRecords(user, time).filter(({type}: IRecord) => type !== 'danger' && type !== 'primary'))
-      .flat()
-      .filter((record, index, arr) => arr.findIndex((r: IRecord) => record.id === r.id) === index);
-    return times
-      .filter((time: Date) => !affairs.find(({start, end}: IRecord) => start < time && time < end))
-      .reduce((acc: Row[], time: Date, index: number, arr: Date[]) => {
-        const firstAffair: IRecord = index === 0 && affairs.find((affair) => affair.end <= time);
-        if (firstAffair)
-          return [{ reason: firstAffair.message }, { time }];
-        const nextIndex: number = index + 1;
-        const affair: IRecord = affairs.find((affair) => time <= affair.start && (nextIndex === arr.length || affair.end <= arr[nextIndex]));
-        return affair ? [...acc, { time }, { reason: affair.message }] : [...acc, { time }];
-      }, []);
+    const rows: Row[] = [];
+    const addedAffairs: IRecord[] = []; 
+    const affairs: IRecord[] = records.filter(({type, userId, start, end}: IRecord) => userId === user.id && type !== 'danger' && type !== 'primary' && date < start && end < nextDate);
+    for (const time of times) {
+      const used: IRecord[] = this.getUserRecords(user, time, 'primary');
+      const affair = affairs.find(({start, end}: IRecord) => start <= time && time <= end); // TODO add 20% (or custom)
+      if (affair) {
+        if (!addedAffairs.includes(affair)) {
+          addedAffairs.push(affair);
+          rows.push({ reason: affair.message });
+        }
+        if (used.length) {
+          rows.push({ time, patient: used[0].message, cross: true });
+        }
+      } else {
+        if (rows.length && (rows[rows.length - 1] as IRowCross).cross) {
+          let i: number = rows.length - 2;
+          for (;!(rows[i] as IRowAffairs).reason && i > 0; i--);
+          rows.push({ reason: (rows[i] as IRowAffairs).reason });
+        }
+        if (used.length) {
+          rows.push({ time, patient: used[0].message, patient2: used[1] ? used[1].message : undefined });
+        } else {
+          rows.push({ time });
+        }
+      }
+    }
+    return rows;
   }
 
   private createColumns(users: ISpecialist[], date: Date): Column[] {
     return users.map((user: ISpecialist) => {
-      const busy = this.getUserRecords(user, date).find(({type}: IRecord) => type === 'danger');
+      const busy = this.getUserRecords(user, date, 'danger');
       return {
         date,
         doctor: user.name,
         specialty: user.specialty,
         address: user.hospital,
-        ...(busy ? {busy: busy.message} : {
+        ...(busy.length ? {busy: busy[0].message} : {
           interval:  user.schedule.title,
           rows: this.createRows(user, date),
         }),
