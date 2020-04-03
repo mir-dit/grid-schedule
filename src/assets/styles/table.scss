@@ -57,7 +57,7 @@ $cell-height: 30px;
         &-date {
             @include bg("date");
             border-radius: 2px 2px 0 0;
-            color: #ffffff;
+            color: $white;
 
             &_busy {
                 border-radius: unset;
@@ -67,19 +67,19 @@ $cell-height: 30px;
         &-doctor {
             &-name {
                 @include bg("doctor-info");
-                color: #ffffff;
+                color: $white;
                 border-bottom: 1px solid map_get($table-colors, "hr");
             }
         
             &-specialty{
                 @include bg("doctor-info");
-                color: #ffffff;
+                color: $white;
                 font-style: italic;
             }
         }
 
         &-address {
-            color: #000000;
+            color: $black;
     
             &_free {
                 @include bg("address-free");
@@ -91,7 +91,7 @@ $cell-height: 30px;
         }
     
         &-interval {
-            color: #000000;
+            color: $black;
     
             &_free {
                 @include bg("interval-free");
