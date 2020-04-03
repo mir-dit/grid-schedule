@@ -51,7 +51,7 @@ $cell-height: 30px;
     
         &-cell {
             position: relative;
-            padding: 5px 19px 7px;
+            padding: 4px 12px; // padding-top must be even for correct isMax
             z-index: 10;
         }
     
@@ -103,7 +103,7 @@ $cell-height: 30px;
                 cursor: pointer;
                 padding: unset;
                 display: flex;
-                justify-content: space-evenly;
+                justify-content: center;
                 align-items: center;
             }
 
@@ -132,6 +132,8 @@ $cell-height: 30px;
         &-free {
             @include bg("free");
             border-bottom: dashed 1px map_get($table-colors, "border");
+            display: flex;
+            align-items: center;
         }
 
         &-affairs {
@@ -147,13 +149,12 @@ $cell-height: 30px;
     }
 
     &__text {
-        padding: 2px 5px 4px;
+        padding: 2px 5px;
     }
 
     &__patient {
         @include bg("used");
-        flex-grow: 1;
-        padding: 2px 5px 4px;
+        padding: 2px 5px;
     }
 
     &__icon {
