@@ -35,6 +35,7 @@ $cell-height: 30px;
         &_rolled {
             background-color: $bg-color;
             z-index: 15;
+            height: $border-size;
         }
 
         &-column {
