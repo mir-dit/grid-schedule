@@ -16,7 +16,7 @@ export interface ITableScope extends IScope {
   rolled: number[];
   unroll: (index: number) => void;
   heights: ITableHeigts | null;
-  headerLockedHeight: Number;
+  headerLockedHeight: number;
 }
 
 interface IHeaderColumn {
