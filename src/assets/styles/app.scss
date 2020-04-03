@@ -1,5 +1,5 @@
 @import '~perfect-scrollbar/src/css/main';
-@import 'colors';
+@import 'utils/colors';
 @import "utils/helpers";
 @import "utils/fonts";
 
@@ -13,4 +13,6 @@ html, body {
 @import "modules/header";
 @import "modules/main";
 @import "modules/footer";
-@import "modules/aside";
+
+// Components
+@import 'Components/aside/aside';

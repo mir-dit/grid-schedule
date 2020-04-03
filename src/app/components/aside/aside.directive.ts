@@ -1,20 +1,13 @@
-import {
-  IAugmentedJQuery,
-  IDirective,
-  IDirectiveFactory,
-  ILocationService,
-  IScope,
-  IAttributes,
-  IRootScopeService
-} from "angular";
+import {IAugmentedJQuery, IDirective, IDirectiveFactory, IScope, IAttributes} from "angular";
+import {datepickerMeta} from "App/dictionary/datepicker"
 
 export class asideDirective implements IDirective {
   restrict = 'E';
   template = require('./aside.template.html');
 
-  constructor(private $location: ILocationService, private $rootScope: IRootScopeService) {}
+  constructor() {}
 
-  link = (scope: IScope | any, element: IAugmentedJQuery, attrs: IAttributes, ctrl: any) => {
+  link = (scope: IScope | any, element: IAugmentedJQuery, attrs: IAttributes) => {
     // Property
     scope.fields = [
       { label: 'Пациент', type: 'search', key: 'patient', placeholder: 'Введите текст для поиска', value: null },
@@ -25,25 +18,17 @@ export class asideDirective implements IDirective {
       status: {
         opened: false
       },
-      format: 'dd-MM-yyyy',
-      minDate: new Date(),
-      maxDate: new Date(2025, 1, 1),
-      dateOptions: {
-        formatYear: 'yy',
-        startingDay: 1
-      },
       open: function($event) {
         scope.datepicker.status.opened = true;
-      }
+      },
+      ...datepickerMeta
     }
     // Methods
     this.init(scope);
   };
 
   static factory(): IDirectiveFactory {
-    const directive = ($location: ILocationService, $rootScope: IRootScopeService) => new asideDirective($location, $rootScope);
-    directive.$inject = ['$location', '$rootScope'];
-    return directive;
+    return () => new asideDirective();
   }
 
   init(scope) {

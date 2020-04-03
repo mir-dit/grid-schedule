@@ -7,7 +7,15 @@
         "allowJs": true,
         "lib": [ "dom", "es7" ],
         "sourceMap": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "paths": {
+            "App": ["src/app/"],
+            "Components": ["src/app/components/"],
+            "Assets": ["src/assets/"],
+            "Mocks": ["src/mocks/"],
+            "Src": ["src/"]
+        }
     },
     "include": [
         "./src/**/*"

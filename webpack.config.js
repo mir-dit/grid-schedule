@@ -68,7 +68,14 @@ const config = {
         extensions: [
             '.ts',
             '.js'
-        ]
+        ],
+        alias: {
+            App: path.resolve(__dirname, 'src/app/'),
+            Components: path.resolve(__dirname, 'src/app/components/'),
+            Assets: path.resolve(__dirname, 'src/assets/'),
+            Mocks: path.resolve(__dirname, 'src/mocks/'),
+            Src: path.resolve(__dirname, 'src/')
+        }
     },
     target: 'web',
     devtool: 'eval',
