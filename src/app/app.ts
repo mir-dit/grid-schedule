@@ -6,6 +6,7 @@ import {IController, IScope} from "angular";
 import {tableDirective} from "./components/table/tabe.directive";
 import {ScheduleCtrl} from "./pages/schedule/schedule.controller";
 import {defaultLayoutDirective} from "./layouts/default/defaultLayout.directive";
+import initPluginDirective from "./directives/initPlugin.directive";
 
 const Application = () => {
   return {
@@ -35,6 +36,7 @@ app.controller('AppCtrl', AppCtrl);
 app.controller('ScheduleCtrl', ScheduleCtrl);
 app.directive('appTable', tableDirective.factory());
 app.directive('appDefaultLayout', defaultLayoutDirective.factory());
+app.directive('initPlugin', initPluginDirective.factory());
 app.config(['$routeProvider', routes]);
 
 export default app;
