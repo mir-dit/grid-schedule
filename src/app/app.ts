@@ -7,6 +7,7 @@ import {tableDirective} from "./components/table/tabe.directive";
 import {ScheduleCtrl} from "./pages/schedule/schedule.controller";
 import {defaultLayoutDirective} from "./layouts/default/defaultLayout.directive";
 import asideDirective from "./components/aside/aside.directive";
+import initPluginDirective from "./directives/initPlugin.directive";
 
 const Application = () => {
   return {
@@ -37,6 +38,7 @@ app.controller('ScheduleCtrl', ScheduleCtrl);
 app.directive('appTable', tableDirective.factory());
 app.directive('appDefaultLayout', defaultLayoutDirective.factory());
 app.directive('appAside', asideDirective.factory());
+app.directive('initPlugin', initPluginDirective.factory());
 app.config(['$routeProvider', routes]);
 
 export default app;
