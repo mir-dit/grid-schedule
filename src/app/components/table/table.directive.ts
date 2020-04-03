@@ -9,16 +9,12 @@ export class tableDirective implements IDirective {
     columns: '=',
   };
 
-  constructor(private $location: ILocationService) {}
-
   link = ($scope: ITableScope, element: IAugmentedJQuery, attrs: IAttributes) => {
     $scope.element = element;
   }
 
   static factory(): IDirectiveFactory {
-    const directive = ($location: ILocationService) => new tableDirective($location);
-    directive.$inject = ['$location'];
-    return directive;
+    return () => new tableDirective();
   }
 }
 
