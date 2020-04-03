@@ -1,0 +1,14 @@
+.schedule {
+    &__header {
+        border-bottom: 1px solid $hr-color;
+    }
+
+    &__title {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    &__time-gap {
+        float: right;
+    }
+}
