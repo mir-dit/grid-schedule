@@ -107,11 +107,7 @@ export class TableCtrl implements IController {
   }
 
   private updateHeights = (): void => {
-    if (this.$scope.rolled.length === 0 || this.headerColumns.length !== this.$scope.rolled.length) {
-      this.$scope.heights = null;
-      return;
-    }
-    this.$scope.heights = {
+    this.$scope.heights = (this.$scope.rolled.length === 0 || this.headerColumns.length !== this.$scope.rolled.length) ? null : {
       doctor: Math.max(...this.headerColumns.map(({ doctorHeight }) => doctorHeight)),
       specialty: Math.max(...this.headerColumns.map(({ specialtyHeight }) => specialtyHeight)),
       address: Math.max(...this.headerColumns.map(({ addressHeight }) => addressHeight)),
