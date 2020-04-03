@@ -54,7 +54,9 @@ export class TableCtrl implements IController {
 
   private resetScroll(): void {
     this.$scope.offset = 0;
-    this.$scope.element[0].getElementsByClassName('table')[0].scrollTop = 0;
+    const table = this.$scope.element[0].getElementsByClassName('table')[0] as HTMLDivElement;
+    table.scrollTop = 0;
+    table.scrollLeft = 0;
   }
 
   private unroll = (index: number): void => {
