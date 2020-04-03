@@ -22,14 +22,14 @@ export class ScheduleCtrl implements IController {
   }
 
   private generateDates(from: Date): Date[] {
-    const dates = [from];
+    const dates: Date[] = [from];
     for (let i = 1; i < this.$scope.timeGap; i++)
       dates.push(addDays(from, i));
     return dates;
   }
 
   private getUserRecords(user: ISpecialist, date: Date): IRecord[] {
-    return records.filter((record) => record.userId === user.id && record.start <= date &&  date <= record.end);
+    return records.filter(({userId, start, end}) => userId === user.id && start <= date &&  date <= end);
   }
 
   private getSpecialistsForDate(date: Date): ISpecialist[] {
@@ -37,10 +37,10 @@ export class ScheduleCtrl implements IController {
   }
 
   private getUserTimes(user: ISpecialist, date: Date): Date[] {
-    const start = setTime(date, user.schedule.start);
-    const end = setTime(date, user.schedule.end);
-    const times = [start];
-    const diff = 60 / user.step;
+    const start: Date = setTime(date, user.schedule.start);
+    const end: Date = setTime(date, user.schedule.end);
+    const times: Date[] = [start];
+    const diff: number = 60 / user.step;
     do {
       times.push(addMinutes(times[times.length - 1], diff));
     }  while (times[times.length - 1] <= end);
@@ -48,26 +48,26 @@ export class ScheduleCtrl implements IController {
   }
 
   private createRows(user: ISpecialist, date: Date): Row[] {
-    const times = this.getUserTimes(user, date);
-    const affairs = times
-      .map((time) => this.getUserRecords(user, time).filter((record) => record.type !== 'danger' && record.type !== 'primary'))
+    const times: Date[] = this.getUserTimes(user, date);
+    const affairs: IRecord[] = times
+      .map((time: Date) => this.getUserRecords(user, time).filter(({type}: IRecord) => type !== 'danger' && type !== 'primary'))
       .flat()
       .filter((record, index, arr) => arr.findIndex((r: IRecord) => record.id === r.id) === index);
     return times
-      .filter((time) => !affairs.find((affair) => affair.start < time && time < affair.end))
-      .reduce((acc: Row[], time, index, arr) => {
-        const firstAffair = index === 0 && affairs.find((affair) => affair.end <= time);
+      .filter((time: Date) => !affairs.find(({start, end}: IRecord) => start < time && time < end))
+      .reduce((acc: Row[], time: Date, index: number, arr: Date[]) => {
+        const firstAffair: IRecord = index === 0 && affairs.find((affair) => affair.end <= time);
         if (firstAffair)
           return [{ reason: firstAffair.message }, { time }];
-        const nextIndex = index + 1;
-        const affair = affairs.find((affair) => time <= affair.start && (nextIndex === arr.length || affair.end <= arr[nextIndex]));
+        const nextIndex: number = index + 1;
+        const affair: IRecord = affairs.find((affair) => time <= affair.start && (nextIndex === arr.length || affair.end <= arr[nextIndex]));
         return affair ? [...acc, { time }, { reason: affair.message }] : [...acc, { time }];
       }, []);
   }
 
   private createColumns(users: ISpecialist[], date: Date): Column[] {
-    return users.map((user) => {
-      const busy = this.getUserRecords(user, date).find((record) => record.type === 'danger');
+    return users.map((user: ISpecialist) => {
+      const busy = this.getUserRecords(user, date).find(({type}: IRecord) => type === 'danger');
       return {
         date,
         doctor: user.name,
