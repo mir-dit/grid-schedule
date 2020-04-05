@@ -1,12 +1,11 @@
-import {IAugmentedJQuery, IDirective, IDirectiveFactory, IScope, IAttributes} from "angular";
 import PerfectScrollbar from 'perfect-scrollbar';
 import {IEntry} from "../models/entry.model";
 
-interface ICurrentScope extends IScope{
+interface ICurrentScope extends ng.IScope {
   params: IEntry|undefined;
 }
 
-export class initPluginDirective implements IDirective {
+export class initPluginDirective implements ng.IDirective {
   restrict = 'A';
   scope = {
     'params': '='
@@ -14,7 +13,7 @@ export class initPluginDirective implements IDirective {
 
   constructor() {}
 
-  link = (scope: ICurrentScope, element: IAugmentedJQuery, attrs: IAttributes) => {
+  link = (scope: ICurrentScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
     const pluginName: string = attrs.initPlugin;
     switch (pluginName) {
       case 'scrollbar':
@@ -25,11 +24,11 @@ export class initPluginDirective implements IDirective {
     }
   };
 
-  static factory(): IDirectiveFactory {
+  static factory() {
     return () => new initPluginDirective();
   }
 
-  static initScrollbar(elem: IAugmentedJQuery, scope: ICurrentScope): void {
+  static initScrollbar(elem: ng.IAugmentedJQuery, scope: ICurrentScope): void {
     const defaultOptions = {
       wheelSpeed: 2,
       wheelPropagation: true,

@@ -1,4 +1,3 @@
-import {IController, IScope} from 'angular';
 import {Column, Row, IRowCross, IRowAffairs} from '../../components/table/table.model';
 import {users, ISpecialist} from '../../../mocks/user';
 import {records, IRecord, IRecordType} from '../../../mocks/record';
@@ -6,13 +5,13 @@ import {addDays, setTime, addMinutes} from '../../helpers/date';
 
 const specialists = users.filter((user: ISpecialist) => user.schedule) as ISpecialist[];
 
-interface ISheldureScope extends IScope {
+interface ISheldureScope extends ng.IScope {
   timeGap: number;
   columns: Column[];
   updateColumns: () => void;
 }
 
-export class ScheduleCtrl implements IController {
+export class ScheduleCtrl {
   private title: string = 'Расписание специалистов';
 
   constructor(private $scope: ISheldureScope) {

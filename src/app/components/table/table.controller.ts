@@ -1,4 +1,3 @@
-import {IController, IScope, IAugmentedJQuery, ITimeoutService} from 'angular';
 import {Column} from './table.model';
 
 const BORDER_SIZE = 2;
@@ -9,10 +8,10 @@ interface ITableHeigts {
   address: number;
 }
 
-export interface ITableScope extends IScope {
+export interface ITableScope extends ng.IScope {
   columns: Column[];
   offset: number;
-  element: IAugmentedJQuery;
+  element: ng.IAugmentedJQuery;
   rolled: number[];
   unroll: (index: number) => void;
   unrolledIndex: number | null;
@@ -28,9 +27,9 @@ enum HeaderColumnDiv {
   interval,
 }
 
-export class TableCtrl implements IController {
+export class TableCtrl {
 
-  constructor(private $scope: ITableScope, $timeout: ITimeoutService) {
+  constructor(private $scope: ITableScope, $timeout: ng.ITimeoutService) {
     $scope.offset = 0;
     $scope.rolled = [];
     $scope.unrolledIndex = null;
