@@ -169,6 +169,10 @@ $cell-height: 30px;
         overflow: hidden;
         text-overflow: ellipsis;
         min-width: 0;
+
+        &_selectable {
+            cursor: pointer;
+        }
     }
 
     &__icon {

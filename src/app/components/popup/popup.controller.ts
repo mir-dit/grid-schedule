@@ -1,4 +1,4 @@
-export interface IPopopPosition {
+export interface IPopupPosition {
   x: number;
   y: number;
 }
@@ -6,25 +6,34 @@ export interface IPopopPosition {
 export interface IPopupScope extends ng.IScope {
   element: ng.IAugmentedJQuery;
   onClose: () => void;
-  position?: IPopopPosition;
+  position?: IPopupPosition;
 }
 
 export class PopupCtrl {
     
   constructor(private $scope: IPopupScope, private $window: ng.IWindowService) {
     $window.addEventListener('click', this.handleClick);
-    $window.addEventListener('resize', $scope.onClose);
-    $window.addEventListener('scroll', $scope.onClose);
+    $window.addEventListener('resize', this.handlePageChange);
+    $window.addEventListener('scroll', this.handlePageChange);
     $scope.$on('$destroy', () => {
       $window.removeEventListener('click', this.handleClick);
-      $window.removeEventListener('resize', $scope.onClose);
-      $window.removeEventListener('scroll', $scope.onClose);
+      $window.removeEventListener('resize', this.handlePageChange);
+      $window.removeEventListener('scroll', this.handlePageChange);
     });
   }
 
-  private handleClick = (event: MouseEvent) => {
-    if (!this.isInsidePopup(event.target as HTMLElement))
+  private handlePageChange = (event: MouseEvent) => {
+    if (this.$scope.position) {
       this.$scope.onClose();
+      this.$scope.$root.$apply();
+    }
+  }
+
+  private handleClick = (event: MouseEvent) => {
+    if (!this.isInsidePopup(event.target as HTMLElement)) {
+      this.$scope.onClose();
+      this.$scope.$root.$apply();
+    }
   }
 
   private isInsidePopup(target: HTMLElement) {

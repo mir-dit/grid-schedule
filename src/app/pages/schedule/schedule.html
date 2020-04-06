@@ -3,7 +3,7 @@
     <div class="page-header container-fluid schedule__header">
         <div class="row">
             <div class="col-xs-8">
-                <h2 class="schedule__title">{{ schedule.title }}</h2>
+                <h2 class="schedule__title">Расписание специалистов</h2>
             </div>
             <div class="col-xs-4">
                 <div class="btn-group schedule__time-gap">
@@ -22,10 +22,11 @@
     <app-popup ng-if="selected" on-close="handlePopupClose" position="selected.position">
         <div class="schedule-menu">
             <div class="schedule-menu__header">
-                <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Выбран интервал времени
+                <span ng-if="selected.time"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Выбран интервал времени</span>
+                <span ng-if="selected.patient"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ selected.patient }}</span>
             </div>
             <div class="schedule-menu__time">
-                09:00 - 09:15
+                <span ng-if="selected.time">{{ selected.time.start | date: 'HH:mm' }} - {{ selected.time.end | date: 'HH:mm' }}</span>
             </div>
             <div>
                 <div class="schedule-menu__item">

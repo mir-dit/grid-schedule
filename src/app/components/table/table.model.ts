@@ -19,6 +19,7 @@ export interface IRowCross {
 }
 
 export interface IColumn {
+  userId: number;
   date: Date;
   doctor: string;
   specialty: string;

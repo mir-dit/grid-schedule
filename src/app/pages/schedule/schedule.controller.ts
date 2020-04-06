@@ -2,44 +2,61 @@ import {Column, Row, IRowCross, IRowAffairs, IRowUsed, IRowFree} from '../../com
 import {users, ISpecialist} from '../../../mocks/user';
 import {records, IRecord, IRecordType} from '../../../mocks/record';
 import {addDays, setTime, addMinutes} from '../../helpers/date';
-import {IPopopPosition} from '../../components/popup/popup.controller';
+import {IPopupPosition} from '../../components/popup/popup.controller';
 
 const specialists = users.filter((user: ISpecialist) => user.schedule) as ISpecialist[];
 
+interface ISheldureSelectedTime {
+  start: Date;
+  end: Date;
+}
+
 interface ISheldureSelected {
-  position: IPopopPosition,
+  position: IPopupPosition;
+  time?: ISheldureSelectedTime;
+  patient?: string;
 }
 
 interface ISheldureScope extends ng.IScope {
   timeGap: number;
   columns: Column[];
   updateColumns: () => void;
-  handleTableSelect: (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross) => void;
+  handleTableSelect: (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross, column: Column, patientIndex?: number) => void;
   selected: ISheldureSelected | null,
   handlePopupClose: () => void;
 }
 
 export class ScheduleCtrl {
-  private title: string = 'Расписание специалистов';
 
   constructor(private $scope: ISheldureScope) {
     $scope.timeGap = 1;
     $scope.selected = null;
+
     $scope.updateColumns = this.updateColumns;
+    $scope.handleTableSelect = this.handleTableSelect;
+    $scope.handlePopupClose = this.handlePopupClose;
     this.updateColumns();
-    $scope.handleTableSelect = (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross): void => {
-      $scope.selected = {
-        position: {
-          x: event.clientX,
-          y: event.clientY,
-        },
-      };
-    }
-    $scope.handlePopupClose = (): void => {
-      $scope.$apply(() => {
-        $scope.selected = null;
-      });
-    }
+  }
+
+  private handleTableSelect = (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross, column: Column, patientIndex?: number): void => {
+    this.$scope.selected = {
+      position: {
+        x: event.clientX,
+        y: event.clientY,
+      },
+      ...(patientIndex ? {
+        patient: patientIndex === 1 ? (row as IRowUsed).patient : (row as IRowUsed).patient2,
+      } : {
+        time: {
+          start: row.time,
+          end: addMinutes(row.time, 60 / specialists.find(({id}: ISpecialist) => id === column.userId).step),
+        }
+      }),
+    };
+  }
+
+  private handlePopupClose = (): void => {
+    this.$scope.selected = null;
   }
 
   private generateDates(from: Date): Date[] {
@@ -105,6 +122,7 @@ export class ScheduleCtrl {
     return users.map((user: ISpecialist) => {
       const busy = this.getUserRecords(user, date, 'danger');
       return {
+        userId: user.id,
         date,
         doctor: user.name,
         specialty: user.specialty,

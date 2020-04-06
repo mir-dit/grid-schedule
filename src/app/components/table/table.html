@@ -33,17 +33,17 @@
             <div
                 ng-repeat="cell in column.rows"
                 class="table__cell"
-                ng-click="cell.time && handleCellClick($event, cell)"
+                ng-click="cell.time && !cell.patient && handleCellClick($event, cell, column)"
                 ng-class="{
                     'table__cell-affairs': cell.reason,
                     'table__cell-free': cell.time && !cell.patient,
                     'table__cell-used': cell.patient,
                     'table__cell-cross': cell.cross,
-                    'table__cell_selectable': cell.time,
+                    'table__cell_selectable': cell.time && !cell.patient,
                 }">
                     <span class="table__text">{{ cell.reason || (cell.time | date: 'HH:mm') }}</span>
-                    <span class="table__patient" ng-if="cell.patient" tooltip="{{ cell.patient }}">{{ cell.patient }}</span>
-                    <span class="table__patient" ng-if="cell.patient2" tooltip="{{ cell.patient2 }}">{{ cell.patient2 }}</span>
+                    <span class="table__patient table__patient_selectable" ng-if="cell.patient" ng-click="handleCellClick($event, cell, column, 1)" tooltip="{{ cell.patient }}">{{ cell.patient }}</span>
+                    <span class="table__patient table__patient_selectable" ng-if="cell.patient2" ng-click="handleCellClick($event, cell, column, 2)" tooltip="{{ cell.patient2 }}">{{ cell.patient2 }}</span>
             </div>
         </div>
     </div>

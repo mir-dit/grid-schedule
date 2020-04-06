@@ -18,8 +18,8 @@ export interface ITableScope extends ng.IScope {
   heights: ITableHeigts | null;
   headerLockedHeight: number;
   maxRolledHeight: number;
-  onSelect: (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross) => void;
-  handleCellClick: (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross) => void;
+  onSelect: (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross, column: Column, patientIndex?: number) => void;
+  handleCellClick: (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross, column: Column, patientIndex?: number) => void;
 }
 
 enum HeaderColumnDiv {
@@ -43,12 +43,13 @@ export class TableCtrl {
     });
     $scope.$watch('offset', this.resetUnrolled);
     $scope.unroll = this.unroll;
+
     $scope.handleCellClick = this.handleCellClick;
   }
 
-  private handleCellClick = (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross): void => {
+  private handleCellClick = (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross, column: Column, patientIndex?: number): void => {
     event.stopPropagation();
-    this.$scope.onSelect(event, row);
+    this.$scope.onSelect(event, row, column, patientIndex);
   }
 
   private resetScroll(): void {

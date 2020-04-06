@@ -13,8 +13,10 @@
     }
 
     &-menu {
+        border: 2px solid map-get($schedule-popup-colors, 'border');
         background-color: $white;
         padding: 15px 26px;
+        width: 256px;
 
         &__time {
             text-align: center;
@@ -26,7 +28,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 2px 13px;
-            border-bottom: 2px solid $dark-gray;
+            border-bottom: 2px solid map-get($schedule-popup-colors, 'border');
         }
 
         &__item:last-child {
