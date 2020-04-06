@@ -8,6 +8,7 @@ import {tableDateFilter} from './filters/tableDate.filter';
 import {defaultLayoutDirective} from "./layouts/default/defaultLayout.directive";
 import initPluginDirective from "./directives/initPlugin.directive";
 import {tableOrderColumnFilter} from './filters/tableOrderColumn.filter';
+import {popupDirective} from './components/popup/popup.direcive';
 
 const Application = () => {
   return {
@@ -40,6 +41,7 @@ app.filter('tableDate', tableDateFilter);
 app.filter('tableOrderColumn', tableOrderColumnFilter);
 app.directive('appDefaultLayout', defaultLayoutDirective.factory());
 app.directive('initPlugin', initPluginDirective.factory());
+app.directive('appPopup', popupDirective.factory());
 app.config(['$routeProvider', routes]);
 
 export default app;
