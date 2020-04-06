@@ -6,7 +6,8 @@ export class popupDirective implements ng.IDirective {
   public transclude = true;
   public controller = PopupCtrl;
   public scope = {
-    'onClose': '=',
+    onClose: '=',
+    position: '=',
   };
 
   link = ($scope: IPopupScope, element: ng.IAugmentedJQuery) => {
