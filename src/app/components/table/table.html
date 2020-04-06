@@ -33,11 +33,13 @@
             <div
                 ng-repeat="cell in column.rows"
                 class="table__cell"
+                ng-click="cell.time && handleCellClick($event, cell)"
                 ng-class="{
                     'table__cell-affairs': cell.reason,
                     'table__cell-free': cell.time && !cell.patient,
                     'table__cell-used': cell.patient,
                     'table__cell-cross': cell.cross,
+                    'table__cell_selectable': cell.time,
                 }">
                     <span class="table__text">{{ cell.reason || (cell.time | date: 'HH:mm') }}</span>
                     <span class="table__patient" ng-if="cell.patient" tooltip="{{ cell.patient }}">{{ cell.patient }}</span>

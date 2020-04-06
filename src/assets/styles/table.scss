@@ -152,6 +152,10 @@ $cell-height: 30px;
             align-items: center;
             border: solid 1px map_get($table-colors, "cross-border");
         }
+
+        &_selectable {
+            cursor: pointer;
+        }
     }
 
     &__text {

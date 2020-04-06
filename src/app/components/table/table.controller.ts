@@ -1,4 +1,4 @@
-import {Column} from './table.model';
+import {Column, IRowFree, IRowUsed, IRowCross} from './table.model';
 
 const BORDER_SIZE = 2;
 
@@ -18,6 +18,8 @@ export interface ITableScope extends ng.IScope {
   heights: ITableHeigts | null;
   headerLockedHeight: number;
   maxRolledHeight: number;
+  onSelect: (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross) => void;
+  handleCellClick: (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross) => void;
 }
 
 enum HeaderColumnDiv {
@@ -41,6 +43,12 @@ export class TableCtrl {
     });
     $scope.$watch('offset', this.resetUnrolled);
     $scope.unroll = this.unroll;
+    $scope.handleCellClick = this.handleCellClick;
+  }
+
+  private handleCellClick = (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross): void => {
+    event.stopPropagation();
+    this.$scope.onSelect(event, row);
   }
 
   private resetScroll(): void {
