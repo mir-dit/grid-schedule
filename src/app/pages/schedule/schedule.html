@@ -16,6 +16,34 @@
     </div>
 
     <div class="container-fluid">
-        <app-table columns="columns"></app-table>
+        <app-table columns="columns" on-select="handleTableSelect"></app-table>
     </div>
+
+    <app-popup ng-if="selected" on-close="handlePopupClose" position="selected.position">
+        <div class="schedule-menu">
+            <div class="schedule-menu__header">
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Выбран интервал времени
+            </div>
+            <div class="schedule-menu__time">
+                09:00 - 09:15
+            </div>
+            <div>
+                <div class="schedule-menu__item">
+                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                    <span>Просмотреть запись</span>
+                    <span></span>
+                </div>
+                <div class="schedule-menu__item">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    <span>Создать запись</span>
+                    <span></span>
+                </div>
+                <div class="schedule-menu__item">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    <span>Отменить запись</span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </app-popup>
 </div>

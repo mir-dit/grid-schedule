@@ -11,4 +11,26 @@
     &__time-gap {
         float: right;
     }
+
+    &-menu {
+        background-color: $white;
+        padding: 15px 26px;
+
+        &__time {
+            text-align: center;
+            height: 60px;
+        }
+
+        &__item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px 13px;
+            border-bottom: 2px solid $dark-gray;
+        }
+
+        &__item:last-child {
+            border-bottom: unset;
+        }
+    }
 }

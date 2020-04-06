@@ -1,14 +1,22 @@
-import {Column, Row, IRowCross, IRowAffairs} from '../../components/table/table.model';
+import {Column, Row, IRowCross, IRowAffairs, IRowUsed, IRowFree} from '../../components/table/table.model';
 import {users, ISpecialist} from '../../../mocks/user';
 import {records, IRecord, IRecordType} from '../../../mocks/record';
 import {addDays, setTime, addMinutes} from '../../helpers/date';
+import {IPopopPosition} from '../../components/popup/popup.controller';
 
 const specialists = users.filter((user: ISpecialist) => user.schedule) as ISpecialist[];
+
+interface ISheldureSelected {
+  position: IPopopPosition,
+}
 
 interface ISheldureScope extends ng.IScope {
   timeGap: number;
   columns: Column[];
   updateColumns: () => void;
+  handleTableSelect: (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross) => void;
+  selected: ISheldureSelected | null,
+  handlePopupClose: () => void;
 }
 
 export class ScheduleCtrl {
@@ -16,8 +24,22 @@ export class ScheduleCtrl {
 
   constructor(private $scope: ISheldureScope) {
     $scope.timeGap = 1;
+    $scope.selected = null;
     $scope.updateColumns = this.updateColumns;
     this.updateColumns();
+    $scope.handleTableSelect = (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross): void => {
+      $scope.selected = {
+        position: {
+          x: event.clientX,
+          y: event.clientY,
+        },
+      };
+    }
+    $scope.handlePopupClose = (): void => {
+      $scope.$apply(() => {
+        $scope.selected = null;
+      });
+    }
   }
 
   private generateDates(from: Date): Date[] {
