@@ -7,9 +7,10 @@
         "allowJs": true,
         "lib": [ "dom", "es2019" ],
         "sourceMap": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
     },
     "include": [
-        "./src/**/*"
+        "./src/**/*",
+        "./typings/**/*"
     ]
 }

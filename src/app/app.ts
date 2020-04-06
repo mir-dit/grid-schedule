@@ -2,7 +2,6 @@ import * as angular from 'angular';
 import * as router from 'angular-route';
 import bootstrap from 'angular-ui-bootstrap';
 import {routes} from './app.routes';
-import {IController, IScope} from "angular";
 import {tableDirective} from "./components/table/table.directive";
 import {ScheduleCtrl} from "./pages/schedule/schedule.controller";
 import {tableDateFilter} from './filters/tableDate.filter';
@@ -18,9 +17,9 @@ const Application = () => {
   }
 };
 
-class AppCtrl implements IController {
+class AppCtrl {
   static $inject = ['$scope'];
-  constructor($scope: IScope) {}
+  constructor($scope: ng.IScope) {}
 
   $onInit(): void {
     console.log('test');

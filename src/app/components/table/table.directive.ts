@@ -1,7 +1,6 @@
-import {IAugmentedJQuery, IDirective, IDirectiveFactory, ILocationService, IAttributes} from 'angular';
 import {TableCtrl, ITableScope} from './table.controller';
 
-export class tableDirective implements IDirective {
+export class tableDirective implements ng.IDirective {
   public restrict = 'E';
   public template = require('./table.html');
   public controller = TableCtrl;
@@ -9,11 +8,11 @@ export class tableDirective implements IDirective {
     columns: '=',
   };
 
-  link = ($scope: ITableScope, element: IAugmentedJQuery, attrs: IAttributes) => {
+  link = ($scope: ITableScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
     $scope.element = element;
   }
 
-  static factory(): IDirectiveFactory {
+  static factory() {
     return () => new tableDirective();
   }
 }
