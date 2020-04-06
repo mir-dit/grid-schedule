@@ -1,9 +1,8 @@
 import {Column, Row, IRowCross, IRowAffairs} from '../../components/table/table.model';
-import {users, ISpecialist} from '../../../mocks/user';
-import {records, IRecord, IRecordType} from '../../../mocks/record';
+import {ISpecialist} from '../../../mocks/user';
+import {IRecord} from '../../../mocks/record';
 import {addDays, setTime, addMinutes} from '../../helpers/date';
-
-const specialists = users.filter((user: ISpecialist) => user.schedule) as ISpecialist[];
+import {IScheduleService} from './schedule.service';
 
 interface ISheldureScope extends ng.IScope {
   timeGap: number;
@@ -14,7 +13,9 @@ interface ISheldureScope extends ng.IScope {
 export class ScheduleCtrl {
   private title: string = 'Расписание специалистов';
 
-  constructor(private $scope: ISheldureScope) {
+  static $inject = ['$scope', 'ScheduleService'];
+
+  constructor(private $scope: ISheldureScope, private scheduleService: IScheduleService) {
     $scope.timeGap = 1;
     $scope.updateColumns = this.updateColumns;
     this.updateColumns();
@@ -25,14 +26,6 @@ export class ScheduleCtrl {
     for (let i = 1; i < this.$scope.timeGap; i++)
       dates.push(addDays(from, i));
     return dates;
-  }
-
-  private getUserRecords(user: ISpecialist, date: Date, filter: IRecordType) {
-    return records.filter(({userId, start, end, type}: IRecord) => type === filter && userId === user.id && start <= date && date <= end);
-  }
-
-  private getSpecialistsForDate(date: Date): ISpecialist[] {
-    return specialists.filter(user => user.schedule.days.includes(date.getDay()));
   }
 
   private getUserTimes(user: ISpecialist, date: Date): Date[] {
@@ -50,10 +43,10 @@ export class ScheduleCtrl {
     const nextDate: Date = addDays(date, 1);
     const times: Date[] = this.getUserTimes(user, date);
     const rows: Row[] = [];
-    const addedAffairs: IRecord[] = []; 
-    const affairs: IRecord[] = records.filter(({type, userId, start, end}: IRecord) => userId === user.id && type !== 'danger' && type !== 'primary' && date < start && end < nextDate);
+    const addedAffairs: IRecord[] = [];
+    const affairs: IRecord[] = this.scheduleService.getUserRecordsBetweenDates(user, date, nextDate).filter(({type}: IRecord) => type !== 'danger' && type !== 'primary');
     for (const time of times) {
-      const used: IRecord[] = this.getUserRecords(user, time, 'primary');
+      const used: IRecord[] = this.scheduleService.getUserRecordsIncludesDate(user, time).filter(({ type }: IRecord) => type === 'primary');
       const affair = affairs.find(({start, end}: IRecord) => start <= time && time <= end);
       if (affair) {
         if (!addedAffairs.includes(affair)) {
@@ -81,13 +74,13 @@ export class ScheduleCtrl {
 
   private createColumns(users: ISpecialist[], date: Date): Column[] {
     return users.map((user: ISpecialist) => {
-      const busy = this.getUserRecords(user, date, 'danger');
+      const busy = this.scheduleService.getUserRecordsIncludesDate(user, date).find(({ type }: IRecord) => type === 'danger');
       return {
         date,
         doctor: user.name,
         specialty: user.specialty,
         address: user.hospital,
-        ...(busy.length ? {busy: busy[0].message} : {
+        ...(busy ? {busy: busy.message} : {
           interval:  user.schedule.title,
           rows: this.createRows(user, date),
         }),
@@ -96,7 +89,7 @@ export class ScheduleCtrl {
   }
 
   private updateColumns = (): void => {
-    this.$scope.columns = this.generateDates(new Date(2019, 4, 1)).map(date => this.createColumns(this.getSpecialistsForDate(date), date)).flat();
+    this.$scope.columns = this.generateDates(new Date(2019, 4, 1)).map(date => this.createColumns(this.scheduleService.getSpecialists(date), date)).flat();
   }
 
 }
