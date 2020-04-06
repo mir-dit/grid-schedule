@@ -15,16 +15,10 @@ export interface ITableScope extends IScope {
   element: IAugmentedJQuery;
   rolled: number[];
   unroll: (index: number) => void;
+  unrolledIndex: number | null;
   heights: ITableHeigts | null;
   headerLockedHeight: number;
-}
-
-interface IHeaderColumn {
-  doctorHeight: number;
-  specialtyHeight: number;
-  addressHeight: number;
-  intervalHalfOffset: number;
-  isMax: boolean;
+  maxRolledHeight: number;
 }
 
 enum HeaderColumnDiv {
@@ -36,19 +30,17 @@ enum HeaderColumnDiv {
 
 export class TableCtrl implements IController {
 
-  headerColumns: IHeaderColumn[] = [];
-
   constructor(private $scope: ITableScope, $timeout: ITimeoutService) {
     $scope.offset = 0;
     $scope.rolled = [];
-    this.$scope.heights = null;
+    $scope.unrolledIndex = null;
+    $scope.heights = null;
     $scope.$on('ps-scroll-y', this.scroll);
     $scope.$watch('columns', () => {
       this.resetScroll();
-      $timeout(this.updateIntervals, 0);
+      $timeout(this.updateRolled, 0);
     });
-    $scope.$watch('offset', this.updateRolled);
-    $scope.$watch('rolled', this.updateHeights);
+    $scope.$watch('offset', this.resetUnrolled);
     $scope.unroll = this.unroll;
   }
 
@@ -60,8 +52,12 @@ export class TableCtrl implements IController {
   }
 
   private unroll = (index: number): void => {
-    if (this.$scope.rolled.includes(index))
-      this.$scope.rolled.splice(this.$scope.rolled.indexOf(index), 1);
+    this.$scope.unrolledIndex = index;
+  }
+
+  private resetUnrolled = (): void => {
+    if (this.$scope.unrolledIndex !== null)
+      this.$scope.unrolledIndex = null;
   }
   
   private scroll = (event: any, target: any): void => {
@@ -70,49 +66,25 @@ export class TableCtrl implements IController {
     });
   }
 
-  private updateIntervals = (): void => {
-    const columns = Array.from(this.$scope.element[0].getElementsByClassName('table__header-column')) as HTMLDivElement[];
-    this.$scope.headerLockedHeight = columns[0].offsetHeight;
-    this.headerColumns = columns.map((columnDiv: HTMLDivElement) => {
-      const intervalDiv = columnDiv.children[HeaderColumnDiv.interval] as HTMLDivElement;
-      return {
-        doctorHeight: (columnDiv.children[HeaderColumnDiv.doctor] as HTMLDivElement).offsetHeight,
-        specialtyHeight: (columnDiv.children[HeaderColumnDiv.specialty] as HTMLDivElement).offsetHeight,
-        addressHeight: (columnDiv.children[HeaderColumnDiv.address] as HTMLDivElement).offsetHeight,
-        intervalHalfOffset: columnDiv.offsetHeight - intervalDiv.offsetTop - intervalDiv.offsetHeight / 2,
-        isMax: columnDiv.offsetHeight === intervalDiv.offsetTop + intervalDiv.offsetHeight - BORDER_SIZE,
-      };
-    });
-  }
-
-  private isHeaderColumnRolled = (headerColumn: IHeaderColumn): Boolean => {
-    return headerColumn.intervalHalfOffset < this.$scope.offset;
+  private getMaxHeight(columns: HTMLDivElement[], div: HeaderColumnDiv) {
+    return Math.max(...columns.map((columnDiv: HTMLDivElement) => (columnDiv.children[div] as HTMLDivElement).offsetHeight));
   }
 
   private updateRolled = (): void => {
-    if (this.headerColumns.length === 0) {
-      this.$scope.rolled = [];
-      return;
-    }
-    if (this.headerColumns.every(this.isHeaderColumnRolled)) {
-      this.$scope.rolled = this.headerColumns.map((headerColumn) => this.headerColumns.indexOf(headerColumn));
-      return;
-    }
-    const maxHeaderColumns = this.headerColumns.filter(({isMax}) => isMax);
-    if (maxHeaderColumns.length === 0)
-      throw new Error('isMax determenition logic is broken');
-    if (!this.isHeaderColumnRolled(maxHeaderColumns[0])) {
-      this.$scope.rolled = [];
-      return;
-    }
-    this.$scope.rolled = maxHeaderColumns.map((headerColumn) => this.headerColumns.indexOf(headerColumn));
-  }
-
-  private updateHeights = (): void => {
-    this.$scope.heights = (this.$scope.rolled.length === 0 || this.headerColumns.length !== this.$scope.rolled.length) ? null : {
-      doctor: Math.max(...this.headerColumns.map(({ doctorHeight }) => doctorHeight)),
-      specialty: Math.max(...this.headerColumns.map(({ specialtyHeight }) => specialtyHeight)),
-      address: Math.max(...this.headerColumns.map(({ addressHeight }) => addressHeight)),
+    const columns = Array.from(this.$scope.element[0].getElementsByClassName('table__header-column')) as HTMLDivElement[]; 
+    this.$scope.headerLockedHeight = columns[0].offsetHeight;
+    const halfOffsets: number[] = columns.map((columnDiv: HTMLDivElement) => {
+      const intervlalDiv = columnDiv.children[HeaderColumnDiv.interval] as HTMLDivElement;
+      return columnDiv.offsetHeight - intervlalDiv.offsetTop - intervlalDiv.offsetHeight / 2 + BORDER_SIZE;
+    });
+    const minHalfOffset = Math.min(...halfOffsets);
+    const maxHalfOffset = Math.max(...halfOffsets);
+    this.$scope.maxRolledHeight = maxHalfOffset;
+    this.$scope.rolled = halfOffsets.map((halfOffset: number) => halfOffset === minHalfOffset ? minHalfOffset : maxHalfOffset);
+    this.$scope.heights = {
+      doctor: this.getMaxHeight(columns, HeaderColumnDiv.doctor),
+      specialty: this.getMaxHeight(columns, HeaderColumnDiv.specialty),
+      address: this.getMaxHeight(columns, HeaderColumnDiv.address),
     };
   }
 
