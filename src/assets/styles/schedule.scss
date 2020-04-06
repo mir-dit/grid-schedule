@@ -13,12 +13,26 @@
     }
 
     &-menu {
-        border: 2px solid map-get($schedule-popup-colors, 'border');
+        border: 2px solid map-get($schedule-popup-colors, 'primary');
         background-color: $white;
         padding: 15px 26px;
         width: 256px;
 
+        &__header {
+            display: flex;
+            align-items: center;
+
+            &-text {
+                margin-left: 10px;
+            }
+
+            &-time {
+                color: map-get($schedule-popup-colors, 'time');
+            }
+        }
+        
         &__time {
+            color: map-get($schedule-popup-colors, 'time');
             text-align: center;
             height: 60px;
         }
@@ -29,6 +43,24 @@
             align-items: center;
             padding: 2px 13px;
             border-bottom: 2px solid map-get($schedule-popup-colors, 'border');
+            cursor: pointer;
+            color: map-get($schedule-popup-colors, 'primary');
+
+            &-icon {
+                color: map-get($schedule-popup-colors, 'icon');
+            }
+
+            &-watch {
+                color: map-get($schedule-popup-colors, 'watch');
+            }
+
+            &-create {
+                color: map-get($schedule-popup-colors, 'create');
+            }
+
+            &-cancel {
+                color: map-get($schedule-popup-colors, 'cancel');
+            }
         }
 
         &__item:last-child {
