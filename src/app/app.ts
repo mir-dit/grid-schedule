@@ -8,6 +8,7 @@ import {tableDateFilter} from './filters/tableDate.filter';
 import {defaultLayoutDirective} from "./layouts/default/defaultLayout.directive";
 import initPluginDirective from "./directives/initPlugin.directive";
 import {tableOrderColumnFilter} from './filters/tableOrderColumn.filter';
+import {ScheduleService} from './pages/schedule/schedule.service';
 
 const Application = () => {
   return {
@@ -28,7 +29,7 @@ class AppCtrl {
 
 const moduleName = 'appSchedule';
 
-const app = angular.module(moduleName, [
+const app: ng.IModule = angular.module(moduleName, [
   router,
   bootstrap,
 ]);
@@ -40,6 +41,7 @@ app.filter('tableDate', tableDateFilter);
 app.filter('tableOrderColumn', tableOrderColumnFilter);
 app.directive('appDefaultLayout', defaultLayoutDirective.factory());
 app.directive('initPlugin', initPluginDirective.factory());
+app.service('ScheduleService', ScheduleService);
 app.config(['$routeProvider', routes]);
 
 export default app;
