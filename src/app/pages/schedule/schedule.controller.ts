@@ -1,5 +1,5 @@
 import {Column, Cell, ICellTime, ICellAffairs, ICellPatient} from '../../components/table/table.model';
-import {ISpecialist, IUser} from '../../../mocks/user';
+import {ISpecialist, IPatient} from '../../../mocks/user';
 import {IRecord} from '../../../mocks/record';
 import {addDays, setTime, addMinutes} from '../../helpers/date';
 import {IScheduleService} from './schedule.service';
@@ -7,7 +7,7 @@ import {ISheldureMenuSelected, ISheldureMenuSelectedPatient} from '../../compone
 
 interface ISheldureScope extends ng.IScope {
   selectedDate?: Date;
-  selectedPatient?: IUser;
+  selectedPatient?: IPatient;
   timeGap: number;
   columns: Column[];
   updateColumns: () => void;
@@ -22,7 +22,7 @@ export class ScheduleCtrl {
 
   constructor(private $scope: ISheldureScope, private scheduleService: IScheduleService) {
     $scope.selectedDate = new Date(2019, 4, 1); // TODO
-    $scope.selectedPatient = scheduleService.paitents[0]; // TODO
+    $scope.selectedPatient = scheduleService.getPatientById(6); // TODO
     $scope.timeGap = 1;
     $scope.scheduleMenu = null;
     $scope.$watch('selectedDate', this.updateColumns);
@@ -49,6 +49,7 @@ export class ScheduleCtrl {
         canAdd: !Boolean(cell.patient2),
         patient: patient.name,
         recordId: patient.recordId,
+        patientId: patient.id,
       };
       this.$scope.scheduleMenu = scheduleMenuPatient;
     } else {
@@ -93,7 +94,12 @@ export class ScheduleCtrl {
           cells.push({reason: affair.message});
         }
         if (used.length) {
-          cells.push({time, patient: {name: used[0].message, recordId: used[0].id}, cross: true});
+          cells.push({
+            time,
+            patient: {name: used[0].message, recordId: used[0].id, id: used[0].patientId},
+            patient2: used[1] ? {name: used[1].message, recordId: used[1].id, id: used[1].patientId} : undefined,
+            cross: true,
+          });
         }
       } else {
         if (cells.length && (cells[cells.length - 1] as ICellTime).cross) {
@@ -102,7 +108,11 @@ export class ScheduleCtrl {
           cells.push({ reason: (cells[i] as ICellAffairs).reason });
         }
         if (used.length) {
-          cells.push({time, patient: {name: used[0].message, recordId: used[0].id}, patient2: used[1] ? {name: used[1].message, recordId: used[1].id} : undefined});
+          cells.push({
+            time,
+            patient: {name: used[0].message, recordId: used[0].id, id: used[0].patientId},
+            patient2: used[1] ? {name: used[1].message, recordId: used[1].id, id: used[1].patientId} : undefined,
+          });
         } else {
           cells.push({time});
         }

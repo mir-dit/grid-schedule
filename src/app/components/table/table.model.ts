@@ -3,6 +3,7 @@ export interface ICellAffairs {
 }
 
 export interface ICellPatient {
+  id: number;
   recordId: number;
   name: string;
 }

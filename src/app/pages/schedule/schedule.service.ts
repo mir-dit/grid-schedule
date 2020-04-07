@@ -1,14 +1,14 @@
-import {users, ISpecialist, IUser} from '../../../mocks/user';
+import {users, ISpecialist, IPatient, IUser} from '../../../mocks/user';
 import {records, IRecord} from '../../../mocks/record';
 
 export interface IScheduleService {
-  paitents: IUser[]; // FIXME
   getSpecialists(date: Date): ISpecialist[];
   getSpecialistById(id: number): ISpecialist | undefined;
   getUserRecordsIncludesDate(user: ISpecialist, date: Date): IRecord[];
   getUserRecordsBetweenDates(user: ISpecialist, date: Date, nextDate: Date): IRecord[];
-  addPrimaryRecord(name: string, specialistId: number, start: Date, end: Date): void;
+  addPrimaryRecord(patient: IPatient, specialistId: number, start: Date, end: Date): void;
   removeRecord(id: number): void;
+  getPatientById(id: number): IPatient | undefined;
 }
 
 function loadRecords(): IRecord[] {
@@ -23,12 +23,12 @@ function loadRecords(): IRecord[] {
 export class ScheduleService implements IScheduleService {
 
   private specialists: ISpecialist[];
-  public paitents: IUser[]; // FIXME private
+  private paitents: IPatient[];
   private records: IRecord[];
 
   constructor(private $rootScope: ng.IRootScopeService) {
     this.specialists = users.filter((user: ISpecialist) => user.schedule) as ISpecialist[];
-    this.paitents = users.filter((user: ISpecialist) => !user.schedule);
+    this.paitents = users.filter((user: ISpecialist) => !user.schedule) as IPatient[];
     this.records = loadRecords();
   }
 
@@ -53,15 +53,16 @@ export class ScheduleService implements IScheduleService {
     return this.records.filter(({userId, start, end}: IRecord) => userId === user.id && date < start && end < nextDate);
   }
 
-  addPrimaryRecord(name: string, specialistId: number, start: Date, end: Date): void {
+  addPrimaryRecord(patient: IPatient, specialistId: number, start: Date, end: Date): void {
     const nextId = Math.max(...this.records.map(({ id }) => id)) + 1;
     this.records.push({
       type: 'primary',
       id: nextId,
-      message: name,
+      message: patient.name,
       userId: specialistId,
       start,
       end,
+      patientId: patient.id,
     });
     this.recordsUpdated();
   }
@@ -72,6 +73,10 @@ export class ScheduleService implements IScheduleService {
       throw new Error('Record not found');
     this.records.splice(index, 1);
     this.recordsUpdated();
+  }
+
+  getPatientById(id: number): IPatient | undefined {
+    return this.paitents.find((user: IPatient) => id === user.id);
   }
 
 }

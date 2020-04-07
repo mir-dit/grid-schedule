@@ -1,6 +1,6 @@
 import {IPopupPosition} from '../popup/popup.controller';
 import {IScheduleService} from '../../pages/schedule/schedule.service';
-import {IUser} from '../../../mocks/user';
+import {IUser, IPatient} from '../../../mocks/user';
 
 export interface ISheldureMenuSelectedTime {
   start: Date;
@@ -14,6 +14,7 @@ export interface ISheldureMenuSelected {
 }
 
 export interface ISheldureMenuSelectedPatient extends ISheldureMenuSelected {
+  patientId: number;
   recordId: number;
   patient: string;
   canAdd: boolean;
@@ -26,7 +27,7 @@ interface ISheldureMenuInfo {
 }
 
 export interface IScheduleMenuScope extends ng.IScope {
-  selectedPatient: IUser;
+  selectedPatient: IPatient;
   selected: ISheldureMenuSelected | ISheldureMenuSelectedPatient;
   onClose: () => void;
   created: boolean;
@@ -80,7 +81,7 @@ export class ScheduleMenuCtrl {
       this.createdTimeout = null;
       this.$scope.onClose();
     }, 3000);
-    this.scheduleService.addPrimaryRecord(this.$scope.selectedPatient.name, this.$scope.selected.specialistId, this.$scope.selected.time.start, this.$scope.selected.time.end);
+    this.scheduleService.addPrimaryRecord(this.$scope.selectedPatient, this.$scope.selected.specialistId, this.$scope.selected.time.start, this.$scope.selected.time.end);
   }
 
   private handleCancel = (): void => {
@@ -99,10 +100,11 @@ export class ScheduleMenuCtrl {
 
   private handleInfo = (): void => {
     const specialist = this.scheduleService.getSpecialistById(this.$scope.selected.specialistId);
+    const user = this.scheduleService.getPatientById((this.$scope.selected as ISheldureMenuSelectedPatient).patientId);
     this.$scope.info = {
       doctor: specialist.name,
       address: specialist.hospital,
-      oms: '', // TODO
+      oms: user.oms,
     };
   }
 
