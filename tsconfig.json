@@ -8,17 +8,14 @@
         "lib": [ "dom", "es7" ],
         "sourceMap": true,
         "moduleResolution": "node",
-        "baseUrl": ".",
+        "baseUrl": "./",
         "paths": {
-            "App": ["src/app/"],
-            "Components": ["src/app/components/"],
-            "Assets": ["src/assets/"],
-            "Mocks": ["src/mocks/"],
-            "Src": ["src/"]
-        },
-        "types": [
-            "node"
-        ]
+            "@app/*": ["./src/app/*"],
+            "@components/*": ["./src/app/components/*"],
+            "@assets/*": ["./src/assets/*"],
+            "@mocks/*": ["./src/mocks/*"],
+            "@src/*": ["./src/*"]
+        }
     },
     "include": [
         "./src/**/*"

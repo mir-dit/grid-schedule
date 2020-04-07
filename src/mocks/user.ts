@@ -16,7 +16,9 @@ export interface ISchedule {
     end: Date // ~
 }
 
-export const users: Array<IUser | ISpecialist> = [
+export type Users = Array<IUser | ISpecialist>
+
+export const users: Users = [
     {
         id: 1,
         name: 'Елисеева Е.Е.',
