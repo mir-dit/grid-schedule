@@ -15,6 +15,7 @@ export  interface IField {
     key: string,
     placeholder: string,
     value: any,
+    callback?: (scope: IAsideScope, value) => void
     actions?: IActionItem[]
 }
 
@@ -39,6 +40,9 @@ export const asideFields: Fields = [
         key: 'patient',
         placeholder: 'Введите текст для поиска',
         value: null,
+        callback: (scope, value) => {
+            scope.$emit('patientSearch', value);
+        },
         actions: [
             {
                 icon: 'glyphicon glyphicon-user',
@@ -64,6 +68,9 @@ export const asideFields: Fields = [
         key: 'specialist',
         placeholder: 'Введите текст для поиска',
         value: null,
+        callback: (scope, value) => {
+            scope.$emit('searchSearch', value);
+        },
         actions: [
             {
                 icon: 'glyphicon glyphicon-glass',

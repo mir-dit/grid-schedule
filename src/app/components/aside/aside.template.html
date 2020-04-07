@@ -30,7 +30,7 @@
                         placeholder="{{field.placeholder}}"
                         ng-model="field.value"
                 >
-                <button type="button" class="btn input-group-addon aside__field-btn">
+                <button type="button" class="btn input-group-addon aside__field-btn" ng-click="field.callback(scope, field.value)">
                     <i class="glyphicon glyphicon-zoom-in"></i>
                 </button>
             </div>
