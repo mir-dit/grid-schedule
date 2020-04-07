@@ -1,6 +1,6 @@
 import {IPopupPosition} from '../popup/popup.controller';
 import {IScheduleService} from '../../pages/schedule/schedule.service';
-import {IUser, IPatient} from '../../../mocks/user';
+import {IPatient} from '../../../mocks/user';
 
 export interface ISheldureMenuSelectedTime {
   start: Date;
