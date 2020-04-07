@@ -1,0 +1,167 @@
+.schedule-menu {
+    border: 2px solid map-get($schedule-menu-colors, 'primary');
+    background-color: $white;
+    padding: 15px 26px;
+    width: 256px;
+
+    &__header {
+        display: flex;
+        align-items: center;
+
+        &-text {
+            margin-left: 10px;
+        }
+
+        &-time {
+            color: map-get($schedule-menu-colors, 'time');
+        }
+    }
+    
+    &__time {
+        color: map-get($schedule-menu-colors, 'time');
+        text-align: center;
+        height: 60px;
+    }
+
+    &__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px 13px;
+        border-bottom: 2px solid map-get($schedule-menu-colors, 'border');
+        color: map-get($schedule-menu-colors, 'primary');
+        cursor: not-allowed;
+
+        &-icon {
+            color: map-get($schedule-menu-colors, 'icon');
+        }
+
+        &-watch {
+            color: map-get($schedule-menu-colors, 'watch');
+            cursor: pointer;
+        }
+
+        &-create {
+            color: map-get($schedule-menu-colors, 'create');
+            cursor: pointer;
+        }
+
+        &-cancel {
+            color: map-get($schedule-menu-colors, 'cancel');
+            cursor: pointer;
+        }
+    }
+
+    &__item:last-child {
+        border-bottom: unset;
+    }
+
+    &-created {
+        width: 277px;
+        
+        &__header {
+            background-color: map-get($schedule-menu-colors, 'created');
+            text-align: center;
+            color: $black;
+            border-radius: 10px 10px 0 0;
+            font-size: 30px;
+        }
+
+        &__icon {
+            color: map-get($schedule-menu-colors, 'created');
+            background-color: map-get($schedule-menu-colors, 'created-secondary');
+            border: 2px solid map-get($schedule-menu-colors, 'created');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 80px;
+            border-radius: 0 0 10px 10px;
+            height: 154px;
+        }
+        
+    }
+
+    &-cancel {
+        background-color: $white;
+        color: map-get($schedule-menu-colors, 'cancel-text');
+        border: 2px solid map-get($schedule-menu-colors, 'primary');
+        width: 256px;
+        height: 196px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+
+        &__header {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        &__icon {
+            color: $red;
+            font-size: 20px;
+            margin-right: 14px;
+            margin-left: 4px;
+        }
+
+        &__content {
+            flex-grow: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        &__button {
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 0;
+            background-color: $red;
+            color: $white;
+        }
+
+        &__return {
+            text-decoration: underline;
+            color: inherit;
+        }
+    }
+
+    &-info {
+        position: relative;
+        background-color: $white;
+        color: map-get($schedule-menu-colors, 'cancel-text');
+        border: 2px solid map-get($schedule-menu-colors, 'primary');
+        padding: 17px 13px;
+
+        &__close {
+            position: absolute;
+            top: 7px;
+            right: 14px;
+            cursor: pointer;
+        }
+
+        &__header {
+            display: flex;
+            align-items: center;
+            padding-bottom: 27px;
+        }
+
+        &__icon {
+            font-size: 25px;
+            margin-left: 8px;
+            margin-right: 30px;
+        }
+
+        &__item {
+            display: flex;
+            padding-bottom: 15px;
+        }
+
+        &__label {
+            width: 100px;
+            font-weight: bold;
+        }
+    }
+
+}

@@ -5,7 +5,7 @@ export interface IPopupPosition {
 
 export interface IPopupScope extends ng.IScope {
   element: ng.IAugmentedJQuery;
-  onClose: () => void;
+  onClose?: () => void;
   position?: IPopupPosition;
 }
 
@@ -23,14 +23,14 @@ export class PopupCtrl {
   }
 
   private handlePageChange = (event: MouseEvent) => {
-    if (this.$scope.position) {
+    if (this.$scope.position && this.$scope.onClose) {
       this.$scope.onClose();
       this.$scope.$root.$apply();
     }
   }
 
   private handleClick = (event: MouseEvent) => {
-    if (!this.isInsidePopup(event.target as HTMLElement)) {
+    if (this.$scope.onClose && !this.isInsidePopup(event.target as HTMLElement)) {
       this.$scope.onClose();
       this.$scope.$root.$apply();
     }

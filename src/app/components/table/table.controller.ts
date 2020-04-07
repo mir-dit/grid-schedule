@@ -1,4 +1,4 @@
-import {Column, IRowFree, IRowUsed, IRowCross} from './table.model';
+import {Column, ICellTime, ICellPatient} from './table.model';
 
 const BORDER_SIZE = 2;
 
@@ -18,8 +18,8 @@ export interface ITableScope extends ng.IScope {
   heights: ITableHeigts | null;
   headerLockedHeight: number;
   maxRolledHeight: number;
-  onSelect: (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross, column: Column, patientIndex?: number) => void;
-  handleCellClick: (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross, column: Column, patientIndex?: number) => void;
+  onSelect: (event: MouseEvent, cell: ICellTime, column: Column, patient?: ICellPatient) => void;
+  handleCellClick: (event: MouseEvent, cell: ICellTime, column: Column, patient?: ICellPatient) => void;
 }
 
 enum HeaderColumnDiv {
@@ -47,9 +47,9 @@ export class TableCtrl {
     $scope.handleCellClick = this.handleCellClick;
   }
 
-  private handleCellClick = (event: MouseEvent, row: IRowFree | IRowUsed | IRowCross, column: Column, patientIndex?: number): void => {
+  private handleCellClick = (event: MouseEvent, cell: ICellTime, column: Column, patient?: ICellPatient): void => {
     event.stopPropagation();
-    this.$scope.onSelect(event, row, column, patientIndex);
+    this.$scope.onSelect(event, cell, column, patient);
   }
 
   private resetScroll(): void {
