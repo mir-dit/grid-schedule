@@ -15,11 +15,22 @@ export  interface IField {
     key: string,
     placeholder: string,
     value: any,
-    actions?: any
+    actions?: IActionItem[]
 }
 
 export type Fields = Array<IField>
 export type FieldType = 'date' | 'search' | 'input' | 'textarea'
+
+export interface IActionItemLink {
+    text: string,
+    href: string
+}
+
+export interface IActionItem {
+    icon: string,
+    handler: (scope: IAsideScope) => void,
+    list: IActionItemLink[]
+}
 
 export const asideFields: Fields = [
     {
@@ -28,7 +39,17 @@ export const asideFields: Fields = [
         key: 'patient',
         placeholder: 'Введите текст для поиска',
         value: null,
-        actions: [{ icon: 'glyphicon glyphicon-user', flag: true, handler: function (e, scope) { console.debug('event 1', e); console.debug(scope) } }]
+        actions: [
+            {
+                icon: 'glyphicon glyphicon-user',
+                handler: (scope) => console.debug('Action 1'),
+                list: [
+                    {text: 'Action 1', href: '#'},
+                    {text: 'Action 2', href: '#'},
+                    {text: 'Action 3', href: '#'},
+                ]
+            }
+        ]
     },
     {
         label: 'Дата записи',
@@ -43,7 +64,17 @@ export const asideFields: Fields = [
         key: 'specialist',
         placeholder: 'Введите текст для поиска',
         value: null,
-        actions: [{ icon: 'glyphicon glyphicon-glass', flag: false, handler: function (e, scope) { console.debug('event 2', e) } }]
+        actions: [
+            {
+                icon: 'glyphicon glyphicon-glass',
+                handler: (scope) => console.debug('Action 2'),
+                list: [
+                    {text: 'Action 1', href: '#'},
+                    {text: 'Action 2', href: '#'},
+                    {text: 'Action 3', href: '#'},
+                ]
+            }
+        ]
     }
 ]
 

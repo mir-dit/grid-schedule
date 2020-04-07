@@ -4,10 +4,6 @@
 @import "utils/helpers";
 @import "utils/fonts";
 @import "utils/shared";
-//@import 'colors';
-//@import 'table';
-//@import 'schedule';
-//@import 'scroll';
 
 html, body {
   font-family: 'Roboto', sans-serif;
@@ -19,7 +15,9 @@ html, body {
 @import "modules/header";
 @import "modules/main";
 @import "modules/footer";
+@import "modules/schedule";
+@import "modules/scroll";
 
 // Components
-@import "@components/aside/aside";
-@import '@components/filter-list/filteList';
+@import "@components/aside/aside.style";
+@import '@components/table/table.style';

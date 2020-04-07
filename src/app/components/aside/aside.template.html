@@ -1,23 +1,21 @@
-<aside class="aside">
+<aside class="aside py-20">
     <div class="aside__field" ng-repeat="(key, field) in fields">
         <div class="d-flex justify-space-between align-items-center mb-10">
             <label for="{{field.key}}" class="custom-label">{{field.label}}</label>
-            <div class="aside__field-actions">
-                <div class="btn-group" ng-repeat="action in field.actions" dropdown is-open="fields[{{key}}].actions[{{$index}}].flag">
+            <div class="aside__field-actions" ng-if="field.actions">
+                <div class="btn-group ml-10" ng-repeat="action in field.actions" dropdown is-open="fields[{{key}}].actions[{{$index}}].opened">
                     <button
                             class="btn btn-success btn-sm dropdown-toggle"
                             type="button"
-                            data-toggle="dropdown"
+                            dropdown-toggle
                             aria-haspopup="true"
                             aria-expanded="false"
-                            ng-click="toggleAction"
+                            ng-click="action.handler(scope)"
                     >
-                        <i class="{{action.icon}}"></i> <i class="caret"></i>
+                        <i class="{{action.icon}}"></i><i class="caret" style="margin-left: 6px;"></i>
                     </button>
-                    <ul class="dropdown-menu">
-                        <li>1</li>
-                        <li>2</li>
-                        <li>3</li>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="split-button">
+                        <li role="menuitem" ng-repeat="link in action.list"><a href="{{link.href}}">{{link.text}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -53,9 +51,26 @@
                 />
                 <button type="button"
                         class="btn btn-default"
-                        ng-click="datepicker.open($event)">
+                        ng-click="datepicker.open(scope)">
                     <i class="glyphicon glyphicon-calendar"></i>
                 </button>
+            </div>
+            <div class="input-group" ng-switch-when="input">
+                <input
+                        type="text"
+                        id="{{field.key}}"
+                        class="form-control"
+                        placeholder="{{field.placeholder}}"
+                        ng-model="field.value"
+                >
+            </div>
+            <div class="input-group" ng-switch-when="textarea">
+                <textarea
+                    rows="5"
+                    id="{{field.key}}"
+                    class="form-control"
+                    placeholder="{{field.placeholder}}"
+                    ng-model="field.value"></textarea>
             </div>
             <div class="input-group" ng-switch-default>
                 <input

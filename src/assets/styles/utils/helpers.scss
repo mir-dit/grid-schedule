@@ -1,5 +1,5 @@
 // Base indentation
-$spaceamounts: (10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 90, 100);
+$spaceamounts: (5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 75, 100);
 @include indents($spaceamounts);
 
 .d-flex {display: flex;flex-wrap: wrap;}

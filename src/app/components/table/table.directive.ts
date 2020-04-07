@@ -3,7 +3,7 @@ import {TableCtrl, ITableScope} from './table.controller';
 
 export class tableDirective implements IDirective {
   public restrict = 'E';
-  public template = require('./table.html');
+  public template = require('./table.template.html');
   public controller = TableCtrl;
   public scope = {
     columns: '=',

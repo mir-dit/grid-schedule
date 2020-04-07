@@ -3,13 +3,12 @@ import * as router from 'angular-route';
 import bootstrap from 'angular-ui-bootstrap';
 import {routes} from './app.routes';
 import {IController, IScope} from "angular";
-import {tableDirective} from "./components/table/table.directive";
+import {tableDirective} from "@components/table/table.directive";
 import {ScheduleCtrl} from "./pages/schedule/schedule.controller";
 import {tableDateFilter} from './filters/tableDate.filter';
 import {defaultLayoutDirective} from "./layouts/default/defaultLayout.directive";
-import asideDirective from "./components/aside/aside.directive";
+import asideDirective from "@components/aside/aside.directive";
 import initPluginDirective from "./directives/initPlugin.directive";
-import {filterListDirective} from "./components/filter-list/filterList.directive";
 import {tableOrderColumnFilter} from './filters/tableOrderColumn.filter';
 
 const Application = () => {
@@ -43,7 +42,6 @@ app.filter('tableDate', tableDateFilter);
 app.filter('tableOrderColumn', tableOrderColumnFilter);
 app.directive('appDefaultLayout', defaultLayoutDirective.factory());
 app.directive('appAside', asideDirective.factory());
-app.directive('appFilterList', filterListDirective.factory());
 app.directive('initPlugin', initPluginDirective.factory());
 app.config(['$routeProvider', routes]);
 
