@@ -5,5 +5,5 @@ export const datepickerMeta: object = {
     dateOptions: {
         formatYear: 'yy',
         startingDay: 1
-    },
+    }
 }

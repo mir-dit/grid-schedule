@@ -1,25 +1,25 @@
-import {IScope} from "angular";
-import {Users} from "@mocks/user";
+import {IController} from "angular";
+import {asideFields, IAsideScope} from "@mocks/aside";
+import users from "@mocks/user";
 
-interface IAsideScope extends IScope {
-    fields: Fields,
-    datepicker: any,
-    users: Users
-}
-interface IField {
-    label: string,
-    type: FieldType,
-    key: string,
-    placeholder: string,
-    value: any,
-    actions?: any
-}
+export class AsideController implements IController {
 
-type Fields = Array<IField>
-type FieldType = 'date' | 'search' | 'input' | 'textarea'
-
-
-export default class AsideController {
     constructor($scope: IAsideScope) {
+        $scope.scope = $scope;
+        $scope.fields = asideFields;
+        $scope.users = users;
     }
+
+    private init() {
+        this.scope.fields.forEach((el, index) => {
+            this.scope.$watch(`fields[${index}].value`, (newVal, oldVal) => {
+                console.debug(el.key, newVal);
+            })
+        })
+    }
+
+    public toggleAction() {
+        console.debug('toggleAction')
+    }
+
 }
