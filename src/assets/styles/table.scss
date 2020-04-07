@@ -126,6 +126,7 @@ $cell-height: 30px;
     }
 
     &__cell {
+        user-select: none;
         height: $cell-height;
 
         &-free {
