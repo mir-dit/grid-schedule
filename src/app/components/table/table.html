@@ -1,1 +1,48 @@
-<div>Здесь будет таблица: {{name}}</div>
+<div class="table" init-plugin="scrollbar" params="{wheelSpeed: 0.15}">
+    <div ng-if="offset > 0" ng-style="{ height: headerLockedHeight + 'px' }"></div>
+    <div class="table__header" ng-class="{'table__header_scrolled': offset > 0, 'table__header_rolled': offset > headerLockedHeight}" ng-style="{ top: offset + 'px' }">
+        <div class="table__column table__header-column" ng-repeat="column in columns | tableOrderColumn" ng-class="{'table__column_busy table__header-column_busy': !column.interval}">
+            <div class="table__header-cell table__header-date" ng-class="{'table__header-date_busy': !column.interval}">{{ column.date | tableDate}}</div>
+            <div class="table__header-cell table__header-doctor-name" ng-style="{ height: heights.doctor + 'px' }">{{ column.doctor }}</div>
+            <div class="table__header-cell table__header-doctor-specialty" ng-style="{ height: heights.specialty + 'px' }">{{ column.specialty }}</div>
+            <div
+                class="table__header-cell table__header-doctor-address"
+                ng-style="{ height: heights.address + 'px' }"
+                ng-class="column.interval ? 'table__header-address_free' : 'table__header-address_busy'"
+                >{{ column.address }}</div>
+            <div
+                class="table__header-cell table__header-interval"
+                ng-click="column.interval && unroll($index)"
+                ng-class=" {
+                    'table__header-interval_free': column.interval,
+                    'table__header-interval_busy': column.busy,
+                    'table__header-interval_rolled': rolled.includes($index),
+                }">
+                    <span ng-if="column.interval && !rolled.includes($index)">{{ column.interval }}</span>
+                    <span ng-if="column.interval && rolled.includes($index)">
+                        <span class="glyphicon glyphicon-triangle-right table__icon" aria-hidden="true"></span>
+                        <span>Врач работает</span>
+                        <span class="glyphicon glyphicon-pencil table__icon" aria-hidden="true"></span>
+                    </span>
+                    <span ng-if="column.busy">{{ column.busy }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="table__body">
+        <div class="table__column table__body-column" ng-repeat="column in columns | tableOrderColumn" ng-class="{'table__column_busy table__body-column_busy': !column.interval}">
+            <div
+                ng-repeat="cell in column.rows"
+                class="table__cell"
+                ng-class="{
+                    'table__cell-affairs': cell.reason,
+                    'table__cell-free': cell.time && !cell.patient,
+                    'table__cell-used': cell.patient,
+                    'table__cell-cross': cell.cross,
+                }">
+                    <span class="table__text">{{ cell.reason || (cell.time | date: 'HH:mm') }}</span>
+                    <span class="table__patient" ng-if="cell.patient" tooltip="{{ cell.patient }}">{{ cell.patient }}</span>
+                    <span class="table__patient" ng-if="cell.patient2" tooltip="{{ cell.patient2 }}">{{ cell.patient2 }}</span>
+            </div>
+        </div>
+    </div>
+</div>

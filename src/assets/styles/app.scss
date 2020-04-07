@@ -4,11 +4,16 @@
 @import "utils/helpers";
 @import "utils/fonts";
 @import "utils/shared";
+//@import 'colors';
+//@import 'table';
+//@import 'schedule';
+//@import 'scroll';
 
 html, body {
   font-family: 'Roboto', sans-serif;
   background-color: $bg-color;
 }
+
 
 // Modules
 @import "modules/header";

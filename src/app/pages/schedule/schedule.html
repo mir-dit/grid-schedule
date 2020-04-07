@@ -1,5 +1,21 @@
 <div ng-controller="ScheduleCtrl">
-    {{ schedule.title }}
 
-    <app-table name="'Сетка расписания'"></app-table>
+    <div class="page-header container-fluid schedule__header">
+        <div class="row">
+            <div class="col-xs-8">
+                <h2 class="schedule__title">{{ schedule.title }}</h2>
+            </div>
+            <div class="col-xs-4">
+                <div class="btn-group schedule__time-gap">
+                    <label class="btn btn-success" ng-model="timeGap" btn-radio="1" uncheckable ng-change="updateColumns()">1 День</label>
+                    <label class="btn btn-success" ng-model="timeGap" btn-radio="2" uncheckable ng-change="updateColumns()">2 Дня</label>
+                    <label class="btn btn-success" ng-model="timeGap" btn-radio="14" uncheckable ng-change="updateColumns()">Неделя</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="height: 500px;"> <!-- Height is set for debug -->
+        <app-table columns="columns"></app-table>
+    </div>
 </div>

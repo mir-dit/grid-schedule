@@ -1,0 +1,174 @@
+$border-size: 2px;
+$cell-height: 30px;
+
+@mixin bg($color) {
+    background-color: map_get($table-colors, $color);
+}
+
+.table {
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+    &__column {
+        @include bg("empty");
+        margin-right: 5px;
+        width: 170px;
+        flex-shrink: 0;
+
+        &_busy {
+            @include bg("busy");
+            border: solid $border-size map_get($table-colors, "busy-border");
+        }
+    }
+
+
+    &__header {
+        display: flex;
+
+        &_scrolled {
+            position: absolute;
+        }
+        
+        &_rolled {
+            background-color: $bg-color;
+            z-index: 15;
+            height: $border-size;
+        }
+
+        &-column {
+            margin-top: $border-size;
+            text-align: center;
+
+            &_busy {
+                margin-top: unset;
+                border-radius: 2px 2px 0 0;
+                border-bottom: unset;
+                z-index: 15;
+            }
+        }
+    
+        &-cell {
+            position: relative;
+            padding: 4px 12px; // padding-top must be even for correct isMax
+            z-index: 10;
+        }
+    
+        &-date {
+            @include bg("date");
+            border-radius: 2px 2px 0 0;
+            color: $white;
+
+            &_busy {
+                border-radius: unset;
+            }
+        }
+
+        &-doctor {
+            &-name {
+                @include bg("doctor-info");
+                color: $white;
+                border-bottom: 1px solid map_get($table-colors, "hr");
+            }
+        
+            &-specialty{
+                @include bg("doctor-info");
+                color: $white;
+                font-style: italic;
+            }
+        }
+
+        &-address {
+            color: $black;
+    
+            &_free {
+                @include bg("address-free");
+            }
+    
+            &_busy {
+                @include bg("address-busy");
+            }
+        }
+    
+        &-interval {
+            color: $black;
+    
+            &_free {
+                @include bg("interval-free");
+            }
+    
+            &_rolled {
+                height: 50px;
+                cursor: pointer;
+                padding: unset;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            &_busy {
+                @include bg("interval-busy");
+                cursor: unset;
+            }
+        }
+
+    }
+
+    &__body {
+        position: relative;
+        display: flex;
+        z-index: 5;
+
+        &-column_busy {
+            border-radius: 0 0 2px 2px ;
+            border-top: unset;
+        }
+    }
+
+    &__cell {
+        height: $cell-height;
+
+        &-free {
+            @include bg("free");
+            border-bottom: dashed 1px map_get($table-colors, "border");
+            display: flex;
+            align-items: center;
+        }
+
+        &-affairs {
+            @include bg("affairs");
+            height: $cell-height * 2;
+            border-bottom: dashed 1px map_get($table-colors, "border");
+        }
+
+        &-used {
+            @include bg("used");
+            display: flex;
+            align-items: center;
+        }
+
+        &-cross {
+            display: flex;
+            align-items: center;
+            border: solid 1px map_get($table-colors, "cross-border");
+        }
+    }
+
+    &__text {
+        padding: 2px 5px;
+    }
+
+    &__patient {
+        @include bg("used");
+        padding: 2px 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+    }
+
+    &__icon {
+        font-size: 11px;
+    }
+
+}

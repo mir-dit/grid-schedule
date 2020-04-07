@@ -1,10 +1,10 @@
 export interface IRecord {
-    id: number,
-    message: string,
-    userId: number,
-    start: Date,
-    end: Date,
-    type: IRecordType,
+    id: number;
+    message: string;
+    userId: number;
+    start: Date;
+    end: Date;
+    type: IRecordType;
 }
 
 export type IRecordType = 'secondary' | 'success' | 'danger' | 'primary'
@@ -32,7 +32,7 @@ export const records: IRecord[] = [
         userId: 4,
         start: new Date(2019,4,3, 14, 0),
         end: new Date(2019,4,3, 15, 0),
-        type: "danger"
+        type: "secondary"
     },
     {
         id: 4,
@@ -46,9 +46,9 @@ export const records: IRecord[] = [
         id: 5,
         message: 'Врач не работает',
         userId: 4,
-        start: new Date(2019,4,4, 13, 0),
-        end: new Date(2019,4,4, 15, 30),
-        type: "secondary"
+        start: new Date(2019, 4, 1),
+        end: new Date(2019, 4, 10),
+        type: "danger"
     },
     {
         id: 6,
