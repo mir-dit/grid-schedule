@@ -9,11 +9,11 @@ export interface IInputScope extends IScope {
     before: IBeforeInput,
     after: IAfterInput
     scope: IInputScope,
-    changeValue: (event, ngModel) => void,
+    changeValue: (scope: IInputScope) => void,
     ngModel: any
 }
 
-export type InputType = 'text' | 'textarea' | 'number'
+export type InputType = 'text' | 'password' | 'number' | 'tel' | 'email'
 
 export interface IBeforeInput {
     icon?: string,

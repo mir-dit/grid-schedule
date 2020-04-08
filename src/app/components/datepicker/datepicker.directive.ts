@@ -9,7 +9,8 @@ export class datepickerDirective implements IDirective {
   scope = {
     value: '=',
     placeholder: '=',
-    id: '='
+    id: '=',
+    callback: '='
   };
 
   constructor() {}

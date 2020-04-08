@@ -8,8 +8,9 @@ export class inputDirective implements IDirective {
   controller = InputController;
   scope = {
     id: '=',
-    defaultValue: '=',
     placeholder: '=',
+    defaultValue: "=",
+    type: '@',
     before: '=',
     after: '='
   };
@@ -18,7 +19,7 @@ export class inputDirective implements IDirective {
   constructor() {}
 
   link = (scope: IInputScope, element: IAugmentedJQuery, attrs: IAttributes, ngModel: any) => {
-    scope.ngModel = ngModel
+    scope.ngModel = ngModel;
   };
 
   static factory(): IDirectiveFactory {

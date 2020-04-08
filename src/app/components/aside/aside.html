@@ -23,20 +23,9 @@
 
         <div class="aside__switch" ng-switch on="field.type">
             <div class="aside__switch-wrapper" ng-switch-when="search">
-<!--                <div class="input-group">-->
-<!--                    <input-->
-<!--                            type="text"-->
-<!--                            id="{{field.key}}"-->
-<!--                            class="form-control"-->
-<!--                            placeholder="{{field.placeholder}}"-->
-<!--                            ng-model="field.value"-->
-<!--                    >-->
-<!--                    <button type="button" class="btn input-group-addon aside__field-btn" ng-click="field.callback(scope, field.value)">-->
-<!--                        <i class="glyphicon glyphicon-zoom-in"></i>-->
-<!--                    </button>-->
-<!--                </div>-->
                 <app-input
                     id="field.key"
+                    type="text"
                     placeholder="field.placeholder"
                     default-value="field.value"
                     after="field.after"
@@ -47,18 +36,8 @@
                <app-datepicker
                        value="field.value"
                        placeholder="field.placeholder"
+                       callback="field.callback"
                ></app-datepicker>
-           </div>
-           <div class="aside__switch-wrapper"  ng-switch-when="input">
-              <div class="input-group">
-                   <input
-                           type="text"
-                           id="{{field.key}}"
-                           class="form-control"
-                           placeholder="{{field.placeholder}}"
-                           ng-model="field.value"
-                   >
-               </div>
            </div>
           <div class="aside__switch-wrapper" ng-switch-when="textarea">
               <div class="input-group">
@@ -71,15 +50,13 @@
               </div>
           </div>
             <div class="aside__switch-wrapper" ng-switch-default>
-                <div class="input-group">
-                    <input
-                            type="text"
-                            id="{{field.key}}"
-                            class="form-control"
-                            placeholder="{{field.placeholder}}"
-                            ng-model="field.value"
-                    >
-                </div>
+                <app-input
+                        id="field.key"
+                        type="text"
+                        placeholder="field.placeholder"
+                        default-value="field.value"
+                        ng-model="field.value"
+                ></app-input>
             </div>
         </div>
         <hr ng-if="$index !== fields.length - 1">

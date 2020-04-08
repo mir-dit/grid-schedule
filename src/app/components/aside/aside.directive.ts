@@ -10,21 +10,12 @@ export class asideDirective implements IDirective {
 
   constructor() {}
 
-  link = (scope: IAsideScope, element: IAugmentedJQuery, attrs: IAttributes, ngModel: any) => {
-    this.watchDebug(scope)
-  };
+  link = (scope: IAsideScope, element: IAugmentedJQuery, attrs: IAttributes) => {};
 
   static factory(): IDirectiveFactory {
     return () => new asideDirective();
   }
 
-  private watchDebug(scope) {
-    scope.fields.forEach((el, index) => {
-      scope.$watch(`fields[${index}].value`, (newVal, oldVal) => {
-        console.debug(el.key, newVal);
-      })
-    })
-  }
 
 }
 

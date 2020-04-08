@@ -4,7 +4,7 @@ export interface IDatepicker {
     format: string,
     minDate: Date,
     maxDate: Date,
-    dateOptions: {
+    options: {
         formatYear: string,
         startingDay: number
     }
@@ -22,7 +22,8 @@ export const defaultConfig = {
 
 export interface IDatepickerScope extends IScope {
     show: boolean,
-    config: object,
-    toggleShow: () => void
+    config: IDatepicker,
+    toggleShow: () => void,
+    callback: (scope: IDatepickerScope) => void
 }
 

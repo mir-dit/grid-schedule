@@ -9,7 +9,18 @@ export class AsideController implements IController {
         $scope.scope = $scope;
         $scope.fields = asideFields;
         $scope.users = users;
-        $scope.datepicker = preset
+        $scope.datepicker = preset;
+
+        // Initialization
+        // this.watchDebug();
+    }
+
+    private watchDebug() {
+        this.$scope.fields.forEach((el, index) => {
+            this.$scope.$watch(`fields[${index}].value`, (newVal, oldVal) => {
+                console.debug(el.key, newVal);
+            })
+        })
     }
 
 }

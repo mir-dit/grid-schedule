@@ -16,7 +16,7 @@ export  interface IField {
     key: string,
     placeholder: string,
     value: any,
-    callback?: (scope: IAsideScope, value) => void
+    callback?: (scope: any, value) => void
     actions?: IActionItem[],
     after?: IAfterInput,
     before?: IBeforeInput
@@ -42,14 +42,13 @@ export const asideFields: Fields = [
         type: 'search',
         key: 'patient',
         placeholder: 'Введите текст для поиска',
-        value: 1,
+        value: null,
         after: {
             icon: 'glyphicon glyphicon-zoom-in',
             button: true,
-            callback: (scope) => scope.$emit('patientSearch', scope.value)
-        },
-        callback: (scope, value) => {
-            scope.$emit('patientSearch', value);
+            callback: (scope) => {
+                scope.$emit('patientSearch', scope.value);
+            }
         },
         actions: [
             {
@@ -68,21 +67,23 @@ export const asideFields: Fields = [
         type: 'date',
         key: 'date',
         placeholder: 'ДД.ММ.ГГГГ',
-        value: null
+        value: null,
+        callback: (scope) => {
+            scope.$emit('datepickerSearch', scope);
+        }
     },
     {
         label: 'Специалисты',
         type: 'search',
         key: 'specialist',
         placeholder: 'Введите текст для поиска',
-        value: 2,
+        value: null,
         after: {
             icon: 'glyphicon glyphicon-zoom-in',
             button: true,
-            callback: (scope) => scope.$emit('searchSearch', scope.value)
-        },
-        callback: (scope, value) => {
-            scope.$emit('searchSearch', value);
+            callback: (scope) => {
+                scope.$emit('searchSearch', scope.value);
+            }
         },
         actions: [
             {
