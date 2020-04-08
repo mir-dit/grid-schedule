@@ -3,7 +3,7 @@
     <div class="page-header container-fluid schedule__header">
         <div class="row">
             <div class="col-xs-8">
-                <h2 class="schedule__title">{{ schedule.title }}</h2>
+                <h2 class="schedule__title">Расписание специалистов</h2>
             </div>
             <div class="col-xs-4">
                 <div class="btn-group schedule__time-gap">
@@ -16,6 +16,9 @@
     </div>
 
     <div class="container-fluid">
-        <app-table columns="columns"></app-table>
+        <app-table ng-if="selectedDate" columns="columns" on-select="handleTableSelect"></app-table>
     </div>
+
+    <app-schedule-menu selected="scheduleMenu" on-close="handlePopupClose" selected-patient="selectedPatient"></app-schedule-menu>
+
 </div>

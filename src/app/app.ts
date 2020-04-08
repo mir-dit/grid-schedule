@@ -8,7 +8,9 @@ import {tableDateFilter} from './filters/tableDate.filter';
 import {defaultLayoutDirective} from "./layouts/default/defaultLayout.directive";
 import initPluginDirective from "./directives/initPlugin.directive";
 import {tableOrderColumnFilter} from './filters/tableOrderColumn.filter';
+import {popupDirective} from './components/popup/popup.direcive';
 import {ScheduleService} from './pages/schedule/schedule.service';
+import {scheduleMenuDirective} from './components/scheduleMenu/scheduleMenu.directive';
 
 const Application = () => {
   return {
@@ -41,6 +43,8 @@ app.filter('tableDate', tableDateFilter);
 app.filter('tableOrderColumn', tableOrderColumnFilter);
 app.directive('appDefaultLayout', defaultLayoutDirective.factory());
 app.directive('initPlugin', initPluginDirective.factory());
+app.directive('appPopup', popupDirective.factory());
+app.directive('appScheduleMenu', scheduleMenuDirective.factory());
 app.service('ScheduleService', ScheduleService);
 app.config(['$routeProvider', routes]);
 

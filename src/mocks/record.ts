@@ -5,6 +5,7 @@ export interface IRecord {
     start: Date;
     end: Date;
     type: IRecordType;
+    patientId?: number;
 }
 
 export type IRecordType = 'secondary' | 'success' | 'danger' | 'primary'
@@ -56,7 +57,8 @@ export const records: IRecord[] = [
         userId: 2,
         start: new Date(2019,4,1, 10, 0),
         end: new Date(2019,4,1, 10, 30),
-        type: "primary"
+        type: "primary",
+        patientId: 6
     }
 ]
 

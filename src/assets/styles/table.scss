@@ -126,6 +126,7 @@ $cell-height: 30px;
     }
 
     &__cell {
+        user-select: none;
         height: $cell-height;
 
         &-free {
@@ -151,6 +152,10 @@ $cell-height: 30px;
             display: flex;
             align-items: center;
             border: solid 1px map_get($table-colors, "cross-border");
+        }
+
+        &_selectable {
+            cursor: pointer;
         }
     }
 

@@ -6,9 +6,10 @@ export class tableDirective implements ng.IDirective {
   public controller = TableCtrl;
   public scope = {
     columns: '=',
+    onSelect: '=',
   };
 
-  link = ($scope: ITableScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
+  link = ($scope: ITableScope, element: ng.IAugmentedJQuery) => {
     $scope.element = element;
   }
 
@@ -16,5 +17,3 @@ export class tableDirective implements ng.IDirective {
     return () => new tableDirective();
   }
 }
-
-export default tableDirective;
