@@ -11,6 +11,7 @@ import {tableOrderColumnFilter} from './filters/tableOrderColumn.filter';
 import {popupDirective} from './components/popup/popup.direcive';
 import {ScheduleService} from './pages/schedule/schedule.service';
 import {scheduleMenuDirective} from './components/scheduleMenu/scheduleMenu.directive';
+import {dictionaryFilter} from './filters/dictionary.filter';
 
 const Application = () => {
   return {
@@ -41,6 +42,7 @@ app.controller('ScheduleCtrl', ScheduleCtrl);
 app.directive('appTable', tableDirective.factory());
 app.filter('tableDate', tableDateFilter);
 app.filter('tableOrderColumn', tableOrderColumnFilter);
+app.filter('dictionary', dictionaryFilter);
 app.directive('appDefaultLayout', defaultLayoutDirective.factory());
 app.directive('initPlugin', initPluginDirective.factory());
 app.directive('appPopup', popupDirective.factory());
