@@ -1,0 +1,15 @@
+<div class="btn-group ml-10" dropdown is-open="show">
+    <button
+            class="btn btn-{{type}} btn-sm dropdown-toggle"
+            type="button"
+            dropdown-toggle
+            aria-haspopup="true"
+            aria-expanded="false"
+            ng-click="handler(scope)"
+    >
+        <i class="{{icon}}"></i><i class="caret" style="margin-left: 6px;"></i>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="split-button">
+        <li role="menuitem" ng-repeat="item in items"><a href="{{item.href}}">{{item.text}}</a></li>
+    </ul>
+</div>

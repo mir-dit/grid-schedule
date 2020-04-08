@@ -1,12 +1,13 @@
 @import '~perfect-scrollbar/src/css/main';
-@import 'colors';
-@import 'table';
-@import 'schedule';
-@import 'scroll';
-@import 'popup';
-@import 'schedule-menu';
+@import 'utils/colors';
+@import "utils/mixins";
+@import "utils/helpers";
+@import "utils/fonts";
+@import "utils/shared";
 
-body {
+
+html, body {
+  font-family: 'Roboto', sans-serif;
   background-color: $bg-color;
 }
 
@@ -15,3 +16,11 @@ body {
 @import "modules/header";
 @import "modules/main";
 @import "modules/footer";
+@import "modules/schedule";
+@import "modules/scroll";
+
+// Components
+@import "@components/aside/aside";
+@import '@components/table/table';
+@import '@components/popup/popup';
+@import '@components/scheduleMenu/schedule-menu';

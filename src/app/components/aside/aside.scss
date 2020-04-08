@@ -1,0 +1,17 @@
+.aside {
+  .input-group {
+    width: 100%;
+    display: flex;
+  }
+  &__field {
+    padding: 12px 0 0;
+    &-btn {
+      width: 38px;
+      display: inline-block;
+    }
+  }
+  hr {
+    border-color: rgba(0, 0, 0, .3);
+    margin: 12px 0 0;
+  }
+}

@@ -8,6 +8,14 @@
         "lib": [ "dom", "es2019" ],
         "sourceMap": true,
         "moduleResolution": "node",
+        "baseUrl": "./",
+        "paths": {
+            "@app/*": ["./src/app/*"],
+            "@components/*": ["./src/app/components/*"],
+            "@assets/*": ["./src/assets/*"],
+            "@mocks/*": ["./src/mocks/*"],
+            "@src/*": ["./src/*"]
+        }
     },
     "include": [
         "./src/**/*",

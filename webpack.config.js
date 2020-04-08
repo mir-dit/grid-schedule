@@ -68,7 +68,14 @@ const config = {
         extensions: [
             '.ts',
             '.js'
-        ]
+        ],
+        alias: {
+            '@app': path.resolve(__dirname, 'src/app/'),
+            '@components': path.resolve(__dirname, 'src/app/components/'),
+            '@assets': path.resolve(__dirname, 'src/assets/'),
+            '@mocks': path.resolve(__dirname, 'src/mocks/'),
+            '@src': path.resolve(__dirname, 'src/')
+        }
     },
     target: 'web',
     devtool: 'eval',
@@ -83,7 +90,7 @@ const config = {
         }),
         new BrowserSyncPlugin({
             host: 'localhost',
-            port: 3000,
+            port: 3001,
             server: {
                 baseDir: 'dist',
                 directory: true,
