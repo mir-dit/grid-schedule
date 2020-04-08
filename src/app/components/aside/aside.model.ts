@@ -2,6 +2,7 @@ import {IScope} from "angular";
 import {Users} from "@mocks/user";
 import {IDatepicker} from "@app/models/datepicker";
 import {IAfterInput, IBeforeInput} from "@components/input/input.model";
+import {IDropdownScope} from "@components/dropdown/dropdown.model";
 
 export interface IAsideScope extends IScope {
     fields: Fields,
@@ -32,7 +33,7 @@ export interface IActionItemLink {
 
 export interface IActionItem {
     icon: string,
-    handler: (scope: IAsideScope) => void,
+    handler: (scope: IDropdownScope) => void,
     list: IActionItemLink[]
 }
 
@@ -53,7 +54,7 @@ export const asideFields: Fields = [
         actions: [
             {
                 icon: 'glyphicon glyphicon-user',
-                handler: (scope) => console.debug('Action 1'),
+                handler: (scope) => console.debug('A1'),
                 list: [
                     {text: 'Action 1', href: '#'},
                     {text: 'Action 2', href: '#'},
@@ -88,7 +89,7 @@ export const asideFields: Fields = [
         actions: [
             {
                 icon: 'glyphicon glyphicon-glass',
-                handler: (scope) => console.debug('Action 2'),
+                handler: (scope) => console.debug('A2'),
                 list: [
                     {text: 'Action 1', href: '#'},
                     {text: 'Action 2', href: '#'},

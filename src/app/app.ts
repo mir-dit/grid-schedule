@@ -12,6 +12,7 @@ import initPluginDirective from "./directives/initPlugin.directive";
 import {tableOrderColumnFilter} from './filters/tableOrderColumn.filter';
 import datepickerDirective from "@components/datepicker/datepicker.directive";
 import inputDirective from "@components/input/input.directive";
+import dropdownDirective from "@components/dropdown/dropdown.directive";
 
 const Application = () => {
   return {
@@ -46,6 +47,7 @@ app.directive('appDefaultLayout', defaultLayoutDirective.factory());
 app.directive('appAside', asideDirective.factory());
 app.directive('appDatepicker', datepickerDirective.factory());
 app.directive('appInput', inputDirective.factory());
+app.directive('appDropdown', dropdownDirective.factory());
 app.directive('initPlugin', initPluginDirective.factory());
 app.config(['$routeProvider', routes]);
 

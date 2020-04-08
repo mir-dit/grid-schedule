@@ -3,20 +3,13 @@
         <div class="d-flex justify-space-between align-items-center mb-10">
             <label for="{{field.key}}" class="custom-label">{{field.label}}</label>
             <div class="aside__field-actions" ng-if="field.actions">
-                <div class="btn-group ml-10" ng-repeat="action in field.actions" dropdown is-open="fields[{{key}}].actions[{{$index}}].opened">
-                    <button
-                            class="btn btn-success btn-sm dropdown-toggle"
-                            type="button"
-                            dropdown-toggle
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                            ng-click="action.handler(scope)"
-                    >
-                        <i class="{{action.icon}}"></i><i class="caret" style="margin-left: 6px;"></i>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="split-button">
-                        <li role="menuitem" ng-repeat="link in action.list"><a href="{{link.href}}">{{link.text}}</a></li>
-                    </ul>
+                <div class="rep" ng-repeat="action in field.actions">
+                    <app-dropdown
+                        type="success"
+                        icon="action.icon"
+                        items="action.list"
+                        handler="action.handler"
+                    ></app-dropdown>
                 </div>
             </div>
         </div>

@@ -9,7 +9,5 @@ export class InputController implements IController {
         $scope.changeValue = this.changeValue
     }
 
-    private changeValue = (scope) => {
-        scope.$watch('value', (newVal, oldVal) => scope.ngModel.$setViewValue(newVal));
-    }
+    private changeValue = () => this.$scope.ngModel.$setViewValue(this.$scope.value)
 }
