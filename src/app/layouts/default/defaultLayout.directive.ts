@@ -3,7 +3,7 @@ import {IAugmentedJQuery, IDirective, IDirectiveFactory, IScope, IAttributes} fr
 export class defaultLayoutDirective implements IDirective {
   restrict = 'E';
   scope = {};
-  template = require('./defaultLayout.template.html');
+  template = require('./defaultLayout.html');
 
   constructor() {}
 

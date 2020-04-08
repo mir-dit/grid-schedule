@@ -1,4 +1,4 @@
-import {IAsideScope} from "@mocks/aside";
+import {IAsideScope} from "@components/aside/aside.model";
 
 export interface IDatepicker {
     format: string,

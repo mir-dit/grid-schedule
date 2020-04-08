@@ -1,0 +1,87 @@
+<aside class="aside py-20">
+    <div class="aside__field" ng-repeat="(key, field) in fields">
+        <div class="d-flex justify-space-between align-items-center mb-10">
+            <label for="{{field.key}}" class="custom-label">{{field.label}}</label>
+            <div class="aside__field-actions" ng-if="field.actions">
+                <div class="btn-group ml-10" ng-repeat="action in field.actions" dropdown is-open="fields[{{key}}].actions[{{$index}}].opened">
+                    <button
+                            class="btn btn-success btn-sm dropdown-toggle"
+                            type="button"
+                            dropdown-toggle
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            ng-click="action.handler(scope)"
+                    >
+                        <i class="{{action.icon}}"></i><i class="caret" style="margin-left: 6px;"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="split-button">
+                        <li role="menuitem" ng-repeat="link in action.list"><a href="{{link.href}}">{{link.text}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="aside__switch" ng-switch on="field.type">
+            <div class="aside__switch-wrapper" ng-switch-when="search">
+<!--                <div class="input-group">-->
+<!--                    <input-->
+<!--                            type="text"-->
+<!--                            id="{{field.key}}"-->
+<!--                            class="form-control"-->
+<!--                            placeholder="{{field.placeholder}}"-->
+<!--                            ng-model="field.value"-->
+<!--                    >-->
+<!--                    <button type="button" class="btn input-group-addon aside__field-btn" ng-click="field.callback(scope, field.value)">-->
+<!--                        <i class="glyphicon glyphicon-zoom-in"></i>-->
+<!--                    </button>-->
+<!--                </div>-->
+                <app-input
+                    id="field.key"
+                    placeholder="field.placeholder"
+                    default-value="field.value"
+                    after="field.after"
+                    ng-model="field.value"
+                ></app-input>
+            </div>
+           <div class="aside__switch-wrapper" ng-switch-when="date">
+               <app-datepicker
+                       value="field.value"
+                       placeholder="field.placeholder"
+               ></app-datepicker>
+           </div>
+           <div class="aside__switch-wrapper"  ng-switch-when="input">
+              <div class="input-group">
+                   <input
+                           type="text"
+                           id="{{field.key}}"
+                           class="form-control"
+                           placeholder="{{field.placeholder}}"
+                           ng-model="field.value"
+                   >
+               </div>
+           </div>
+          <div class="aside__switch-wrapper" ng-switch-when="textarea">
+              <div class="input-group">
+                <textarea
+                        rows="5"
+                        id="{{field.key}}"
+                        class="form-control"
+                        placeholder="{{field.placeholder}}"
+                        ng-model="field.value"></textarea>
+              </div>
+          </div>
+            <div class="aside__switch-wrapper" ng-switch-default>
+                <div class="input-group">
+                    <input
+                            type="text"
+                            id="{{field.key}}"
+                            class="form-control"
+                            placeholder="{{field.placeholder}}"
+                            ng-model="field.value"
+                    >
+                </div>
+            </div>
+        </div>
+        <hr ng-if="$index !== fields.length - 1">
+    </div>
+</aside>

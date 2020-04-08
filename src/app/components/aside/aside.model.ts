@@ -1,6 +1,7 @@
 import {IScope} from "angular";
 import {Users} from "@mocks/user";
 import {IDatepicker} from "@app/models/datepicker";
+import {IAfterInput, IBeforeInput} from "@components/input/input.model";
 
 export interface IAsideScope extends IScope {
     fields: Fields,
@@ -16,7 +17,9 @@ export  interface IField {
     placeholder: string,
     value: any,
     callback?: (scope: IAsideScope, value) => void
-    actions?: IActionItem[]
+    actions?: IActionItem[],
+    after?: IAfterInput,
+    before?: IBeforeInput
 }
 
 export type Fields = Array<IField>
@@ -39,7 +42,12 @@ export const asideFields: Fields = [
         type: 'search',
         key: 'patient',
         placeholder: 'Введите текст для поиска',
-        value: null,
+        value: 1,
+        after: {
+            icon: 'glyphicon glyphicon-zoom-in',
+            button: true,
+            callback: (scope) => scope.$emit('patientSearch', scope.value)
+        },
         callback: (scope, value) => {
             scope.$emit('patientSearch', value);
         },
@@ -67,7 +75,12 @@ export const asideFields: Fields = [
         type: 'search',
         key: 'specialist',
         placeholder: 'Введите текст для поиска',
-        value: null,
+        value: 2,
+        after: {
+            icon: 'glyphicon glyphicon-zoom-in',
+            button: true,
+            callback: (scope) => scope.$emit('searchSearch', scope.value)
+        },
         callback: (scope, value) => {
             scope.$emit('searchSearch', value);
         },

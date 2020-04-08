@@ -1,4 +1,5 @@
 module.exports = {
+    "extends": "eslint:recommended",
     "env": {
         "browser": true,
         "es6": true
@@ -15,7 +16,5 @@ module.exports = {
     "plugins": [
         "@typescript-eslint"
     ],
-    "rules": {
-        "max-len": [2, 150, 8]
-    }
+    "rules": {}
 };

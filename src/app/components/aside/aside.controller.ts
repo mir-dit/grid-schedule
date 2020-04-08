@@ -1,5 +1,5 @@
 import {IController} from "angular";
-import {asideFields, IAsideScope} from "@mocks/aside";
+import {asideFields, IAsideScope} from "@components/aside/aside.model";
 import users from "@mocks/user";
 import {preset} from "@app/models/datepicker"
 
