@@ -43,18 +43,13 @@ export class ScheduleCtrl {
       specialistId: column.specialistId,
       time: {start: cell.time, end},
     };
-    if (patient) {
-      const scheduleMenuPatient: ISheldureMenuSelectedPatient = {
-        ...scheduleMenu,
-        canAdd: !Boolean(cell.patient2),
-        patient: patient.name,
-        recordId: patient.recordId,
-        patientId: patient.id,
-      };
-      this.$scope.scheduleMenu = scheduleMenuPatient;
-    } else {
-      this.$scope.scheduleMenu = scheduleMenu;
-    }
+    this.$scope.scheduleMenu = patient ?  {
+      ...scheduleMenu,
+      canAdd: !Boolean(cell.patient2),
+      patient: patient.name,
+      recordId: patient.recordId,
+      patientId: patient.id,
+    } : scheduleMenu;
   }
 
   private handlePopupClose = (): void => {
@@ -79,6 +74,15 @@ export class ScheduleCtrl {
     return times;
   }
 
+  private createUsedCell(time: Date, used: IRecord[], cross?: boolean) {
+    const cell: ICellTime = {time, patient: {name: used[0].message, recordId: used[0].id, id: used[0].patientId}};
+    if (used[1])
+      cell.patient2 = {name: used[1].message, recordId: used[1].id, id: used[1].patientId};
+    if (cross)
+      cell.cross = true;
+    return cell;
+  }
+
   private createCells(user: ISpecialist, date: Date): Cell[] {
     const nextDate: Date = addDays(date, 1);
     const times: Date[] = this.getUserTimes(user, date);
@@ -93,29 +97,15 @@ export class ScheduleCtrl {
           addedAffairs.push(affair);
           cells.push({reason: affair.message});
         }
-        if (used.length) {
-          cells.push({
-            time,
-            patient: {name: used[0].message, recordId: used[0].id, id: used[0].patientId},
-            patient2: used[1] ? {name: used[1].message, recordId: used[1].id, id: used[1].patientId} : undefined,
-            cross: true,
-          });
-        }
+        if (used.length)
+          cells.push(this.createUsedCell(time, used, true));
       } else {
         if (cells.length && (cells[cells.length - 1] as ICellTime).cross) {
           let i: number = cells.length - 2;
           for (;!(cells[i] as ICellAffairs).reason && i > 0; i--);
-          cells.push({ reason: (cells[i] as ICellAffairs).reason });
+          cells.push({reason: (cells[i] as ICellAffairs).reason});
         }
-        if (used.length) {
-          cells.push({
-            time,
-            patient: {name: used[0].message, recordId: used[0].id, id: used[0].patientId},
-            patient2: used[1] ? {name: used[1].message, recordId: used[1].id, id: used[1].patientId} : undefined,
-          });
-        } else {
-          cells.push({time});
-        }
+        cells.push(used.length ? this.createUsedCell(time, used) : {time});
       }
     }
     return cells;

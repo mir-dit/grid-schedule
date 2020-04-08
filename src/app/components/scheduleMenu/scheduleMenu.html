@@ -1,10 +1,8 @@
 <app-popup ng-if="selected && !created && !cancel && !info" on-close="onClose" position="selected.position">
     <div class="schedule-menu">
         <div class="schedule-menu__header" ng-class="{ 'schedule-menu__header-time': selected.time }">
-            <span ng-if="!selected.patient" class="glyphicon glyphicon-time" aria-hidden="true"></span>
-            <span ng-if="!selected.patient" class="schedule-menu__header-text">Выбран интервал времени</span>
-            <span ng-if="selected.patient" class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <span ng-if="selected.patient" class="schedule-menu__header-text">{{ selected.patient }}</span>
+            <span class="glyphicon" ng-class="selected.patient ? 'glyphicon-user' : 'glyphicon-time'" aria-hidden="true"></span>
+            <span class="schedule-menu__header-text">{{ selected.patient || 'Выбран интервал времени' }}</span>
         </div>
         <div class="schedule-menu__time">
             <span ng-if="!selected.patient">{{ selected.time.start | date: 'HH:mm' }} - {{ selected.time.end | date: 'HH:mm' }}</span>
