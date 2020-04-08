@@ -1,15 +1,13 @@
-import {IAugmentedJQuery, IDirective, IDirectiveFactory, IScope, IAttributes} from "angular";
-
-export class defaultLayoutDirective implements IDirective {
+export class defaultLayoutDirective implements ng.IDirective {
   restrict = 'E';
   scope = {};
   template = require('./defaultLayout.html');
 
   constructor() {}
 
-  link = (scope: IScope, element: IAugmentedJQuery, attrs: IAttributes) => {};
+  link = (scope: ng.IScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {};
 
-  static factory(): IDirectiveFactory {
+  static factory() {
     return () => new defaultLayoutDirective();
   }
 }

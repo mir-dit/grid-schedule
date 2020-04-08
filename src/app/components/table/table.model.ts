@@ -1,24 +1,22 @@
-export interface IRowAffairs  {
+export interface ICellAffairs {
   reason: string;
 }
 
-export interface IRowUsed {
-  time: Date;
-  patient: string;
-  patient2?: string;
+export interface ICellPatient {
+  id: number;
+  recordId: number;
+  name: string;
 }
 
-export interface IRowFree {
+export interface ICellTime {
   time: Date;
-}
-
-export interface IRowCross {
-  cross: true,
-  time: Date;
-  patient: string;
+  patient?: ICellPatient;
+  patient2?: ICellPatient;
+  cross?: boolean,
 }
 
 export interface IColumn {
+  specialistId: number;
   date: Date;
   doctor: string;
   specialty: string;
@@ -31,8 +29,8 @@ export interface IColumnBusy extends IColumn {
 
 export interface IColumnFree extends IColumn {
   interval: string;
-  rows: Row[];
+  cells: Cell[];
 }
 
 export type Column = IColumnBusy | IColumnFree;
-export type Row = IRowAffairs | IRowFree | IRowUsed | IRowCross;
+export type Cell = ICellAffairs | ICellTime;

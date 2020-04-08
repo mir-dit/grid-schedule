@@ -1,25 +1,19 @@
-import {IAugmentedJQuery, IDirective, IDirectiveFactory, ILocationService, IAttributes} from 'angular';
 import {TableCtrl, ITableScope} from './table.controller';
 
-export class tableDirective implements IDirective {
+export class tableDirective implements ng.IDirective {
   public restrict = 'E';
   public template = require('./table.html');
   public controller = TableCtrl;
   public scope = {
     columns: '=',
+    onSelect: '=',
   };
 
-  constructor(private $location: ILocationService) {}
-
-  link = ($scope: ITableScope, element: IAugmentedJQuery, attrs: IAttributes) => {
+  link = ($scope: ITableScope, element: ng.IAugmentedJQuery) => {
     $scope.element = element;
   }
 
-  static factory(): IDirectiveFactory {
-    const directive = ($location: ILocationService) => new tableDirective($location);
-    directive.$inject = ['$location'];
-    return directive;
+  static factory() {
+    return () => new tableDirective();
   }
 }
-
-export default tableDirective;

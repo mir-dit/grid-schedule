@@ -50,7 +50,7 @@ $cell-height: 30px;
     
         &-cell {
             position: relative;
-            padding: 4px 12px; // padding-top must be even for correct isMax
+            padding: 4px 12px;
             z-index: 10;
         }
     
@@ -126,6 +126,7 @@ $cell-height: 30px;
     }
 
     &__cell {
+        user-select: none;
         height: $cell-height;
 
         &-free {
@@ -151,6 +152,10 @@ $cell-height: 30px;
             display: flex;
             align-items: center;
             border: solid 1px map_get($table-colors, "cross-border");
+        }
+
+        &_selectable {
+            cursor: pointer;
         }
     }
 

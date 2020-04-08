@@ -3,6 +3,10 @@ export interface IUser {
     name: string;
 }
 
+export interface IPatient extends IUser {
+    oms: string,
+}
+
 export interface ISpecialist extends IUser {
     specialty: string;
     hospital: string;
@@ -17,7 +21,7 @@ export interface ISchedule {
     days: number[]; // days of week, 0 = Sunday
 }
 
-export type Users = Array<IUser | ISpecialist>
+export type Users = Array<IPatient | ISpecialist>
 
 export const users: Users = [
     {
@@ -87,7 +91,8 @@ export const users: Users = [
     },
     {
         id: 6,
-        name: 'Сергеев Г.Г.'
+        name: 'Сергеев Г.Г.',
+        oms: '1111111111111111'
     }
 ]
 
