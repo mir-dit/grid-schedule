@@ -1,11 +1,11 @@
 export interface IRecord {
-    id: number;
-    message: string;
-    userId: number;
-    start: Date;
-    end: Date;
-    type: IRecordType;
-    patientId?: number;
+  id: number;
+  message: string;
+  userId: number;
+  start: Date;
+  end: Date;
+  type: IRecordType;
+  patientId?: number;
 }
 
 export type IRecordType = 'secondary' | 'success' | 'danger' | 'primary'

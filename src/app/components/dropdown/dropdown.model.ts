@@ -1,6 +1,4 @@
-import {IScope} from 'angular';
-
-export interface IDropdownScope extends IScope {
+export interface IDropdownScope extends ng.IScope {
     show: boolean;
     icon: string;
     type: DropdownType;

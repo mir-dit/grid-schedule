@@ -1,10 +1,9 @@
-import {IScope} from 'angular';
 import {Users} from '@mocks/user';
 import {IDatepicker} from '@app/models/datepicker';
 import {IAfterInput, IBeforeInput} from '@components/input/input.model';
 import {IDropdownScope} from '@components/dropdown/dropdown.model';
 
-export interface IAsideScope extends IScope {
+export interface IAsideScope extends ng.IScope {
     fields: Fields;
     datepicker: IDatepicker;
     users: Users;

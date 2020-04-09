@@ -15,7 +15,7 @@ export class InitPluginDirective implements ng.IDirective {
     const pluginName: string = attrs.initPlugin;
     switch (pluginName) {
       case 'scrollbar':
-        initPluginDirective.initScrollbar(element, scope);
+        InitPluginDirective.initScrollbar(element, scope);
         break;
       default:
         console.error(`Плагин с названием ${pluginName} не найден!`);

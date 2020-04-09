@@ -17,7 +17,7 @@ import {ScheduleService} from './pages/schedule/schedule.service';
 import {ScheduleMenuDirective} from './components/scheduleMenu/scheduleMenu.directive';
 import {dictionaryFilter} from './filters/dictionary.filter';
 
-const Application = (): ng.IControllerProvider => {
+const Application = (): object => {
   return {
     template: require('./app.html'),
     controller: 'AppCtrl',

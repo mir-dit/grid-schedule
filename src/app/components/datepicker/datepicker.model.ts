@@ -1,5 +1,3 @@
-import {IScope} from 'angular';
-
 export interface IDatepicker {
     format: string;
     minDate: Date;
@@ -20,7 +18,7 @@ export const defaultConfig = {
   },
 };
 
-export interface IDatepickerScope extends IScope {
+export interface IDatepickerScope extends ng.IScope {
     show: boolean;
     config: IDatepicker;
     toggleShow: () => void;

@@ -1,7 +1,6 @@
-import {IDirective, IDirectiveFactory} from 'angular';
 import {DropdownController} from '@components/dropdown/dropdown.controller';
 
-export class DropdownDirective implements IDirective {
+export class DropdownDirective implements ng.IDirective {
   restrict = 'E';
   template = require('./dropdown.html');
   controller = DropdownController;
@@ -12,7 +11,7 @@ export class DropdownDirective implements IDirective {
     handler: '=',
   };
 
-  static factory(): IDirectiveFactory {
-    return (): IDirective => new DropdownDirective();
+  static factory() {
+    return (): ng.IDirective => new DropdownDirective();
   }
 }

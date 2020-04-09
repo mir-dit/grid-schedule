@@ -1,7 +1,7 @@
 import {Column} from '@app/components/table/table.model';
 
 function orderBy(fn: Function, columns: Column[], ...filters: string[]): Column[] {
-  return filters.length > 1 ? orderBy(fn, fn(columns, filters[0], false), ...filters.slice(1)) : fn(array, filters[0], false);
+  return filters.length > 1 ? orderBy(fn, fn(columns, filters[0], false), ...filters.slice(1)) : fn(columns, filters[0], false);
 }
 
 function tableOrderColumnFilter($filter: ng.IFilterService) {

@@ -1,7 +1,6 @@
-import {IDirective, IDirectiveFactory} from 'angular';
 import {DatepickerController} from '@components/datepicker/datepicker.controller';
 
-export class DatepickerDirective implements IDirective {
+export class DatepickerDirective implements ng.IDirective {
   restrict = 'E';
   template = require('./datepicker.html');
   controller = DatepickerController;
@@ -12,7 +11,7 @@ export class DatepickerDirective implements IDirective {
     callback: '=',
   };
 
-  static factory(): IDirectiveFactory {
-    return (): IDirective => new DatepickerDirective();
+  static factory() {
+    return (): ng.IDirective => new DatepickerDirective();
   }
 }

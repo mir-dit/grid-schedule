@@ -1,17 +1,17 @@
 import {IAsideScope} from '@components/aside/aside.model';
 
 export interface IDatepicker {
-    format: string;
-    minDate: Date;
-    maxDate: Date;
-    dateOptions: {
-        formatYear: string;
-        startingDay: number;
-    };
-    status: {
-        opened: boolean;
-    };
-    open: (scope: IAsideScope) => void;
+  format: string;
+  minDate: Date;
+  maxDate: Date;
+  dateOptions: {
+      formatYear: string;
+      startingDay: number;
+  };
+  status: {
+      opened: boolean;
+  };
+  open: (scope: IAsideScope) => void;
 }
 
 export const preset = {
@@ -25,5 +25,7 @@ export const preset = {
   status: {
     opened: false,
   },
-  open: (scope): void => scope.datepicker.status.opened = !scope.datepicker.status.opened,
+  open: (scope): void => {
+    scope.datepicker.status.opened = !scope.datepicker.status.opened;
+  },
 };

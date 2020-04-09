@@ -1,6 +1,4 @@
-import {IScope} from 'angular';
-
-export interface IInputScope extends IScope {
+export interface IInputScope extends ng.IScope {
     id: string;
     value: any;
     defaultValue: any;

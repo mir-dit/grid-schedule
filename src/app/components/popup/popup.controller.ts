@@ -35,7 +35,7 @@ export class PopupCtrl {
     }
   }
 
-  private isInsidePopup(target: HTMLElement): void {
+  private isInsidePopup(target: HTMLElement): boolean {
     let parent = target;
     while (parent) {
       if (parent == this.$scope.element[0]) {

@@ -68,7 +68,7 @@ export class TableCtrl {
     }
   }
 
-  private scroll = (event: Event, target: HTMLElement): void => {
+  private scroll = (event: ng.IAngularEvent, target: HTMLElement): void => {
     this.$scope.$apply(() => {
       this.$scope.offset = target.scrollTop;
     });
