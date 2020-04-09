@@ -10,7 +10,6 @@ export interface IPopupScope extends ng.IScope {
 }
 
 export class PopupCtrl {
-    
   constructor(private $scope: IPopupScope, private $window: ng.IWindowService) {
     $window.addEventListener('click', this.handleClick);
     $window.addEventListener('resize', this.handlePageChange);
@@ -22,28 +21,28 @@ export class PopupCtrl {
     });
   }
 
-  private handlePageChange = (event: MouseEvent) => {
+  private handlePageChange = (): void => {
     if (this.$scope.position && this.$scope.onClose) {
       this.$scope.onClose();
       this.$scope.$root.$apply();
     }
   }
 
-  private handleClick = (event: MouseEvent) => {
+  private handleClick = (): void => {
     if (this.$scope.onClose && !this.isInsidePopup(event.target as HTMLElement)) {
       this.$scope.onClose();
       this.$scope.$root.$apply();
     }
   }
 
-  private isInsidePopup(target: HTMLElement) {
+  private isInsidePopup(target: HTMLElement): boolean {
     let parent = target;
     while (parent) {
-      if (parent == this.$scope.element[0])
+      if (parent == this.$scope.element[0]) {
         return true;
+      }
       parent = parent.parentElement;
     }
     return false;
   }
-
 }

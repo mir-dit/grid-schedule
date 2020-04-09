@@ -12,12 +12,11 @@ interface ISheldureScope extends ng.IScope {
   columns: Column[];
   updateColumns: () => void;
   handleTableSelect: (event: MouseEvent, cell: ICellTime, column: Column, patient?: ICellPatient) => void;
-  scheduleMenu: ISheldureMenuSelected | ISheldureMenuSelectedPatient | null,
+  scheduleMenu: ISheldureMenuSelected | ISheldureMenuSelectedPatient | null;
   handlePopupClose: () => void;
 }
 
 export class ScheduleCtrl {
-
   static $inject = ['$scope', 'ScheduleService'];
 
   constructor(private $scope: ISheldureScope, private scheduleService: IScheduleService) {
@@ -35,17 +34,16 @@ export class ScheduleCtrl {
   }
 
   private handleTableSelect = (event: MouseEvent, cell: ICellTime, column: Column, patient?: ICellPatient): void => {
-    if (!patient && cell.patient2)
-      return;
+    if (!patient && cell.patient2) return;
     const end = addMinutes(cell.time, 60 / this.scheduleService.getSpecialistById(column.specialistId).step);
     const scheduleMenu: ISheldureMenuSelected = {
       position: {x: event.clientX, y: event.clientY},
       specialistId: column.specialistId,
       time: {start: cell.time, end},
     };
-    this.$scope.scheduleMenu = patient ?  {
+    this.$scope.scheduleMenu = patient ? {
       ...scheduleMenu,
-      canAdd: !Boolean(cell.patient2),
+      canAdd: !cell.patient2,
       patient: patient.name,
       recordId: patient.recordId,
       patientId: patient.id,
@@ -58,8 +56,9 @@ export class ScheduleCtrl {
 
   private generateDates(from: Date): Date[] {
     const dates: Date[] = [from];
-    for (let i = 1; i < this.$scope.timeGap; i++)
+    for (let i = 1; i < this.$scope.timeGap; i++) {
       dates.push(addDays(from, i));
+    }
     return dates;
   }
 
@@ -70,16 +69,18 @@ export class ScheduleCtrl {
     const diff: number = 60 / user.step;
     do {
       times.push(addMinutes(times[times.length - 1], diff));
-    }  while (times[times.length - 1] <= end);
+    } while (times[times.length - 1] <= end);
     return times;
   }
 
-  private createUsedCell(time: Date, used: IRecord[], cross?: boolean) {
+  private createUsedCell(time: Date, used: IRecord[], cross?: boolean): ICellTime {
     const cell: ICellTime = {time, patient: {name: used[0].message, recordId: used[0].id, id: used[0].patientId}};
-    if (used[1])
+    if (used[1]) {
       cell.patient2 = {name: used[1].message, recordId: used[1].id, id: used[1].patientId};
-    if (cross)
+    }
+    if (cross) {
       cell.cross = true;
+    }
     return cell;
   }
 
@@ -90,15 +91,16 @@ export class ScheduleCtrl {
     const addedAffairs: IRecord[] = [];
     const affairs: IRecord[] = this.scheduleService.getUserRecordsBetweenDates(user, date, nextDate).filter(({type}: IRecord) => type !== 'danger' && type !== 'primary');
     for (const time of times) {
-      const used: IRecord[] = this.scheduleService.getUserRecordsIncludesDate(user, time).filter(({ type }: IRecord) => type === 'primary');
+      const used: IRecord[] = this.scheduleService.getUserRecordsIncludesDate(user, time).filter(({type}: IRecord) => type === 'primary');
       const affair = affairs.find(({start, end}: IRecord) => start <= time && time <= end);
       if (affair) {
         if (!addedAffairs.includes(affair)) {
           addedAffairs.push(affair);
           cells.push({reason: affair.message});
         }
-        if (used.length)
+        if (used.length) {
           cells.push(this.createUsedCell(time, used, true));
+        }
       } else {
         if (cells.length && (cells[cells.length - 1] as ICellTime).cross) {
           let i: number = cells.length - 2;
@@ -113,7 +115,7 @@ export class ScheduleCtrl {
 
   private createColumns(users: ISpecialist[], date: Date): Column[] {
     return users.map((user: ISpecialist) => {
-      const busy = this.scheduleService.getUserRecordsIncludesDate(user, date).find(({ type }: IRecord) => type === 'danger');
+      const busy = this.scheduleService.getUserRecordsIncludesDate(user, date).find(({type}: IRecord) => type === 'danger');
       return {
         specialistId: user.id,
         date,
@@ -121,7 +123,7 @@ export class ScheduleCtrl {
         specialty: user.specialty,
         address: user.hospital,
         ...(busy ? {busy: busy.message} : {
-          interval:  user.schedule.title,
+          interval: user.schedule.title,
           cells: this.createCells(user, date),
         }),
       };
@@ -129,7 +131,6 @@ export class ScheduleCtrl {
   }
 
   private updateColumns = (): void => {
-    this.$scope.columns = this.generateDates(this.$scope.selectedDate).map(date => this.createColumns(this.scheduleService.getSpecialists(date), date)).flat();
+    this.$scope.columns = this.generateDates(this.$scope.selectedDate).map((date) => this.createColumns(this.scheduleService.getSpecialists(date), date)).flat();
   }
-
 }

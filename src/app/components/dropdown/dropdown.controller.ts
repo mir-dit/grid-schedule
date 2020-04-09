@@ -1,15 +1,13 @@
-import {IController} from "angular";
-import {IDropdownScope} from "@components/dropdown/dropdown.model";
+import {IDropdownScope} from '@components/dropdown/dropdown.model';
 
-export class DropdownController implements IController {
+export class DropdownController {
+  constructor(private $scope: IDropdownScope) {
+    $scope.show = false;
+    $scope.scope = $scope;
+    $scope.toggleShow = this.toggleShow;
+  }
 
-    constructor(private $scope: IDropdownScope) {
-        $scope.show = false;
-        $scope.scope = $scope;
-        $scope.toggleShow = this.toggleShow;
-    }
-
-    private toggleShow = () => {
-      this.$scope.show = !this.$scope.show
+    private toggleShow = (): void => {
+      this.$scope.show = !this.$scope.show;
     }
 }

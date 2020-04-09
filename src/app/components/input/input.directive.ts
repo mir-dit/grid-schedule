@@ -1,31 +1,25 @@
-import {IAugmentedJQuery, IDirective, IDirectiveFactory, IAttributes} from "angular";
-import {IInputScope} from "@components/input/input.model";
-import {InputController} from "@components/input/input.controller";
+import {IInputScope} from '@components/input/input.model';
+import {InputController} from '@components/input/input.controller';
 
-export class inputDirective implements IDirective {
+export class InputDirective implements ng.IDirective {
   restrict = 'E';
   template = require('./input.html');
   controller = InputController;
   scope = {
     id: '=',
     placeholder: '=',
-    defaultValue: "=",
+    defaultValue: '=',
     type: '@',
     before: '=',
-    after: '='
+    after: '=',
   };
-  require = "^ngModel";
+  require = '^ngModel';
 
-  constructor() {}
-
-  link = (scope: IInputScope, element: IAugmentedJQuery, attrs: IAttributes, ngModel: any) => {
+  link = (scope: IInputScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes, ngModel): void => {
     scope.ngModel = ngModel;
   };
 
-  static factory(): IDirectiveFactory {
-    return () => new inputDirective();
+  static factory() {
+    return (): ng.IDirective => new InputDirective();
   }
-
 }
-
-export default inputDirective;

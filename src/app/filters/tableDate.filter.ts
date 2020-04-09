@@ -2,7 +2,7 @@ const months = ['янв.', 'фев.', 'мар.', 'апр.', 'мая', 'июн.',
 const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 
 export function tableDateFilter() {
-  return (date: Date) => {
-    return days[date.getDay()] + '. ' + date.getDate() + ' ' +  months[date.getMonth()];
-  }
+  return (date: Date): string => {
+    return days[date.getDay()] + '. ' + date.getDate().toString() + ' ' + months[date.getMonth()];
+  };
 }

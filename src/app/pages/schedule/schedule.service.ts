@@ -1,4 +1,4 @@
-import {users, ISpecialist, IPatient, IUser} from '../../../mocks/user';
+import {users, ISpecialist, IPatient} from '../../../mocks/user';
 import {records, IRecord} from '../../../mocks/record';
 
 export interface IScheduleService {
@@ -13,7 +13,7 @@ export interface IScheduleService {
 
 function loadRecords(): IRecord[] {
   const loadedRecords = localStorage.getItem('records');
-  return loadedRecords ? JSON.parse(loadedRecords).map(record => ({
+  return loadedRecords ? JSON.parse(loadedRecords).map((record) => ({
     ...record,
     start: new Date(record.start),
     end: new Date(record.end),
@@ -21,7 +21,6 @@ function loadRecords(): IRecord[] {
 }
 
 export class ScheduleService implements IScheduleService {
-
   private specialists: ISpecialist[];
   private paitents: IPatient[];
   private records: IRecord[];
@@ -38,7 +37,7 @@ export class ScheduleService implements IScheduleService {
   }
 
   getSpecialists(date: Date): ISpecialist[] {
-    return this.specialists.filter(user => user.schedule.days.includes(date.getDay()));
+    return this.specialists.filter((user) => user.schedule.days.includes(date.getDay()));
   }
 
   getSpecialistById(id: number): ISpecialist | undefined {
@@ -54,7 +53,7 @@ export class ScheduleService implements IScheduleService {
   }
 
   addPrimaryRecord(patient: IPatient, specialistId: number, start: Date, end: Date): void {
-    const nextId = Math.max(...this.records.map(({ id }) => id)) + 1;
+    const nextId = Math.max(...this.records.map(({id}) => id)) + 1;
     this.records.push({
       type: 'primary',
       id: nextId,
@@ -69,8 +68,7 @@ export class ScheduleService implements IScheduleService {
 
   removeRecord(id: number): void {
     const index = this.records.findIndex((record: IRecord) => record.id === id);
-    if (index === -1)
-      throw new Error('Record not found');
+    if (index === -1) throw new Error('Record not found');
     this.records.splice(index, 1);
     this.recordsUpdated();
   }
@@ -78,5 +76,4 @@ export class ScheduleService implements IScheduleService {
   getPatientById(id: number): IPatient | undefined {
     return this.paitents.find((user: IPatient) => id === user.id);
   }
-
 }

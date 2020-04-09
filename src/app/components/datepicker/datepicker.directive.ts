@@ -1,8 +1,6 @@
-import {IAugmentedJQuery, IDirective, IDirectiveFactory, IAttributes} from "angular";
-import {DatepickerController} from "@components/datepicker/datepicker.controller";
-import {IDatepickerScope} from "@components/datepicker/datepicker.model";
+import {DatepickerController} from '@components/datepicker/datepicker.controller';
 
-export class datepickerDirective implements IDirective {
+export class DatepickerDirective implements ng.IDirective {
   restrict = 'E';
   template = require('./datepicker.html');
   controller = DatepickerController;
@@ -10,17 +8,10 @@ export class datepickerDirective implements IDirective {
     value: '=',
     placeholder: '=',
     id: '=',
-    callback: '='
+    callback: '=',
   };
 
-  constructor() {}
-
-  link = (scope: IDatepickerScope, element: IAugmentedJQuery, attrs: IAttributes) => {};
-
-  static factory(): IDirectiveFactory {
-    return () => new datepickerDirective();
+  static factory() {
+    return (): ng.IDirective => new DatepickerDirective();
   }
-
 }
-
-export default datepickerDirective;

@@ -1,8 +1,6 @@
-import {IAugmentedJQuery, IDirective, IDirectiveFactory, IAttributes} from "angular";
-import {DropdownController} from "@components/dropdown/dropdown.controller";
-import {IDropdownScope} from "@components/dropdown/dropdown.model";
+import {DropdownController} from '@components/dropdown/dropdown.controller';
 
-export class dropdownDirective implements IDirective {
+export class DropdownDirective implements ng.IDirective {
   restrict = 'E';
   template = require('./dropdown.html');
   controller = DropdownController;
@@ -10,17 +8,10 @@ export class dropdownDirective implements IDirective {
     icon: '=',
     items: '=',
     type: '@',
-    handler: '='
+    handler: '=',
   };
 
-  constructor() {}
-
-  link = (scope: IDropdownScope, element: IAugmentedJQuery, attrs: IAttributes) => {};
-
-  static factory(): IDirectiveFactory {
-    return () => new dropdownDirective();
+  static factory() {
+    return (): ng.IDirective => new DropdownDirective();
   }
-
 }
-
-export default dropdownDirective;

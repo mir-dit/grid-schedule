@@ -42,7 +42,6 @@ export interface IScheduleMenuScope extends ng.IScope {
 }
 
 export class ScheduleMenuCtrl {
-
   static $inject = ['$scope', '$timeout', 'ScheduleService'];
 
   private createdTimeout: ng.IPromise<void> = null;
@@ -62,8 +61,9 @@ export class ScheduleMenuCtrl {
   }
 
   private handleSelectedChange = (): void => {
-    if (this.$scope.cancel || this.$scope.info)
+    if (this.$scope.cancel || this.$scope.info) {
       return;
+    }
     if (this.createdTimeout) {
       this.$timeout.cancel(this.createdTimeout);
       this.createdTimeout = null;
@@ -112,5 +112,4 @@ export class ScheduleMenuCtrl {
     this.$scope.info = null;
     this.$scope.onClose();
   }
-
 }

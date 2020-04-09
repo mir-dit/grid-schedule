@@ -1,6 +1,6 @@
 import {ScheduleMenuCtrl} from './scheduleMenu.controller';
 
-export class scheduleMenuDirective implements ng.IDirective {
+export class ScheduleMenuDirective implements ng.IDirective {
   public restrict = 'E';
   public template = require('./scheduleMenu.html');
   public controller = ScheduleMenuCtrl;
@@ -11,6 +11,6 @@ export class scheduleMenuDirective implements ng.IDirective {
   };
 
   static factory() {
-    return () => new scheduleMenuDirective();
+    return (): ng.IDirective => new ScheduleMenuDirective();
   }
 }

@@ -17,7 +17,8 @@ const config = {
             {
                 test: /\.ts$/,
                 use: [
-                    'awesome-typescript-loader'
+                    'awesome-typescript-loader',
+                    'eslint-loader'
                 ],
                 exclude: /node_modules/
             },

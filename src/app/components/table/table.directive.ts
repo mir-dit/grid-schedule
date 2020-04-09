@@ -1,6 +1,6 @@
 import {TableCtrl, ITableScope} from './table.controller';
 
-export class tableDirective implements ng.IDirective {
+export class TableDirective implements ng.IDirective {
   public restrict = 'E';
   public template = require('./table.html');
   public controller = TableCtrl;
@@ -9,11 +9,11 @@ export class tableDirective implements ng.IDirective {
     onSelect: '=',
   };
 
-  link = ($scope: ITableScope, element: ng.IAugmentedJQuery) => {
+  link = ($scope: ITableScope, element: ng.IAugmentedJQuery): void => {
     $scope.element = element;
   }
 
   static factory() {
-    return () => new tableDirective();
+    return (): ng.IDirective => new TableDirective();
   }
 }

@@ -1,0 +1,6 @@
+build/*
+typings/*
+assets/*
+*.html
+*.scss
+webpack.config.js

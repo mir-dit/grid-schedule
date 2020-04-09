@@ -12,7 +12,7 @@ export interface ICellTime {
   time: Date;
   patient?: ICellPatient;
   patient2?: ICellPatient;
-  cross?: boolean,
+  cross?: boolean;
 }
 
 export interface IColumn {
