@@ -8,7 +8,7 @@ export interface IInputScope extends ng.IScope {
     after: IAfterInput;
     scope: IInputScope;
     changeValue: (scope: IInputScope) => void;
-    ngModel;
+    ngModel: ng.INgModelController;
 }
 
 export type InputType = 'text' | 'password' | 'number' | 'tel' | 'email'

@@ -15,7 +15,7 @@ export class InputDirective implements ng.IDirective {
   };
   require = '^ngModel';
 
-  link = (scope: IInputScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes, ngModel): void => {
+  link = (scope: IInputScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes, ngModel: ng.INgModelController): void => {
     scope.ngModel = ngModel;
   };
 
