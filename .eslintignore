@@ -3,3 +3,4 @@ types/*
 assets/*
 *.html
 *.scss
+webpack.config.js
