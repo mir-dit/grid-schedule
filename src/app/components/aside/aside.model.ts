@@ -16,8 +16,8 @@ export interface IField {
     type: FieldType;
     key: string;
     placeholder: string;
-    value: null | string;
-    callback?: (scope: (IInputScope | IDatepickerScope), value: null | string) => void;
+    value: string;
+    callback?: (scope: (IInputScope | IDatepickerScope), value: string) => void;
     actions?: IActionItem[];
     after?: IAfterInput;
     before?: IBeforeInput;
@@ -43,7 +43,7 @@ export const asideFields: Fields = [
     type: 'search',
     key: 'patient',
     placeholder: 'Введите текст для поиска',
-    value: null,
+    value: '',
     after: {
       icon: 'glyphicon glyphicon-zoom-in',
       button: true,
@@ -68,7 +68,7 @@ export const asideFields: Fields = [
     type: 'date',
     key: 'date',
     placeholder: 'ДД.ММ.ГГГГ',
-    value: null,
+    value: '',
     callback: (scope): void => {
       scope.$emit('datepickerSearch', scope);
     },
@@ -78,7 +78,7 @@ export const asideFields: Fields = [
     type: 'search',
     key: 'specialist',
     placeholder: 'Введите текст для поиска',
-    value: null,
+    value: '',
     after: {
       icon: 'glyphicon glyphicon-zoom-in',
       button: true,

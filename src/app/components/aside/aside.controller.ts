@@ -10,14 +10,14 @@ export class AsideController {
     $scope.datepicker = preset;
 
     // Initialization
-    // this.watchDebug();
+    this.watchDebug();
   }
 
-//   private watchDebug() {
-//     this.$scope.fields.forEach((el, index) => {
-//       this.$scope.$watch(`fields[${index}].value`, (newVal, oldVal) => {
-//         console.debug(el.key, newVal);
-//       });
-//     });
-//   }
+  private watchDebug(): void {
+    this.$scope.fields.forEach((el, index) => {
+      this.$scope.$watch(`fields[${index}].value`, (newVal) => {
+        console.log(el.key, newVal);
+      });
+    });
+  }
 }

@@ -20,14 +20,9 @@ import {dictionaryFilter} from './filters/dictionary.filter';
 const Application = (): object => {
   return {
     template: require('./app.html'),
-    controller: 'AppCtrl',
     controllerAs: 'app-schedule',
   };
 };
-
-class AppCtrl {
-  static $inject = ['$scope'];
-}
 
 const moduleName = 'appSchedule';
 
@@ -36,7 +31,6 @@ const app: ng.IModule = angular.module(moduleName, [
   bootstrap,
 ]);
 app.directive(moduleName, Application);
-app.controller('AppCtrl', AppCtrl);
 app.controller('ScheduleCtrl', ScheduleCtrl);
 app.directive('appTable', TableDirective.factory());
 app.filter('tableDate', tableDateFilter);
