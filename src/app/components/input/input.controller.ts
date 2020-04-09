@@ -7,5 +7,5 @@ export class InputController {
     $scope.changeValue = this.changeValue;
   }
 
-    private changeValue = (): void => this.$scope.ngModel.$setViewValue(this.$scope.value)
+  private changeValue = (): void => this.$scope.ngModel.$setViewValue(this.$scope.value)
 }

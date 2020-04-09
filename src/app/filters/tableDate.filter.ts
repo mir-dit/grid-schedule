@@ -3,6 +3,6 @@ const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 
 export function tableDateFilter() {
   return (date: Date): string => {
-    return days[date.getDay()] + '. ' + date.getDate() + ' ' + months[date.getMonth()];
+    return days[date.getDay()] + '. ' + date.getDate().toString() + ' ' + months[date.getMonth()];
   };
 }

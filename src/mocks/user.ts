@@ -21,7 +21,7 @@ export interface ISchedule {
     days: number[]; // days of week, 0 = Sunday
 }
 
-export type Users = Array<IPatient | ISpecialist>
+export type Users = (IPatient | ISpecialist)[]
 
 export const users: Users = [
   {

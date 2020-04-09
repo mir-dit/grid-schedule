@@ -1,7 +1,8 @@
 import {Users} from '@mocks/user';
 import {IDatepicker} from '@app/models/datepicker';
-import {IAfterInput, IBeforeInput} from '@components/input/input.model';
+import {IAfterInput, IBeforeInput, IInputScope} from '@components/input/input.model';
 import {IDropdownScope} from '@components/dropdown/dropdown.model';
+import {IDatepickerScope} from '../datepicker/datepicker.model';
 
 export interface IAsideScope extends ng.IScope {
     fields: Fields;
@@ -15,14 +16,14 @@ export interface IField {
     type: FieldType;
     key: string;
     placeholder: string;
-    value: any;
-    callback?: (scope: any, value) => void;
+    value: null | string;
+    callback?: (scope: (IInputScope | IDatepickerScope), value: null | string) => void;
     actions?: IActionItem[];
     after?: IAfterInput;
     before?: IBeforeInput;
 }
 
-export type Fields = Array<IField>
+export type Fields = IField[]
 export type FieldType = 'date' | 'search' | 'input' | 'textarea'
 
 export interface IActionItemLink {

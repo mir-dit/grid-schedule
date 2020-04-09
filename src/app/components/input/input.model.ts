@@ -1,14 +1,14 @@
 export interface IInputScope extends ng.IScope {
     id: string;
-    value: any;
-    defaultValue: any;
+    value: null | string;
+    defaultValue: null | string;
     type: InputType;
     placeholder: string;
     before: IBeforeInput;
     after: IAfterInput;
     scope: IInputScope;
     changeValue: (scope: IInputScope) => void;
-    ngModel: any;
+    ngModel;
 }
 
 export type InputType = 'text' | 'password' | 'number' | 'tel' | 'email'

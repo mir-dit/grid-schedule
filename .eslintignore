@@ -1,5 +1,5 @@
 build/*
-types/*
+typings/*
 assets/*
 *.html
 *.scss
