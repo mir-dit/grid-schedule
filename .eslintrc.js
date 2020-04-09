@@ -1,20 +1,31 @@
 module.exports = {
-    "extends": "eslint:recommended",
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
     },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "google",
+    ],
     "globals": {
         "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
+        "SharedArrayBuffer": "readonly",
     },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
+        "ecmaVersion": 2019,
+        "sourceType": "module",
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
     ],
-    "rules": {}
+    "rules": {
+        "linebreak-style": ["error", "windows"],
+        "require-jsdoc": "off",
+        "@typescript-eslint/interface-name-prefix": ["error", { "prefixWithI": "always" }],
+        "no-invalid-this": "off",
+        "max-len": "off",
+    }
 };
