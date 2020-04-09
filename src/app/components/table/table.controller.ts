@@ -30,7 +30,6 @@ enum HeaderColumnDiv {
 }
 
 export class TableCtrl {
-
   constructor(private $scope: ITableScope, $timeout: ng.ITimeoutService) {
     $scope.offset = 0;
     $scope.rolled = [];
@@ -64,22 +63,23 @@ export class TableCtrl {
   }
 
   private resetUnrolled = (): void => {
-    if (this.$scope.unrolledIndex !== null)
+    if (this.$scope.unrolledIndex !== null) {
       this.$scope.unrolledIndex = null;
+    }
   }
-  
-  private scroll = (event: any, target: any): void => {
+
+  private scroll = (event: Event, target: HTMLElement): void => {
     this.$scope.$apply(() => {
       this.$scope.offset = target.scrollTop;
     });
   }
 
-  private getMaxHeight(columns: HTMLDivElement[], div: HeaderColumnDiv) {
+  private getMaxHeight(columns: HTMLDivElement[], div: HeaderColumnDiv): number {
     return Math.max(...columns.map((columnDiv: HTMLDivElement) => (columnDiv.children[div] as HTMLDivElement).offsetHeight));
   }
 
   private updateRolled = (): void => {
-    const columns = Array.from(this.$scope.element[0].getElementsByClassName('table__header-column')) as HTMLDivElement[]; 
+    const columns = Array.from(this.$scope.element[0].getElementsByClassName('table__header-column')) as HTMLDivElement[];
     this.$scope.headerLockedHeight = columns[0].offsetHeight;
     const halfOffsets: number[] = columns.map((columnDiv: HTMLDivElement) => {
       const intervlalDiv = columnDiv.children[HeaderColumnDiv.interval] as HTMLDivElement;
@@ -95,5 +95,4 @@ export class TableCtrl {
       address: this.getMaxHeight(columns, HeaderColumnDiv.address),
     };
   }
-
 }

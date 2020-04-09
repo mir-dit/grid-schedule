@@ -16,7 +16,7 @@ export function addMinutes(date: Date, minutes: number): Date {
 
 export function setTime(date: Date, time: Date): Date {
   const clone = cloneDate(date);
-  clone.setHours(time.getHours())
+  clone.setHours(time.getHours());
   clone.setMinutes(time.getMinutes());
   clone.setSeconds(time.getSeconds());
   return clone;

@@ -1,22 +1,13 @@
-import {IAugmentedJQuery, IDirective, IDirectiveFactory, IScope, IAttributes, INgModelController} from "angular";
-import {AsideController} from "@components/aside/aside.controller";
-import {IAsideScope} from "@components/aside/aside.model";
+import {IDirective} from 'angular';
+import {AsideController} from '@components/aside/aside.controller';
 
-export class asideDirective implements IDirective {
+export class AsideDirective implements IDirective {
   restrict = 'E';
   template = require('./aside.html');
   controller = AsideController;
   scope = {};
 
-  constructor() {}
-
-  link = (scope: IAsideScope, element: IAugmentedJQuery, attrs: IAttributes) => {};
-
-  static factory(): IDirectiveFactory {
-    return () => new asideDirective();
+  static factory(): IDirective {
+    return (): AsideDirective => new AsideDirective();
   }
-
-
 }
-
-export default asideDirective;
