@@ -7,7 +7,6 @@ interface IPatientTypeahead {
 }
 
 export interface IPatientScope extends ng.IScope {
-  id: number;
   selected: IPatient | null;
   noResults: boolean;
   value: IPatientTypeahead | '';

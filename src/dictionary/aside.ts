@@ -6,4 +6,8 @@ export default {
     oms: 'Полис ОМС',
     exit: 'Завершить работу с пациентом',
   },
+  datepicker: {
+    label: 'ДАТА ЗАПИСИ',
+    placeholder: 'ДД.ММ.ГГГГ',
+  },
 };

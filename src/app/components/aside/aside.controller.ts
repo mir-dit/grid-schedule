@@ -8,16 +8,5 @@ export class AsideController {
     $scope.fields = asideFields;
     $scope.users = users;
     $scope.datepicker = preset;
-
-    // Initialization
-    this.watchDebug();
-  }
-
-  private watchDebug(): void {
-    this.$scope.fields.forEach((el, index) => {
-      this.$scope.$watch(`fields[${index}].value`, (newVal) => {
-        console.log(el.key, newVal);
-      });
-    });
   }
 }

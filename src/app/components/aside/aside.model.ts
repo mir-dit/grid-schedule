@@ -2,7 +2,6 @@ import {Users} from '@mocks/user';
 import {IDatepicker} from '@app/models/datepicker';
 import {IAfterInput, IBeforeInput, IInputScope} from '@components/input/input.model';
 import {IDropdownScope} from '@components/dropdown/dropdown.model';
-import {IDatepickerScope} from '../datepicker/datepicker.model';
 
 export interface IAsideScope extends ng.IScope {
     fields: Fields;
@@ -17,7 +16,7 @@ export interface IField {
     key: string;
     placeholder: string;
     value: string;
-    callback?: (scope: (IInputScope | IDatepickerScope), value: string) => void;
+    callback?: (scope: IInputScope, value: string) => void;
     actions?: IActionItem[];
     after?: IAfterInput;
     before?: IBeforeInput;

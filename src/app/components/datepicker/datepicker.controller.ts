@@ -1,23 +1,33 @@
-import {defaultConfig, IDatepickerScope} from '@components/datepicker/datepicker.model';
+interface IDatepicker {
+  format: string;
+  minDate: Date;
+  maxDate: Date;
+  options: {
+    formatYear: string;
+    startingDay: number;
+  };
+}
+
+const config: IDatepicker = {
+  format: 'dd.MM.yyyy',
+  minDate: new Date(),
+  maxDate: new Date(2025, 1, 1),
+  options: {
+    formatYear: 'yy',
+    startingDay: 1,
+  },
+};
+
+interface IDatepickerScope extends ng.IScope {
+  show: boolean;
+  config: IDatepicker;
+  value: Date | string;
+}
 
 export class DatepickerController {
-  constructor(private $scope: IDatepickerScope) {
+  constructor($scope: IDatepickerScope) {
     $scope.show = false;
-    $scope.config = {...defaultConfig};
-    $scope.toggleShow = this.toggleShow;
-    // Initialization
-    this.init();
-  }
-
-  private toggleShow = (): void => {
-    this.$scope.show = !this.$scope.show;
-  }
-
-  private init = (): void => {
-    this.$scope.$watch('show', (newVal) => {
-      if (!newVal) {
-        this.$scope.callback(this.$scope);
-      }
-    });
+    $scope.config = config;
+    $scope.value = '';
   }
 }

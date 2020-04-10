@@ -1,54 +1,50 @@
-<div class="aside__field">
-    <div class="d-flex justify-space-between align-items-center mb-10">
-        <label for="patient" class="custom-label">{{'aside.patient.label' | dictionary}}</label>
-        <div class="aside__field-actions">
-            <div class="btn-group ml-10" dropdown>
-                <button
-                    class="btn btn-success btn-sm dropdown-toggle"
-                    id="patient-dropdown"
-                    type="button"
-                    dropdown-toggle
-                    ng-disabled="!selected"
-                >
-                    <i class="glyphicon glyphicon-user"></i>
-                    <i class="caret" style="margin-left: 6px;"></i>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="patient-dropdown">
-                    <li role="menuitem"><a href ng-click="value = ''">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>{{'aside.patient.exit' | dictionary}}
-                    </a></li>
-                </ul>
-            </div>
+<div class="d-flex justify-space-between align-items-center mb-10">
+    <label for="patient" class="custom-label">{{'aside.patient.label' | dictionary}}</label>
+    <div class="aside__field-actions">
+        <div class="btn-group ml-10" dropdown>
+            <button
+                class="btn btn-success btn-sm dropdown-toggle"
+                id="patient-dropdown"
+                type="button"
+                dropdown-toggle
+                ng-disabled="!selected"
+            >
+                <i class="glyphicon glyphicon-user" aria-hidden="true"></i>
+                <i class="caret" style="margin-left: 6px;"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="patient-dropdown">
+                <li role="menuitem"><a href ng-click="value = ''">
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>{{'aside.patient.exit' | dictionary}}
+                </a></li>
+            </ul>
         </div>
     </div>
+</div>
 
-    <div class="input-group" ng-style="selected && { display: 'none' }">
-        <input
-            type="text"
-            class="form-control"
-            spellcheck="false"
-            placeholder="{{'aside.patient.placeholder' | dictionary}}"
-            ng-model="value"
-            typeahead="patient as patient.name for patient in typeahead | filter:{$:$viewValue} | limitTo:8"
-            typeahead-min-length="3"
-            typeahead-template-url="patientTypeahead"
-            typeahead-no-results="noResults"
-            typeahead-select-on-exact="true"
-            typeahead-select-on-blur="true"
-            ng-blur="handleBlur()"
-        />
-        <ul ng-if="noResults" class="dropdown-menu" style="display: block;">
-            <li><a>{{'aside.patient.noResults' | dictionary}}</a></li>
-        </ul>
-        <button type="button" class="btn input-group-addon aside__field-btn">
-            <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
-        </button>
-    </div>
+<div class="input-group" ng-style="selected && { display: 'none' }">
+    <input
+        type="text"
+        class="form-control"
+        spellcheck="false"
+        placeholder="{{'aside.patient.placeholder' | dictionary}}"
+        ng-model="value"
+        typeahead="patient as patient.name for patient in typeahead | filter:{$:$viewValue} | limitTo:8"
+        typeahead-min-length="3"
+        typeahead-template-url="patientTypeahead"
+        typeahead-no-results="noResults"
+        typeahead-select-on-exact="true"
+        typeahead-select-on-blur="true"
+        ng-blur="handleBlur()"
+    />
+    <ul ng-if="noResults" class="dropdown-menu" style="display: block;">
+        <li><a>{{'aside.patient.noResults' | dictionary}}</a></li>
+    </ul>
+    <button type="button" class="btn input-group-addon aside__field-btn">
+        <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
+    </button>
+</div>
 
-    <div class="aside__patient" ng-if="selected">
-        <div>{{selected.name}},</div>
-        <div>{{'aside.patient.oms' | dictionary}}: {{selected.oms}}</div>
-    </div>
-
-    <hr>
+<div class="aside__patient" ng-if="selected">
+    <div>{{selected.name}},</div>
+    <div>{{'aside.patient.oms' | dictionary}}: {{selected.oms}}</div>
 </div>

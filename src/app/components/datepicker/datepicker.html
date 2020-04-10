@@ -1,21 +1,24 @@
+<div class="d-flex justify-space-between align-items-center mb-10">
+    <label for="patient" class="custom-label">{{'aside.datepicker.label' | dictionary}}</label>
+</div>
+
 <div class="input-group datepicker">
     <input
-            type="text"
-            class="form-control"
-            datepicker-popup="{{config.format}}"
-            ng-model="value"
-            is-open="show"
-            min-date="{{config.minDate}}"
-            max-date="{{config.maxDate}}"
-            datepicker-options="{{config.options}}"
-            close-text="Закрыть"
-            clear-text="Очистить"
-            current-text="Сегодня"
-            placeholder="{{placeholder}}"
+        type="text"
+        class="form-control"
+        datepicker-popup="{{config.format}}"
+        ng-model="value"
+        is-open="show"
+        min-date="{{config.minDate}}"
+        max-date="{{config.maxDate}}"
+        datepicker-options="{{config.options}}"
+        close-text="Закрыть"
+        clear-text="Очистить"
+        current-text="Сегодня"
+        placeholder="{{'aside.datepicker.placeholder' | dictionary}}"
     />
-    <button type="button"
-            class="btn btn-default"
-            ng-click="toggleShow()">
-        <i class="glyphicon glyphicon-calendar"></i>
+    <button type="button" class="btn btn-default" ng-click="show = !show">
+        <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
+        <i class="caret" style="margin-left: 3px;"></i>
     </button>
 </div>
