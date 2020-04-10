@@ -16,6 +16,7 @@ import {PopupDirective} from './components/popup/popup.direcive';
 import {ScheduleService} from './pages/schedule/schedule.service';
 import {ScheduleMenuDirective} from './components/scheduleMenu/scheduleMenu.directive';
 import {dictionaryFilter} from './filters/dictionary.filter';
+import {PatientDirective} from './components/paitent/patient.directive';
 
 const Application = (): object => {
   return {
@@ -44,5 +45,6 @@ app.directive('appDropdown', DropdownDirective.factory());
 app.directive('initPlugin', InitPluginDirective.factory());
 app.directive('appPopup', PopupDirective.factory());
 app.directive('appScheduleMenu', ScheduleMenuDirective.factory());
+app.directive('appPatient', PatientDirective.factory());
 app.service('ScheduleService', ScheduleService);
 app.config(['$routeProvider', routes]);

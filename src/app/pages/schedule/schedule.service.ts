@@ -9,6 +9,7 @@ export interface IScheduleService {
   addPrimaryRecord(patient: IPatient, specialistId: number, start: Date, end: Date): void;
   removeRecord(id: number): void;
   getPatientById(id: number): IPatient | undefined;
+  getPatients(): IPatient[];
 }
 
 function loadRecords(): IRecord[] {
@@ -34,6 +35,10 @@ export class ScheduleService implements IScheduleService {
   private recordsUpdated(): void {
     localStorage.setItem('records', JSON.stringify(this.records));
     this.$rootScope.$broadcast('records:updated');
+  }
+
+  getPatients(): IPatient[] {
+    return this.paitents;
   }
 
   getSpecialists(date: Date): ISpecialist[] {
