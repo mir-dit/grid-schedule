@@ -17,6 +17,11 @@
     color: $patient-color;
   }
 
+  &__dropdown {
+    right: 0;
+    left: unset;
+  }
+
   hr {
     border-color: rgba(0, 0, 0, .3);
     margin: 12px 0 0;
