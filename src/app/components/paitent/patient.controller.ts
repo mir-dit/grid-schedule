@@ -16,10 +16,11 @@ export interface IPatientScope extends ng.IScope {
 }
 
 export class PatientController {
-  static $inject: readonly string[] = ['$scope', 'ScheduleService'];
+  static $inject: readonly string[] = ['$scope', 'ScheduleService', '$templateCache'];
   private patients: IPatient[];
 
-  constructor(private $scope: IPatientScope, scheduleService: IScheduleService) {
+  constructor(private $scope: IPatientScope, scheduleService: IScheduleService, $templateCache: ng.ITemplateCacheService) {
+    $templateCache.put('patientTypeahead', require('./typeahead.html'));
     $scope.value = '';
     $scope.selected = null;
     this.patients = scheduleService.getPatients();
