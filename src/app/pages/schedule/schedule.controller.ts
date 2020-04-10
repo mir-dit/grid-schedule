@@ -131,6 +131,6 @@ export class ScheduleCtrl {
   }
 
   private updateColumns = (): void => {
-    this.$scope.columns = this.generateDates(this.$scope.selectedDate).map((date) => this.createColumns(this.scheduleService.getSpecialists(date), date)).flat();
+    this.$scope.columns = this.generateDates(this.$scope.selectedDate).map((date) => this.createColumns(this.scheduleService.getSpecialistsByDate(date), date)).flat();
   }
 }

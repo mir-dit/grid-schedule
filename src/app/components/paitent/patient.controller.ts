@@ -1,29 +1,22 @@
 import {IScheduleService} from '@app/pages/schedule/schedule.service';
 import {IPatient} from '@mocks/user';
 
-interface IPatientTypeahead {
-  name: string;
-  oms: string;
-}
-
 export interface IPatientScope extends ng.IScope {
   selected: IPatient | null;
   noResults: boolean;
-  value: IPatientTypeahead | '';
-  typeahead: IPatientTypeahead[];
+  value: IPatient | string;
+  patients: IPatient[];
   handleBlur: () => void;
 }
 
 export class PatientController {
   static $inject: readonly string[] = ['$scope', 'ScheduleService', '$templateCache'];
-  private patients: IPatient[];
 
   constructor(private $scope: IPatientScope, scheduleService: IScheduleService, $templateCache: ng.ITemplateCacheService) {
     $templateCache.put('patientTypeahead', require('./typeahead.html'));
     $scope.value = '';
     $scope.selected = null;
-    this.patients = scheduleService.getPatients();
-    $scope.typeahead = this.patients.map(({name, oms}) => ({name, oms}));
+    $scope.patients = scheduleService.getPatients();
 
     $scope.$watch('value', this.handleValueChange);
     $scope.handleBlur = this.handleBlur;
@@ -37,10 +30,6 @@ export class PatientController {
   }
 
   private handleValueChange = (): void => {
-    if (typeof this.$scope.value === 'object') {
-      this.$scope.selected = this.patients.find(({oms}) => oms === (this.$scope.value as IPatientTypeahead).oms);
-    } else if (this.$scope.selected !== null) {
-      this.$scope.selected = null;
-    }
+    this.$scope.selected = typeof this.$scope.value === 'object' ? this.$scope.value : null;
   }
 }

@@ -2,7 +2,7 @@ import {users, ISpecialist, IPatient} from '../../../mocks/user';
 import {records, IRecord} from '../../../mocks/record';
 
 export interface IScheduleService {
-  getSpecialists(date: Date): ISpecialist[];
+  getSpecialistsByDate(date: Date): ISpecialist[];
   getSpecialistById(id: number): ISpecialist | undefined;
   getUserRecordsIncludesDate(user: ISpecialist, date: Date): IRecord[];
   getUserRecordsBetweenDates(user: ISpecialist, date: Date, nextDate: Date): IRecord[];
@@ -10,6 +10,7 @@ export interface IScheduleService {
   removeRecord(id: number): void;
   getPatientById(id: number): IPatient | undefined;
   getPatients(): IPatient[];
+  getSpecialists(): ISpecialist[];
 }
 
 function loadRecords(): IRecord[] {
@@ -41,7 +42,11 @@ export class ScheduleService implements IScheduleService {
     return this.paitents;
   }
 
-  getSpecialists(date: Date): ISpecialist[] {
+  getSpecialists(): ISpecialist[] {
+    return this.specialists;
+  }
+
+  getSpecialistsByDate(date: Date): ISpecialist[] {
     return this.specialists.filter((user) => user.schedule.days.includes(date.getDay()));
   }
 

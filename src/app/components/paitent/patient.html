@@ -1,5 +1,5 @@
 <div class="d-flex justify-space-between align-items-center mb-10">
-    <label for="patient" class="custom-label">{{'aside.patient.label' | dictionary}}</label>
+    <label for="patient-input" class="custom-label">{{'aside.patient.label' | dictionary}}</label>
     <div class="aside__field-actions">
         <div class="btn-group ml-10" dropdown>
             <button
@@ -23,12 +23,13 @@
 
 <div class="input-group" ng-style="selected && { display: 'none' }">
     <input
+        id="patient-input"
         type="text"
         class="form-control"
         spellcheck="false"
         placeholder="{{'aside.patient.placeholder' | dictionary}}"
         ng-model="value"
-        typeahead="patient as patient.name for patient in typeahead | filter:{$:$viewValue} | limitTo:8"
+        typeahead="patient as patient.name for patient in patients | filter:{$:$viewValue} | limitTo:8"
         typeahead-min-length="3"
         typeahead-template-url="patientTypeahead"
         typeahead-no-results="noResults"

@@ -12,11 +12,12 @@ import {tableOrderColumnFilter} from './filters/tableOrderColumn.filter';
 import {DatepickerDirective} from '@components/datepicker/datepicker.directive';
 import {InputDirective} from '@components/input/input.directive';
 import {DropdownDirective} from '@components/dropdown/dropdown.directive';
-import {PopupDirective} from './components/popup/popup.direcive';
+import {PopupDirective} from '@components/popup/popup.direcive';
 import {ScheduleService} from './pages/schedule/schedule.service';
-import {ScheduleMenuDirective} from './components/scheduleMenu/scheduleMenu.directive';
+import {ScheduleMenuDirective} from '@components/scheduleMenu/scheduleMenu.directive';
 import {dictionaryFilter} from './filters/dictionary.filter';
-import {PatientDirective} from './components/paitent/patient.directive';
+import {PatientDirective} from '@components/paitent/patient.directive';
+import {SpecialistsDirective} from '@components/specialists/specialists.directive';
 
 const Application = (): object => {
   return {
@@ -46,5 +47,6 @@ app.directive('initPlugin', InitPluginDirective.factory());
 app.directive('appPopup', PopupDirective.factory());
 app.directive('appScheduleMenu', ScheduleMenuDirective.factory());
 app.directive('appPatient', PatientDirective.factory());
+app.directive('appSpecialists', SpecialistsDirective.factory());
 app.service('ScheduleService', ScheduleService);
 app.config(['$routeProvider', routes]);
