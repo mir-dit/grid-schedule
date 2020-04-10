@@ -1,5 +1,8 @@
 <div class="d-flex justify-space-between align-items-center mb-10">
-    <label for="specialists-input" class="custom-label">{{'aside.specialists.label' | dictionary}}</label>
+    <div>
+        <label for="specialists-input" class="custom-label">{{'aside.specialists.label' | dictionary}}</label>
+        <span>({{selected.length}}/{{specialists.length}})</span>
+    </div>
     <div class="aside__field-actions">
         <div class="btn-group ml-10" dropdown>
             <button
