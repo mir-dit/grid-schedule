@@ -1,5 +1,5 @@
 export interface IEntry {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface ITypedEntry<T> extends IEntry {
