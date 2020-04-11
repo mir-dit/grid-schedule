@@ -1,0 +1,17 @@
+.tree {
+  position: relative;
+  background-color: $white;
+  user-select: none;
+
+  &__children {
+    margin-left: 12.8px;
+  }
+
+  &__item {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    border-bottom: solid 1px $hr-color;
+  }
+}

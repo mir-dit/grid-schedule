@@ -1,0 +1,17 @@
+<script type="text/ng-template" id="treeItem">
+    <div class="tree__item">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="item.checked" ng-change="onCheckboxChange(item)">
+                {{item.label}}
+            </label>
+        </div>
+    </div>
+    <div class="tree__children" ng-if="item.children">
+        <div ng-repeat="item in item.children track by item.key" ng-include="'treeItem'"></div>
+    </div>
+</script>
+
+<div class="tree" init-plugin="scrollbar" params="{wheelSpeed: 0.15}">
+    <div ng-repeat="item in items track by item.key" ng-include="'treeItem'"></div>
+</div>

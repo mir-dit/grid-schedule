@@ -17,6 +17,7 @@ import {ScheduleMenuDirective} from '@components/scheduleMenu/scheduleMenu.direc
 import {dictionaryFilter} from './filters/dictionary.filter';
 import {PatientDirective} from '@components/paitent/patient.directive';
 import {SpecialistsDirective} from '@components/specialists/specialists.directive';
+import {TreeDirective} from './components/tree/tree.directive';
 
 const Application = (): object => {
   return {
@@ -46,5 +47,6 @@ app.directive('appPopup', PopupDirective.factory());
 app.directive('appScheduleMenu', ScheduleMenuDirective.factory());
 app.directive('appPatient', PatientDirective.factory());
 app.directive('appSpecialists', SpecialistsDirective.factory());
+app.directive('appTree', TreeDirective.factory());
 app.service('ScheduleService', ScheduleService);
 app.config(['$routeProvider', routes]);
