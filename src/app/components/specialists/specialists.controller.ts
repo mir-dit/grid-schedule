@@ -16,6 +16,7 @@ export interface ISpecialistsScope extends ng.IScope {
   selected: number[];
   tree: ITreeItem[];
   handleCheckboxChange: (item: ITreeItem) => void;
+  handleOrderChange: () => void;
 }
 
 export class SpecialistsController {
@@ -33,6 +34,7 @@ export class SpecialistsController {
     $scope.$watch('value', this.handleValueChange);
     $scope.handleBlur = this.handleBlur;
     $scope.handleCheckboxChange = this.handleCheckboxChange;
+    $scope.handleOrderChange = this.handleOrderChange;
   }
 
   private handleBlur = (): void => {
@@ -60,8 +62,12 @@ export class SpecialistsController {
             .forEach(({id}) => this.$scope.selected.push(id));
       } else {
         specialists
-            .filter(({id}) => this.$scope.selected.includes(id))
-            .forEach(({id}) => this.$scope.selected.splice(this.$scope.selected.indexOf(id), 1));
+            .forEach(({id}) => {
+              const index = this.$scope.selected.indexOf(id);
+              if (index !== -1) {
+                this.$scope.selected.splice(index, 1);
+              }
+            });
       }
     } else {
       const id = Number(item.key);
@@ -74,20 +80,38 @@ export class SpecialistsController {
     this.buildTree();
   }
 
+  private handleOrderChange = (): void => {
+    this.buildTree();
+  }
+
   private getSpecialistsBySpeciality(specialty: string): ISpecialist[] {
     return this.specialists.filter((specialist) => specialist.specialty === specialty);
   }
 
+  private buildTreeNames(specialists: ISpecialist[], addSpeciality: boolean): ITreeItem[] {
+    return specialists.map(({id, name, specialty}) => ({
+      key: String(id),
+      label: addSpeciality ? `${name} (${specialty})` : name,
+      checked: this.$scope.selected.includes(id),
+    }));
+  }
+
+  private sortByName(a: ISpecialist, b: ISpecialist): (1 | -1 | 0) {
+    if (a.name > b.name) return 1;
+    if (a.name < b.name) return -1;
+    return 0;
+  }
+
   private buildTree(): void {
+    if (this.$scope.order === Order.alphabetically) {
+      this.$scope.tree = this.buildTreeNames(this.specialists.slice().sort(this.sortByName), true);
+      return;
+    }
     this.$scope.tree = this.specialists
         .map(({specialty}) => specialty)
         .filter((specialty, index, arr) => arr.indexOf(specialty) === index)
         .map((specialty, i) => {
-          const children: ITreeItem[] = this.getSpecialistsBySpeciality(specialty).map(({id, name}) => ({
-            key: String(id),
-            label: name,
-            checked: this.$scope.selected.includes(id),
-          }));
+          const children = this.buildTreeNames(this.getSpecialistsBySpeciality(specialty), false);
           return {
             key: `s${i}`,
             label: specialty,
