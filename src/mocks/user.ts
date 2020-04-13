@@ -95,5 +95,3 @@ export const users: Users = [
     oms: '1111111111111111',
   },
 ];
-
-export default users;
