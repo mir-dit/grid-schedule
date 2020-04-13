@@ -40,7 +40,7 @@ export class SpecialistsController {
         onClick: this.handleSelect,
       },
       {
-        label: asideDictionary.specialists.select,
+        label: asideDictionary.specialists.unselect,
         icon: 'glyphicon glyphicon-remove',
         onClick: this.handleUnselect,
       },
