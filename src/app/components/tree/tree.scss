@@ -2,6 +2,7 @@
   position: relative;
   background-color: $white;
   user-select: none;
+  border: solid 1px $tree-border-color;
 
   &__children {
     margin-left: 12.8px;
