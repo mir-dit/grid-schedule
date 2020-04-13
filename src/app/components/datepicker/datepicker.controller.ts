@@ -1,4 +1,5 @@
-import {IInputService} from '@app/services/input.service';
+import {IInputService, IInputState} from '@app/services/input.service';
+import {setTime} from '@app/helpers/date';
 
 interface IDatepicker {
   format: string;
@@ -25,6 +26,7 @@ interface IDatepickerScope extends ng.IScope {
   config: IDatepicker;
   value: Date | string;
   handleValueChange: () => void;
+  inputState: IInputState;
 }
 
 export class DatepickerController {
@@ -34,11 +36,20 @@ export class DatepickerController {
     $scope.show = false;
     $scope.config = config;
     $scope.value = inputService.state.date || '';
+    $scope.inputState = inputService.state;
 
+    $scope.$watchCollection('inputState.specialists', this.handleSpecialistsChange);
     $scope.handleValueChange = this.handleValueChange;
   }
 
   private handleValueChange = (): void => {
     this.inputService.state.date = this.$scope.value instanceof Date ? this.$scope.value : null;
+  }
+
+  private handleSpecialistsChange = (): void => {
+    if (!this.inputService.state.date && this.inputService.state.specialists.length) {
+      this.$scope.value = setTime(new Date(), new Date(2020, 1, 1, 0, 0, 0));
+      this.handleValueChange();
+    }
   }
 }
