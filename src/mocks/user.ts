@@ -5,6 +5,7 @@ export interface IUser {
 
 export interface IPatient extends IUser {
     oms: string;
+    birthday: Date;
 }
 
 export interface ISpecialist extends IUser {
@@ -93,5 +94,6 @@ export const users: Users = [
     id: 6,
     name: 'Сергеев Г.Г.',
     oms: '1111111111111111',
+    birthday: new Date(1986, 3, 5),
   },
 ];

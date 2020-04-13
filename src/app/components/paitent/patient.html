@@ -31,5 +31,6 @@
 
 <div class="aside__patient" ng-if="inputState.patient">
     <div>{{inputState.patient.name}},</div>
+    <div>{{inputState.patient.birthday | date: 'dd.MM.yyyy'}} г.р.</div>
     <div>{{'aside.patient.oms' | dictionary}}: {{inputState.patient.oms}}</div>
 </div>
