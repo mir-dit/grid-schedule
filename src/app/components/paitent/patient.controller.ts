@@ -2,9 +2,10 @@ import {IScheduleService} from '@app/pages/schedule/schedule.service';
 import {IPatient} from '@mocks/user';
 import asideDictionary from '@src/dictionary/aside';
 import {IDropdownItem} from '../dropdown/dropdown.directive';
+import {IInputService, IInputState} from '@app/services/input.service';
 
 export interface IPatientScope extends ng.IScope {
-  selected: IPatient | null;
+  inputState: IInputState;
   noResults: boolean;
   value: IPatient | string;
   patients: IPatient[];
@@ -13,12 +14,12 @@ export interface IPatientScope extends ng.IScope {
 }
 
 export class PatientController {
-  static $inject: readonly string[] = ['$scope', 'ScheduleService', '$templateCache'];
+  static $inject: readonly string[] = ['$scope', 'ScheduleService', '$templateCache', 'InputService'];
 
-  constructor(private $scope: IPatientScope, scheduleService: IScheduleService, $templateCache: ng.ITemplateCacheService) {
+  constructor(private $scope: IPatientScope, scheduleService: IScheduleService, $templateCache: ng.ITemplateCacheService, private inputService: IInputService) {
     $templateCache.put('patientTypeahead', require('./typeahead.html'));
     $scope.value = '';
-    $scope.selected = null;
+    $scope.inputState = inputService.state;
     $scope.patients = scheduleService.getPatients();
     $scope.dropdownItems = [{
       label: asideDictionary.patient.exit,
@@ -40,6 +41,6 @@ export class PatientController {
   }
 
   private handleValueChange = (): void => {
-    this.$scope.selected = typeof this.$scope.value === 'object' ? this.$scope.value : null;
+    this.inputService.state.patient = typeof this.$scope.value === 'object' ? this.$scope.value : null;
   }
 }

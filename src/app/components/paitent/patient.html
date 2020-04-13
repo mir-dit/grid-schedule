@@ -1,11 +1,11 @@
 <div class="d-flex justify-space-between align-items-center mb-10">
     <label for="patient-input" class="custom-label">{{'aside.patient.label' | dictionary}}</label>
     <div class="aside__field-actions">
-        <app-dropdown icon="'glyphicon glyphicon-user'" disabled="!selected" items="dropdownItems"></app-dropdown>
+        <app-dropdown icon="'glyphicon glyphicon-user'" disabled="!inputState.patient" items="dropdownItems"></app-dropdown>
     </div>
 </div>
 
-<div class="input-group" ng-style="selected && { display: 'none' }">
+<div class="input-group" ng-style="inputState.patient && { display: 'none' }">
     <input
         id="patient-input"
         type="text"
@@ -29,7 +29,7 @@
     </button>
 </div>
 
-<div class="aside__patient" ng-if="selected">
-    <div>{{selected.name}},</div>
-    <div>{{'aside.patient.oms' | dictionary}}: {{selected.oms}}</div>
+<div class="aside__patient" ng-if="inputState.patient">
+    <div>{{inputState.patient.name}},</div>
+    <div>{{'aside.patient.oms' | dictionary}}: {{inputState.patient.oms}}</div>
 </div>

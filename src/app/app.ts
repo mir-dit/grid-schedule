@@ -18,6 +18,7 @@ import {dictionaryFilter} from './filters/dictionary.filter';
 import {PatientDirective} from '@components/paitent/patient.directive';
 import {SpecialistsDirective} from '@components/specialists/specialists.directive';
 import {TreeDirective} from './components/tree/tree.directive';
+import {InputService} from './services/input.service';
 
 const Application = (): object => {
   return {
@@ -49,4 +50,5 @@ app.directive('appPatient', PatientDirective.factory());
 app.directive('appSpecialists', SpecialistsDirective.factory());
 app.directive('appTree', TreeDirective.factory());
 app.service('ScheduleService', ScheduleService);
+app.service('InputService', InputService);
 app.config(['$routeProvider', routes]);

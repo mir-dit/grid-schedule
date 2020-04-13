@@ -19,6 +19,6 @@
         <app-table ng-if="selectedDate" columns="columns" on-select="handleTableSelect"></app-table>
     </div>
 
-    <app-schedule-menu selected="scheduleMenu" on-close="handlePopupClose" selected-patient="selectedPatient"></app-schedule-menu>
+    <app-schedule-menu selected="scheduleMenu" on-close="handlePopupClose" selected-patient="inputState.patient"></app-schedule-menu>
 
 </div>

@@ -1,13 +1,14 @@
 import {Column, Cell, ICellTime, ICellAffairs, ICellPatient} from '../../components/table/table.model';
-import {ISpecialist, IPatient} from '@mocks/user';
+import {ISpecialist} from '@mocks/user';
 import {IRecord} from '@mocks/record';
 import {addDays, setTime, addMinutes} from '../../helpers/date';
 import {IScheduleService} from './schedule.service';
 import {ISheldureMenuSelected, ISheldureMenuSelectedPatient} from '../../components/scheduleMenu/scheduleMenu.controller';
+import {IInputService, IInputState} from '@app/services/input.service';
 
 interface ISheldureScope extends ng.IScope {
   selectedDate?: Date;
-  selectedPatient?: IPatient;
+  inputState: IInputState;
   timeGap: number;
   columns: Column[];
   updateColumns: () => void;
@@ -17,11 +18,11 @@ interface ISheldureScope extends ng.IScope {
 }
 
 export class ScheduleCtrl {
-  static $inject = ['$scope', 'ScheduleService'];
+  static $inject = ['$scope', 'ScheduleService', 'InputService'];
 
-  constructor(private $scope: ISheldureScope, private scheduleService: IScheduleService) {
+  constructor(private $scope: ISheldureScope, private scheduleService: IScheduleService, inputService: IInputService) {
     $scope.selectedDate = new Date(2019, 4, 1); // TODO
-    $scope.selectedPatient = scheduleService.getPatientById(6); // TODO
+    $scope.inputState = inputService.state;
     $scope.timeGap = 1;
     $scope.scheduleMenu = null;
     $scope.$watch('selectedDate', this.updateColumns);
