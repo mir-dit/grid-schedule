@@ -17,6 +17,8 @@ export interface ISpecialistsScope extends ng.IScope {
   tree: ITreeItem[];
   handleCheckboxChange: (item: ITreeItem) => void;
   handleOrderChange: () => void;
+  handleSelect: () => void;
+  handleUnselect: () => void;
 }
 
 export class SpecialistsController {
@@ -35,6 +37,8 @@ export class SpecialistsController {
     $scope.handleBlur = this.handleBlur;
     $scope.handleCheckboxChange = this.handleCheckboxChange;
     $scope.handleOrderChange = this.handleOrderChange;
+    $scope.handleSelect = this.handleSelect;
+    $scope.handleUnselect = this.handleUnselect;
   }
 
   private handleBlur = (): void => {
@@ -77,6 +81,16 @@ export class SpecialistsController {
         this.$scope.selected.splice(this.$scope.selected.indexOf(id), 1);
       }
     }
+    this.buildTree();
+  }
+
+  private handleSelect = (): void => {
+    this.$scope.selected = this.specialists.map(({id}) => id);
+    this.buildTree();
+  }
+
+  private handleUnselect = (): void => {
+    this.$scope.selected = [];
     this.buildTree();
   }
 
