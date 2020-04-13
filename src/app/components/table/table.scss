@@ -8,6 +8,7 @@ $cell-height: 30px;
 .table {
     position: relative;
     height: 70vh;
+    min-height: 615px;
     width: 100%;
 
     &__column {
