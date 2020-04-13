@@ -3,6 +3,7 @@ import {ISpecialist} from '@mocks/user';
 import {ITreeItem} from '../tree/tree.model';
 import {IDropdownItem} from '../dropdown/dropdown.directive';
 import asideDictionary from '@src/dictionary/aside';
+import {IInputService, IInputState} from '@app/services/input.service';
 
 enum Order {
   specialty,
@@ -15,7 +16,7 @@ export interface ISpecialistsScope extends ng.IScope {
   specialists: ISpecialist[];
   handleBlur: () => void;
   order: Order;
-  selected: number[];
+  inputState: IInputState;
   tree: ITreeItem[];
   handleCheckboxChange: (item: ITreeItem) => void;
   handleOrderChange: () => void;
@@ -23,15 +24,15 @@ export interface ISpecialistsScope extends ng.IScope {
 }
 
 export class SpecialistsController {
-  static $inject: readonly string[] = ['$scope', 'ScheduleService'];
+  static $inject: readonly string[] = ['$scope', 'ScheduleService', 'InputService'];
   private specialists: ISpecialist[];
 
-  constructor(private $scope: ISpecialistsScope, scheduleService: IScheduleService) {
+  constructor(private $scope: ISpecialistsScope, private scheduleService: IScheduleService, private inputService: IInputService) {
     this.specialists = scheduleService.getSpecialists();
     $scope.value = '';
     $scope.specialists = this.specialists;
     $scope.order = Order.specialty;
-    $scope.selected = [];
+    $scope.inputState = inputService.state;
     $scope.dropdownItems = [
       {
         label: asideDictionary.specialists.select,
@@ -62,8 +63,8 @@ export class SpecialistsController {
   private handleValueChange = (): void => {
     if (typeof this.$scope.value !== 'object') return;
     const value = this.$scope.value as ISpecialist;
-    if (!this.$scope.selected.includes(value.id)) {
-      this.$scope.selected.push(value.id);
+    if (!this.inputService.state.specialists.includes(value)) {
+      this.inputService.state.specialists.push(value);
       this.buildTree();
     }
   }
@@ -73,35 +74,35 @@ export class SpecialistsController {
       const specialists = this.getSpecialistsBySpeciality(item.label);
       if (item.checked) {
         specialists
-            .filter(({id}) => !this.$scope.selected.includes(id))
-            .forEach(({id}) => this.$scope.selected.push(id));
+            .filter((specialist) => !this.inputService.state.specialists.includes(specialist))
+            .forEach((specialist) => this.inputService.state.specialists.push(specialist));
       } else {
         specialists
-            .forEach(({id}) => {
-              const index = this.$scope.selected.indexOf(id);
+            .forEach((specialist) => {
+              const index = this.inputService.state.specialists.indexOf(specialist);
               if (index !== -1) {
-                this.$scope.selected.splice(index, 1);
+                this.inputService.state.specialists.splice(index, 1);
               }
             });
       }
     } else {
-      const id = Number(item.key);
+      const specialist = this.scheduleService.getSpecialistById(Number(item.key));
       if (item.checked) {
-        this.$scope.selected.push(id);
+        this.inputService.state.specialists.push(specialist);
       } else {
-        this.$scope.selected.splice(this.$scope.selected.indexOf(id), 1);
+        this.inputService.state.specialists.splice(this.inputService.state.specialists.indexOf(specialist), 1);
       }
     }
     this.buildTree();
   }
 
   private handleSelect = (): void => {
-    this.$scope.selected = this.specialists.map(({id}) => id);
+    this.inputService.state.specialists = this.specialists.slice();
     this.buildTree();
   }
 
   private handleUnselect = (): void => {
-    this.$scope.selected = [];
+    this.inputService.state.specialists = [];
     this.buildTree();
   }
 
@@ -114,10 +115,10 @@ export class SpecialistsController {
   }
 
   private buildTreeNames(specialists: ISpecialist[], addSpeciality: boolean): ITreeItem[] {
-    return specialists.map(({id, name, specialty}) => ({
-      key: String(id),
-      label: addSpeciality ? `${name} (${specialty})` : name,
-      checked: this.$scope.selected.includes(id),
+    return specialists.map((specialist) => ({
+      key: String(specialist.id),
+      label: addSpeciality ? `${specialist.name} (${specialist.specialty})` : specialist.name,
+      checked: this.inputService.state.specialists.includes(specialist),
     }));
   }
 

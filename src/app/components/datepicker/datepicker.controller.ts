@@ -1,3 +1,5 @@
+import {IInputService} from '@app/services/input.service';
+
 interface IDatepicker {
   format: string;
   minDate: Date;
@@ -22,12 +24,21 @@ interface IDatepickerScope extends ng.IScope {
   show: boolean;
   config: IDatepicker;
   value: Date | string;
+  handleValueChange: () => void;
 }
 
 export class DatepickerController {
-  constructor($scope: IDatepickerScope) {
+  static $inject = ['$scope', 'InputService'];
+
+  constructor(private $scope: IDatepickerScope, private inputService: IInputService) {
     $scope.show = false;
     $scope.config = config;
-    $scope.value = '';
+    $scope.value = inputService.state.date || '';
+
+    $scope.handleValueChange = this.handleValueChange;
+  }
+
+  private handleValueChange = (): void => {
+    this.inputService.state.date = this.$scope.value instanceof Date ? this.$scope.value : null;
   }
 }

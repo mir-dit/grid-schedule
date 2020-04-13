@@ -15,8 +15,8 @@
         </div>
     </div>
 
-    <div class="container-fluid">
-        <app-table ng-if="selectedDate" columns="columns" on-select="handleTableSelect"></app-table>
+    <div class="container-fluid" ng-if="columns.length">
+        <app-table columns="columns" on-select="handleTableSelect"></app-table>
     </div>
 
     <app-schedule-menu selected="scheduleMenu" on-close="handlePopupClose" selected-patient="inputState.patient"></app-schedule-menu>
