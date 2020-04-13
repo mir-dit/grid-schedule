@@ -1,6 +1,6 @@
 import {Column, Cell, ICellTime, ICellAffairs, ICellPatient} from '../../components/table/table.model';
-import {ISpecialist, IPatient} from '../../../mocks/user';
-import {IRecord} from '../../../mocks/record';
+import {ISpecialist, IPatient} from '@mocks/user';
+import {IRecord} from '@mocks/record';
 import {addDays, setTime, addMinutes} from '../../helpers/date';
 import {IScheduleService} from './schedule.service';
 import {ISheldureMenuSelected, ISheldureMenuSelectedPatient} from '../../components/scheduleMenu/scheduleMenu.controller';
