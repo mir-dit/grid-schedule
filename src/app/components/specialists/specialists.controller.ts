@@ -1,6 +1,8 @@
 import {IScheduleService} from '@app/pages/schedule/schedule.service';
 import {ISpecialist} from '@mocks/user';
 import {ITreeItem} from '../tree/tree.model';
+import {IDropdownItem} from '../dropdown/dropdown.directive';
+import asideDictionary from '@src/dictionary/aside';
 
 enum Order {
   specialty,
@@ -17,8 +19,7 @@ export interface ISpecialistsScope extends ng.IScope {
   tree: ITreeItem[];
   handleCheckboxChange: (item: ITreeItem) => void;
   handleOrderChange: () => void;
-  handleSelect: () => void;
-  handleUnselect: () => void;
+  dropdownItems: IDropdownItem[];
 }
 
 export class SpecialistsController {
@@ -31,14 +32,24 @@ export class SpecialistsController {
     $scope.specialists = this.specialists;
     $scope.order = Order.specialty;
     $scope.selected = [];
+    $scope.dropdownItems = [
+      {
+        label: asideDictionary.specialists.select,
+        icon: 'glyphicon glyphicon-ok',
+        onClick: this.handleSelect,
+      },
+      {
+        label: asideDictionary.specialists.select,
+        icon: 'glyphicon glyphicon-remove',
+        onClick: this.handleUnselect,
+      },
+    ];
     this.buildTree();
 
     $scope.$watch('value', this.handleValueChange);
     $scope.handleBlur = this.handleBlur;
     $scope.handleCheckboxChange = this.handleCheckboxChange;
     $scope.handleOrderChange = this.handleOrderChange;
-    $scope.handleSelect = this.handleSelect;
-    $scope.handleUnselect = this.handleUnselect;
   }
 
   private handleBlur = (): void => {

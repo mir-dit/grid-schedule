@@ -1,14 +1,17 @@
-import {DropdownController} from '@components/dropdown/dropdown.controller';
+export interface IDropdownItem {
+  label: string;
+  icon?: string;
+  onClick?: () => void;
+}
 
 export class DropdownDirective implements ng.IDirective {
   restrict = 'E';
   template = require('./dropdown.html');
-  controller = DropdownController;
+  transclude = true;
   scope = {
     icon: '=',
+    disabled: '=',
     items: '=',
-    type: '@',
-    handler: '=',
   };
 
   static factory() {

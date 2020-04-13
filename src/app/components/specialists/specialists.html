@@ -4,25 +4,7 @@
         <span>({{selected.length}}/{{specialists.length}})</span>
     </div>
     <div class="aside__field-actions">
-        <div class="btn-group ml-10" dropdown>
-            <button
-                class="btn btn-success btn-sm dropdown-toggle"
-                id="specialists-dropdown"
-                type="button"
-                dropdown-toggle
-            >
-                <i class="glyphicon glyphicon-filter" aria-hidden="true"></i>
-                <i class="caret" style="margin-left: 6px;"></i>
-            </button>
-            <ul class="dropdown-menu aside__dropdown" role="menu" aria-labelledby="specialists-dropdown">
-                <li role="menuitem"><a href ng-click="handleSelect()">
-                    <span class="glyphicon glyphicon-ok mr-10" aria-hidden="true"></span>{{'aside.specialists.select' | dictionary}}
-                </a></li>
-                <li role="menuitem"><a href ng-click="handleUnselect()">
-                    <span class="glyphicon glyphicon-remove mr-10" aria-hidden="true"></span>{{'aside.specialists.unselect' | dictionary}}
-                </a></li>
-            </ul>
-        </div>
+        <app-dropdown icon="'glyphicon glyphicon-filter'" items="dropdownItems"></app-dropdown>
     </div>
 </div>
 

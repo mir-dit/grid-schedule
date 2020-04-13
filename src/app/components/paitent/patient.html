@@ -1,23 +1,7 @@
 <div class="d-flex justify-space-between align-items-center mb-10">
     <label for="patient-input" class="custom-label">{{'aside.patient.label' | dictionary}}</label>
     <div class="aside__field-actions">
-        <div class="btn-group ml-10" dropdown>
-            <button
-                class="btn btn-success btn-sm dropdown-toggle"
-                id="patient-dropdown"
-                type="button"
-                dropdown-toggle
-                ng-disabled="!selected"
-            >
-                <i class="glyphicon glyphicon-user" aria-hidden="true"></i>
-                <i class="caret" style="margin-left: 6px;"></i>
-            </button>
-            <ul class="dropdown-menu aside__dropdown" role="menu" aria-labelledby="patient-dropdown">
-                <li role="menuitem"><a href ng-click="value = ''">
-                    <span class="glyphicon glyphicon-off mr-10" aria-hidden="true"></span>{{'aside.patient.exit' | dictionary}}
-                </a></li>
-            </ul>
-        </div>
+        <app-dropdown icon="'glyphicon glyphicon-user'" disabled="!selected" items="dropdownItems"></app-dropdown>
     </div>
 </div>
 
