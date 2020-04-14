@@ -7,7 +7,6 @@ export interface IDropdownItem {
 export class DropdownDirective implements ng.IDirective {
   restrict = 'E';
   template = require('./dropdown.html');
-  transclude = true;
   scope = {
     icon: '=',
     disabled: '=',
