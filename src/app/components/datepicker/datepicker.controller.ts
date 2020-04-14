@@ -1,6 +1,3 @@
-import {IInputService, IInputState} from '@app/services/input.service';
-import {setTime} from '@app/helpers/date';
-
 interface IDatepicker {
   format: string;
   minDate: Date;
@@ -24,32 +21,26 @@ const config: IDatepicker = {
 interface IDatepickerScope extends ng.IScope {
   show: boolean;
   config: IDatepicker;
-  value: Date | string;
+  val: Date | string;
+  value: Date | null;
   handleValueChange: () => void;
-  inputState: IInputState;
+  onChange: (value: Date | null) => void;
 }
 
 export class DatepickerController {
-  static $inject = ['$scope', 'InputService'];
-
-  constructor(private $scope: IDatepickerScope, private inputService: IInputService) {
+  constructor(private $scope: IDatepickerScope) {
     $scope.show = false;
     $scope.config = config;
-    $scope.value = inputService.state.date || '';
-    $scope.inputState = inputService.state;
 
-    $scope.$watchCollection('inputState.specialists', this.handleSpecialistsChange);
+    $scope.$watch('value', () => {
+      if ($scope.val !== $scope.value) {
+        $scope.val = $scope.value;
+      }
+    });
     $scope.handleValueChange = this.handleValueChange;
   }
 
   private handleValueChange = (): void => {
-    this.inputService.state.date = this.$scope.value instanceof Date ? this.$scope.value : null;
-  }
-
-  private handleSpecialistsChange = (): void => {
-    if (!this.inputService.state.date && this.inputService.state.specialists.length) {
-      this.$scope.value = setTime(new Date(), new Date(2020, 1, 1, 0, 0, 0));
-      this.handleValueChange();
-    }
+    this.$scope.onChange(this.$scope.val instanceof Date ? this.$scope.val : null);
   }
 }

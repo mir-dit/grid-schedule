@@ -4,7 +4,10 @@ export class DatepickerDirective implements ng.IDirective {
   restrict = 'E';
   template = require('./datepicker.html');
   controller = DatepickerController;
-  scope = {};
+  scope = {
+    value: '=',
+    onChange: '=',
+  };
 
   static factory() {
     return (): ng.IDirective => new DatepickerDirective();
