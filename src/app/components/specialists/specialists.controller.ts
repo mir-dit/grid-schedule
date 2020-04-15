@@ -12,6 +12,7 @@ enum Order {
 
 interface ISpeciality {
   name: string;
+  specialty: string;
 }
 
 export interface ISpecialistsScope extends ng.IScope {
@@ -36,7 +37,11 @@ export class SpecialistsController {
     this.specialists = scheduleService.getSpecialists();
     $scope.value = '';
     $scope.specialistsSize = this.specialists.length;
-    $scope.typeaheads = [...this.specialists, ...this.getSpecialities().map((name) => ({name}))];
+    const specialities: ISpeciality[] = this.getSpecialities().map((specialty) => ({
+      name: asideDictionary.specialists.specialties[specialty] || specialty,
+      specialty,
+    }));
+    $scope.typeaheads = [...this.specialists, ...specialities];
     $scope.order = Order.specialty;
     $scope.inputState = inputService.state;
     $scope.dropdownItems = [
@@ -82,7 +87,7 @@ export class SpecialistsController {
       }
     } else {
       const value = this.$scope.value as ISpeciality;
-      this.checkBySpeciality(value.name);
+      this.checkBySpeciality(value.specialty);
       this.buildTree();
     }
   }
