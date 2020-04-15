@@ -1,4 +1,4 @@
-import {AsideController} from '@components/aside/aside.controller';
+import {AsideController} from './aside.contoller';
 
 export class AsideDirective implements ng.IDirective {
   restrict = 'E';

@@ -61,5 +61,3 @@ export const records: IRecord[] = [
     patientId: 6,
   },
 ];
-
-export default records;

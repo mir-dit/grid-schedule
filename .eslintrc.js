@@ -31,5 +31,6 @@ module.exports = {
         "@typescript-eslint/prefer-optional-chain": "error",
         "@typescript-eslint/restrict-plus-operands": "error",
         "@typescript-eslint/array-type": "error",
+        "@typescript-eslint/no-var-requires": "off",
     }
 };

@@ -6,7 +6,7 @@ $dark-gray: #949494;
 $light-orange: #eba740;
 $dark-blue: #002248;
 
-$bg-color: #e9e9e9;
+$bg-color: $gray;
 $hr-color: #d1d1d3;
 
 $table-colors: (
@@ -40,3 +40,7 @@ $schedule-menu-colors: (
     "created-secondary": #e1ebd9,
     "cancel-text": $dark-blue,
 );
+
+$patient-color: #246b76;
+
+$tree-border-color: #bcbdbe;

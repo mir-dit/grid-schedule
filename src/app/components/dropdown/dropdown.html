@@ -1,15 +1,16 @@
-<div class="btn-group ml-10" dropdown is-open="show">
+<div class="btn-group ml-10" dropdown>
     <button
-            class="btn btn-{{type}} btn-sm dropdown-toggle"
-            type="button"
-            dropdown-toggle
-            aria-haspopup="true"
-            aria-expanded="false"
-            ng-click="handler(scope)"
+        class="btn btn-success btn-sm dropdown-toggle"
+        type="button"
+        dropdown-toggle
+        ng-disabled="disabled"
     >
-        <i class="{{icon}}"></i><i class="caret" style="margin-left: 6px;"></i>
+        <i class="{{icon}}" aria-hidden="true"></i>
+        <i class="caret" style="margin-left: 6px;"></i>
     </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="split-button">
-        <li role="menuitem" ng-repeat="item in items"><a href="{{item.href}}">{{item.text}}</a></li>
+    <ul class="dropdown-menu aside__dropdown" role="menu">
+        <li role="menuitem" ng-repeat="item in items"><a href ng-click="item.onClick && item.onClick()">
+            <span class="{{item.icon}} mr-10" aria-hidden="true" ng-if="item.icon"></span>{{item.label}}
+        </a></li>
     </ul>
 </div>

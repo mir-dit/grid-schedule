@@ -1,13 +1,13 @@
 import {Column, Cell, ICellTime, ICellAffairs, ICellPatient} from '../../components/table/table.model';
-import {ISpecialist, IPatient} from '../../../mocks/user';
-import {IRecord} from '../../../mocks/record';
+import {ISpecialist} from '@mocks/user';
+import {IRecord} from '@mocks/record';
 import {addDays, setTime, addMinutes} from '../../helpers/date';
 import {IScheduleService} from './schedule.service';
 import {ISheldureMenuSelected, ISheldureMenuSelectedPatient} from '../../components/scheduleMenu/scheduleMenu.controller';
+import {IInputService, IInputState} from '@app/services/input.service';
 
 interface ISheldureScope extends ng.IScope {
-  selectedDate?: Date;
-  selectedPatient?: IPatient;
+  inputState: IInputState;
   timeGap: number;
   columns: Column[];
   updateColumns: () => void;
@@ -17,14 +17,14 @@ interface ISheldureScope extends ng.IScope {
 }
 
 export class ScheduleCtrl {
-  static $inject = ['$scope', 'ScheduleService'];
+  static $inject = ['$scope', 'ScheduleService', 'InputService'];
 
-  constructor(private $scope: ISheldureScope, private scheduleService: IScheduleService) {
-    $scope.selectedDate = new Date(2019, 4, 1); // TODO
-    $scope.selectedPatient = scheduleService.getPatientById(6); // TODO
+  constructor(private $scope: ISheldureScope, private scheduleService: IScheduleService, private inputService: IInputService) {
+    $scope.inputState = inputService.state;
     $scope.timeGap = 1;
     $scope.scheduleMenu = null;
-    $scope.$watch('selectedDate', this.updateColumns);
+    $scope.$watch('inputState.date', this.updateColumns);
+    $scope.$watchCollection('inputState.specialists', this.updateColumns);
     $scope.$on('records:updated', this.updateColumns);
 
     $scope.updateColumns = this.updateColumns;
@@ -113,8 +113,8 @@ export class ScheduleCtrl {
     return cells;
   }
 
-  private createColumns(users: ISpecialist[], date: Date): Column[] {
-    return users.map((user: ISpecialist) => {
+  private createColumns = (date: Date): Column[] => {
+    return this.getSpecialistsByDate(date).map((user: ISpecialist) => {
       const busy = this.scheduleService.getUserRecordsIncludesDate(user, date).find(({type}: IRecord) => type === 'danger');
       return {
         specialistId: user.id,
@@ -130,7 +130,12 @@ export class ScheduleCtrl {
     });
   }
 
+  private getSpecialistsByDate(date: Date): ISpecialist[] {
+    return this.inputService.state.specialists.filter((user) => user.schedule.days.includes(date.getDay()));
+  }
+
   private updateColumns = (): void => {
-    this.$scope.columns = this.generateDates(this.$scope.selectedDate).map((date) => this.createColumns(this.scheduleService.getSpecialists(date), date)).flat();
+    const {date, specialists} = this.inputService.state;
+    this.$scope.columns = (date && specialists.length) ? this.generateDates(date).map(this.createColumns).flat() : [];
   }
 }

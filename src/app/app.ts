@@ -10,24 +10,22 @@ import {AsideDirective} from '@components/aside/aside.directive';
 import {InitPluginDirective} from './directives/initPlugin.directive';
 import {tableOrderColumnFilter} from './filters/tableOrderColumn.filter';
 import {DatepickerDirective} from '@components/datepicker/datepicker.directive';
-import {InputDirective} from '@components/input/input.directive';
 import {DropdownDirective} from '@components/dropdown/dropdown.directive';
-import {PopupDirective} from './components/popup/popup.direcive';
+import {PopupDirective} from '@components/popup/popup.direcive';
 import {ScheduleService} from './pages/schedule/schedule.service';
-import {ScheduleMenuDirective} from './components/scheduleMenu/scheduleMenu.directive';
+import {ScheduleMenuDirective} from '@components/scheduleMenu/scheduleMenu.directive';
 import {dictionaryFilter} from './filters/dictionary.filter';
+import {PatientDirective} from '@components/paitent/patient.directive';
+import {SpecialistsDirective} from '@components/specialists/specialists.directive';
+import {TreeDirective} from './components/tree/tree.directive';
+import {InputService} from './services/input.service';
 
 const Application = (): object => {
   return {
     template: require('./app.html'),
-    controller: 'AppCtrl',
     controllerAs: 'app-schedule',
   };
 };
-
-class AppCtrl {
-  static $inject = ['$scope'];
-}
 
 const moduleName = 'appSchedule';
 
@@ -36,7 +34,6 @@ const app: ng.IModule = angular.module(moduleName, [
   bootstrap,
 ]);
 app.directive(moduleName, Application);
-app.controller('AppCtrl', AppCtrl);
 app.controller('ScheduleCtrl', ScheduleCtrl);
 app.directive('appTable', TableDirective.factory());
 app.filter('tableDate', tableDateFilter);
@@ -45,10 +42,13 @@ app.filter('dictionary', dictionaryFilter);
 app.directive('appDefaultLayout', DefaultLayoutDirective.factory());
 app.directive('appAside', AsideDirective.factory());
 app.directive('appDatepicker', DatepickerDirective.factory());
-app.directive('appInput', InputDirective.factory());
 app.directive('appDropdown', DropdownDirective.factory());
 app.directive('initPlugin', InitPluginDirective.factory());
 app.directive('appPopup', PopupDirective.factory());
 app.directive('appScheduleMenu', ScheduleMenuDirective.factory());
+app.directive('appPatient', PatientDirective.factory());
+app.directive('appSpecialists', SpecialistsDirective.factory());
+app.directive('appTree', TreeDirective.factory());
 app.service('ScheduleService', ScheduleService);
+app.service('InputService', InputService);
 app.config(['$routeProvider', routes]);

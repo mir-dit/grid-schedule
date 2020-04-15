@@ -1,0 +1,39 @@
+<div class="d-flex justify-space-between align-items-center mb-10">
+    <div>
+        <label for="specialists-input" class="custom-label">{{'aside.specialists.label' | dictionary}}</label>
+        <span>({{inputState.specialists.length}}/{{specialists.length}})</span>
+    </div>
+    <div class="aside__field-actions">
+        <app-dropdown icon="'glyphicon glyphicon-filter'" items="dropdownItems"></app-dropdown>
+    </div>
+</div>
+
+<div class="input-group mb-10">
+    <input
+        id="specialists-input"
+        type="text"
+        class="form-control"
+        spellcheck="false"
+        placeholder="{{'aside.specialists.placeholder' | dictionary}}"
+        ng-model="value"
+        typeahead="specialist as specialist.name for specialist in specialists | filter:{name:$viewValue} | limitTo:8"
+        typeahead-min-length="3"
+        typeahead-no-results="noResults"
+        typeahead-select-on-exact="true"
+        typeahead-select-on-blur="true"
+        ng-blur="handleBlur()"
+    />
+    <ul ng-if="noResults" class="dropdown-menu" style="display: block;">
+        <li><a>{{'aside.specialists.noResults' | dictionary}}</a></li>
+    </ul>
+    <button type="button" class="btn input-group-addon aside__field-btn">
+        <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
+    </button>
+</div>
+
+<div class="btn-group mb-50">
+    <label class="btn btn-default btn-sm" ng-model="order" btn-radio="0" ng-change="handleOrderChange()">По специальностям</label>
+    <label class="btn btn-default btn-sm" ng-model="order" btn-radio="1" ng-change="handleOrderChange()">По алфавиту</label>
+</div>
+
+<app-tree items="tree" on-checkbox-change="handleCheckboxChange"></app-tree>

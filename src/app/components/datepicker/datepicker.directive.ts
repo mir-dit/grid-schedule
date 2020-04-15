@@ -1,4 +1,4 @@
-import {DatepickerController} from '@components/datepicker/datepicker.controller';
+import {DatepickerController} from './datepicker.controller';
 
 export class DatepickerDirective implements ng.IDirective {
   restrict = 'E';
@@ -6,9 +6,7 @@ export class DatepickerDirective implements ng.IDirective {
   controller = DatepickerController;
   scope = {
     value: '=',
-    placeholder: '=',
-    id: '=',
-    callback: '=',
+    onChange: '=',
   };
 
   static factory() {

@@ -12,4 +12,13 @@
         float: right;
     }
 
+    &__noinput {
+        color: $dark-gray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh;
+        min-height: 615px;
+    }
+
 }
