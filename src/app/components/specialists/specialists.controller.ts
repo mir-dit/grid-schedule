@@ -158,7 +158,7 @@ export class SpecialistsController {
       const children = this.buildTreeNames(this.getSpecialistsBySpeciality(specialty), false);
       return {
         key: `s${i}`,
-        label: specialty,
+        label: asideDictionary.specialists.specialties[specialty] || specialty,
         checked: children.some(({checked}) => checked),
         children,
       };
