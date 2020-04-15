@@ -1,7 +1,7 @@
 <div class="d-flex justify-space-between align-items-center mb-10">
     <div>
         <label for="specialists-input" class="custom-label">{{'aside.specialists.label' | dictionary}}</label>
-        <span>({{inputState.specialists.length}}/{{specialists.length}})</span>
+        <span>({{inputState.specialists.length}}/{{specialistsSize}})</span>
     </div>
     <div class="aside__field-actions">
         <app-dropdown icon="'glyphicon glyphicon-filter'" items="dropdownItems"></app-dropdown>
@@ -16,7 +16,7 @@
         spellcheck="false"
         placeholder="{{'aside.specialists.placeholder' | dictionary}}"
         ng-model="value"
-        typeahead="specialist as specialist.name for specialist in specialists | filter:{name:$viewValue} | limitTo:8"
+        typeahead="typeahead as typeahead.name for typeahead in typeaheads | filter:{name:$viewValue} | limitTo:8"
         typeahead-min-length="3"
         typeahead-no-results="noResults"
         typeahead-select-on-exact="true"

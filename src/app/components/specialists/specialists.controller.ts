@@ -10,10 +10,15 @@ enum Order {
   alphabetically,
 }
 
+interface ISpeciality {
+  name: string;
+}
+
 export interface ISpecialistsScope extends ng.IScope {
   noResults: boolean;
   value: ISpecialist | string;
-  specialists: ISpecialist[];
+  typeaheads: (ISpecialist | ISpeciality)[];
+  specialistsSize: number;
   handleBlur: () => void;
   order: Order;
   inputState: IInputState;
@@ -30,7 +35,8 @@ export class SpecialistsController {
   constructor(private $scope: ISpecialistsScope, private scheduleService: IScheduleService, private inputService: IInputService) {
     this.specialists = scheduleService.getSpecialists();
     $scope.value = '';
-    $scope.specialists = this.specialists;
+    $scope.specialistsSize = this.specialists.length;
+    $scope.typeaheads = [...this.specialists, ...this.getSpecialities().map((name) => ({name}))];
     $scope.order = Order.specialty;
     $scope.inputState = inputService.state;
     $scope.dropdownItems = [
@@ -60,24 +66,33 @@ export class SpecialistsController {
     }
   }
 
+  private checkBySpeciality(specialty: string): void {
+    this.getSpecialistsBySpeciality(specialty)
+        .filter((specialist) => !this.inputService.state.specialists.includes(specialist))
+        .forEach((specialist) => this.inputService.state.specialists.push(specialist));
+  }
+
   private handleValueChange = (): void => {
     if (typeof this.$scope.value !== 'object') return;
     const value = this.$scope.value as ISpecialist;
-    if (!this.inputService.state.specialists.includes(value)) {
-      this.inputService.state.specialists.push(value);
+    if (value.id) {
+      if (!this.inputService.state.specialists.includes(value)) {
+        this.inputService.state.specialists.push(value);
+        this.buildTree();
+      }
+    } else {
+      const value = this.$scope.value as ISpeciality;
+      this.checkBySpeciality(value.name);
       this.buildTree();
     }
   }
 
   private handleCheckboxChange = (item: ITreeItem): void => {
     if (item.key.startsWith('s')) {
-      const specialists = this.getSpecialistsBySpeciality(item.label);
       if (item.checked) {
-        specialists
-            .filter((specialist) => !this.inputService.state.specialists.includes(specialist))
-            .forEach((specialist) => this.inputService.state.specialists.push(specialist));
+        this.checkBySpeciality(item.label);
       } else {
-        specialists
+        this.getSpecialistsBySpeciality(item.label)
             .forEach((specialist) => {
               const index = this.inputService.state.specialists.indexOf(specialist);
               if (index !== -1) {
@@ -128,22 +143,25 @@ export class SpecialistsController {
     return 0;
   }
 
+  private getSpecialities(): string[] {
+    return this.specialists
+        .map(({specialty}) => specialty)
+        .filter((specialty, index, arr) => arr.indexOf(specialty) === index);
+  }
+
   private buildTree(): void {
     if (this.$scope.order === Order.alphabetically) {
       this.$scope.tree = this.buildTreeNames(this.specialists.slice().sort(this.sortByName), true);
       return;
     }
-    this.$scope.tree = this.specialists
-        .map(({specialty}) => specialty)
-        .filter((specialty, index, arr) => arr.indexOf(specialty) === index)
-        .map((specialty, i) => {
-          const children = this.buildTreeNames(this.getSpecialistsBySpeciality(specialty), false);
-          return {
-            key: `s${i}`,
-            label: specialty,
-            checked: children.some(({checked}) => checked),
-            children,
-          };
-        });
+    this.$scope.tree = this.getSpecialities().map((specialty, i) => {
+      const children = this.buildTreeNames(this.getSpecialistsBySpeciality(specialty), false);
+      return {
+        key: `s${i}`,
+        label: specialty,
+        checked: children.some(({checked}) => checked),
+        children,
+      };
+    });
   }
 }
