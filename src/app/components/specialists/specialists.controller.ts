@@ -93,6 +93,7 @@ export class SpecialistsController {
   }
 
   private handleCheckboxChange = (item: ITreeItem): void => {
+    console.log('test');
     if (item.key.startsWith('s')) {
       if (item.checked) {
         this.checkBySpeciality(item.label);
