@@ -94,10 +94,12 @@ export class SpecialistsController {
 
   private handleCheckboxChange = (item: ITreeItem): void => {
     if (item.key.startsWith('s')) {
+      const specialties = asideDictionary.specialists.specialties;
+      const speciality = Object.keys(specialties).find((key) => specialties[key] === item.label) || item.label;
       if (item.checked) {
-        this.checkBySpeciality(item.label);
+        this.checkBySpeciality(speciality);
       } else {
-        this.getSpecialistsBySpeciality(item.label)
+        this.getSpecialistsBySpeciality(speciality)
             .forEach((specialist) => {
               const index = this.inputService.state.specialists.indexOf(specialist);
               if (index !== -1) {
