@@ -69,7 +69,8 @@ export class ScheduleCtrl {
     const diff: number = 60 / user.step;
     do {
       times.push(addMinutes(times[times.length - 1], diff));
-    } while (times[times.length - 1] <= end);
+    } while (times[times.length - 1] < end);
+    times.pop();
     return times;
   }
 
