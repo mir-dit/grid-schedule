@@ -108,7 +108,7 @@ export class ScheduleMenuCtrl {
       patient: selected.patient,
       date: selected.time.start,
       doctor: specialist.name,
-      address: specialist.hospital,
+      address: specialist.cabinet,
       oms: user.oms,
     };
   }
