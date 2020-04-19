@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<div class="input-group mb-10">
+<div class="input-group mb-10 aside__specialists-input">
     <input
         id="specialists-input"
         type="text"
@@ -26,6 +26,9 @@
     <ul ng-if="noResults" class="dropdown-menu" style="display: block;">
         <li><a>{{'aside.specialists.noResults' | dictionary}}</a></li>
     </ul>
+    <div ng-show="value" ng-click="handleClear()" class="aside__specialists-clear">
+        <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+    </div>
     <button type="button" class="btn input-group-addon aside__field-btn">
         <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
     </button>

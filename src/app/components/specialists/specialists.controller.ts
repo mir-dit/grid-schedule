@@ -27,13 +27,14 @@ export interface ISpecialistsScope extends ng.IScope {
   handleCheckboxChange: (item: ITreeItem) => void;
   handleOrderChange: () => void;
   dropdownItems: IDropdownItem[];
+  handleClear: () => void;
 }
 
 export class SpecialistsController {
-  static $inject: readonly string[] = ['$scope', 'ScheduleService', 'InputService'];
+  static $inject: readonly string[] = ['$scope', 'ScheduleService', 'InputService', '$timeout'];
   private specialists: ISpecialist[];
 
-  constructor(private $scope: ISpecialistsScope, private scheduleService: IScheduleService, private inputService: IInputService) {
+  constructor(private $scope: ISpecialistsScope, private scheduleService: IScheduleService, private inputService: IInputService, private $timeout: ng.ITimeoutService) {
     this.specialists = scheduleService.getSpecialists();
     $scope.value = '';
     $scope.specialistsSize = this.specialists.length;
@@ -62,6 +63,7 @@ export class SpecialistsController {
     $scope.handleBlur = this.handleBlur;
     $scope.handleCheckboxChange = this.handleCheckboxChange;
     $scope.handleOrderChange = this.handleOrderChange;
+    $scope.handleClear = this.handleClear;
   }
 
   private handleBlur = (): void => {
@@ -69,6 +71,10 @@ export class SpecialistsController {
       this.$scope.noResults = false;
       this.$scope.value = '';
     }
+  }
+
+  private handleClear = (): void => {
+    this.$scope.value = '';
   }
 
   private checkBySpeciality(specialty: string): void {

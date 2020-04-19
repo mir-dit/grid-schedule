@@ -17,6 +17,20 @@
     color: $patient-color;
   }
 
+  &__specialists-input {
+    position: relative;
+  }
+
+  &__specialists-clear {
+    position: absolute;
+    cursor: pointer;
+    z-index: 50;
+    top: 12px;
+    font-size: 10px;
+    color: $red;
+    right: 50px;
+  }
+
   &__dropdown {
     right: 0;
     left: unset;
