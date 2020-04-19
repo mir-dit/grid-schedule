@@ -145,7 +145,7 @@ export class SpecialistsController {
   private buildTreeNames(specialists: ISpecialist[], addSpeciality: boolean): ITreeItem[] {
     return specialists.map((specialist) => ({
       key: String(specialist.id),
-      label: addSpeciality ? `${specialist.name} (${specialist.specialty})` : specialist.name,
+      label: `${specialist.name} (к.${specialist.cabinet}${addSpeciality ? ', ' + specialist.specialty : ''})`,
       checked: this.inputService.state.specialists.includes(specialist),
     }));
   }
