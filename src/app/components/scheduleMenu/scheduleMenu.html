@@ -59,12 +59,12 @@
         <div class="schedule-menu-info__close" ng-click="handleInfoClose()">X</div>
         <div class="schedule-menu-info__header">
             <span class="glyphicon glyphicon-list-alt schedule-menu-info__icon" aria-hidden="true"></span>
-            <span>{{ selected.patient }}</span>
+            <span>{{ info.patient }}</span>
         </div>
         <div class="schedule-menu-info__content">
             <div class="schedule-menu-info__item">
                 <div class="schedule-menu-info__label">{{ 'scheduleMenu.info.date' | dictionary }}:</div>
-                <div>{{ selected.time.start | date: 'dd.MM.yyyy' }}</div>
+                <div>{{ info.date | date: 'dd.MM.yyyy' }}</div>
             </div>
             <div class="schedule-menu-info__item">
                 <div class="schedule-menu-info__label">{{ 'scheduleMenu.info.doctor' | dictionary }}:</div>
