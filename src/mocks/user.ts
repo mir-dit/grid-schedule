@@ -11,6 +11,7 @@ export interface IPatient extends IUser {
 export interface ISpecialist extends IUser {
     specialty: string;
     hospital: string;
+    cabinet: string;
     schedule: ISchedule;
     step: number; // per hour
 }
@@ -35,7 +36,8 @@ export const users: Users = [
       end: new Date(2019, 4, 1, 18, 0),
       days: [1, 2, 3, 4, 5],
     },
-    hospital: 'ГП №128, (к.140)',
+    hospital: 'ГП №128',
+    cabinet: '140',
     step: 6,
   },
   {
@@ -48,7 +50,8 @@ export const users: Users = [
       end: new Date(2019, 4, 1, 21, 0),
       days: [1, 2, 3, 4, 5],
     },
-    hospital: 'ГП №128, (к.130)',
+    hospital: 'ГП №128',
+    cabinet: '130',
     step: 6,
   },
   {
@@ -61,7 +64,8 @@ export const users: Users = [
       end: new Date(2019, 4, 2, 21, 0),
       days: [1, 2, 3, 4, 5],
     },
-    hospital: 'ГП №128, (к.150)',
+    hospital: 'ГП №128',
+    cabinet: '150',
     step: 2,
   },
   {
@@ -74,7 +78,8 @@ export const users: Users = [
       end: new Date(2019, 4, 3, 20, 0),
       days: [1, 2, 3, 4, 5],
     },
-    hospital: 'ГП №128, (к.142)',
+    hospital: 'ГП №128',
+    cabinet: '142',
     step: 2,
   },
   {
@@ -87,7 +92,8 @@ export const users: Users = [
       end: new Date(2019, 4, 4, 20, 0),
       days: [1, 2, 3, 4, 5],
     },
-    hospital: 'Травма пункт ГБ № 71. (к.211)',
+    hospital: 'Травма пункт ГБ № 71',
+    cabinet: '211',
     step: 2,
   },
   {

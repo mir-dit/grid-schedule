@@ -121,7 +121,7 @@ export class ScheduleCtrl {
         date,
         doctor: user.name,
         specialty: user.specialty,
-        address: user.hospital,
+        address: `${user.hospital}, (к.${user.cabinet})`,
         ...(busy ? {busy: busy.message} : {
           interval: user.schedule.title,
           cells: this.createCells(user, date),

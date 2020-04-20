@@ -21,6 +21,8 @@ export interface ISheldureMenuSelectedPatient extends ISheldureMenuSelected {
 }
 
 interface ISheldureMenuInfo {
+  patient: string;
+  date: Date;
   doctor: string;
   address: string;
   oms: string;
@@ -99,11 +101,14 @@ export class ScheduleMenuCtrl {
   }
 
   private handleInfo = (): void => {
-    const specialist = this.scheduleService.getSpecialistById(this.$scope.selected.specialistId);
-    const user = this.scheduleService.getPatientById((this.$scope.selected as ISheldureMenuSelectedPatient).patientId);
+    const selected = this.$scope.selected as ISheldureMenuSelectedPatient;
+    const specialist = this.scheduleService.getSpecialistById(selected.specialistId);
+    const user = this.scheduleService.getPatientById(selected.patientId);
     this.$scope.info = {
+      patient: selected.patient,
+      date: selected.time.start,
       doctor: specialist.name,
-      address: specialist.hospital,
+      address: specialist.cabinet,
       oms: user.oms,
     };
   }
