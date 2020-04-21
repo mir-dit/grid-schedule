@@ -1,0 +1,15 @@
+.date > button {
+    border-radius: unset;
+}
+
+.disabled {
+    background-color: map-get($datepicker-colors, 'disabled');
+}
+
+.active button {
+    background-color: map-get($datepicker-colors, 'active');
+}
+
+.active button:hover {
+    background-color: map-get($datepicker-colors, 'hover');
+}

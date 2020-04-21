@@ -1,0 +1,9 @@
+<ul class="dropdown-menu" ng-if="isOpen" style="display: block" ng-style="{top: position.top+'px', left: position.left+'px'}" ng-keydown="keydown($event)" ng-click="$event.stopPropagation()">
+    <li ng-transclude></li>
+    <li ng-if="showButtonBar" style="padding:10px 9px 2px">
+        <span class="pull-right">
+            <button type="button" class="btn btn-sm btn-danger" ng-click="select(null)">{{getText('clear')}}</button>
+            <button type="button" style="margin-left:10px" class="btn btn-sm btn-success pull-right" ng-click="close()">{{getText('close')}}</button>
+        </span>
+    </li>
+</ul>

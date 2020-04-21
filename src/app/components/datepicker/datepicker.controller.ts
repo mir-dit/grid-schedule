@@ -25,10 +25,12 @@ interface IDatepickerScope extends ng.IScope {
   value: Date | null;
   handleValueChange: () => void;
   onChange: (value: Date | null) => void;
+  getClass: (date: Date) => string;
 }
 
 export class DatepickerController {
-  constructor(private $scope: IDatepickerScope) {
+  constructor(private $scope: IDatepickerScope, $templateCache: ng.ITemplateCacheService) {
+    $templateCache.put('datepickerPopup', require('./popup.html'));
     $scope.show = false;
     $scope.config = config;
 
@@ -38,9 +40,17 @@ export class DatepickerController {
       }
     });
     $scope.handleValueChange = this.handleValueChange;
+    $scope.getClass = this.getClass;
   }
 
   private handleValueChange = (): void => {
     this.$scope.onChange(this.$scope.val instanceof Date ? this.$scope.val : null);
+  }
+
+  private getClass(date: Date): string {
+    if (date < config.minDate) {
+      return 'date disabled';
+    }
+    return 'date active';
   }
 }

@@ -14,10 +14,13 @@
         min-date="{{config.minDate}}"
         max-date="{{config.maxDate}}"
         datepicker-options="{{config.options}}"
-        close-text="Закрыть"
-        clear-text="Очистить"
-        current-text="Сегодня"
+        close-text="Ок"
+        clear-text="Отменить"
         placeholder="{{'aside.datepicker.placeholder' | dictionary}}"
+        on-open-focus="false"
+        datepicker-popup-template-url="datepickerPopup"
+        custom-class="getClass(date)"
+        close-on-date-selection="false"
     />
     <button type="button" class="btn btn-default" ng-click="show = !show">
         <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
