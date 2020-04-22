@@ -5,7 +5,7 @@ export class AsideController {
   static $inject: readonly string[] = ['$scope', 'SpecialistService'];
 
   constructor(private $scope: ng.IScope, private specialistService: ISpecialistService) {
-    $scope.$watchCollection('asCtrl.specialistService.specialists', () => this.handleSpecialistsChange());
+    $scope.$watchCollection('asCtrl.specialistService.selected', () => this.handleSpecialistsChange());
   }
 
   public handleDateChange(value: Date | null): void {

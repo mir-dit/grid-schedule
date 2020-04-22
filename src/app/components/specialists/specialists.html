@@ -36,8 +36,8 @@
 </div>
 
 <div class="btn-group mb-50">
-    <label class="btn btn-default btn-sm" ng-model="order" btn-radio="0" ng-change="specCtrl.handleOrderChange()">По специальностям</label>
-    <label class="btn btn-default btn-sm" ng-model="order" btn-radio="1" ng-change="specCtrl.handleOrderChange()">По алфавиту</label>
+    <label class="btn btn-default btn-sm" ng-model="specCtrl.order" btn-radio="0" ng-change="specCtrl.handleOrderChange()">По специальностям</label>
+    <label class="btn btn-default btn-sm" ng-model="specCtrl.order" btn-radio="1" ng-change="specCtrl.handleOrderChange()">По алфавиту</label>
 </div>
 
 <app-tree items="specCtrl.tree" on-checkbox-change="specCtrl.handleCheckboxChange(item)"></app-tree>

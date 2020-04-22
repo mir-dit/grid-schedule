@@ -16,7 +16,7 @@ export class ScheduleCtrl {
 
   constructor(private $scope: ng.IScope, private specialistService: ISpecialistService, private patientService: IPatientService, private recordService: IRecordService) {
     $scope.$watch('schedCtrl.specialistService.filterDate', () => this.updateColumns());
-    $scope.$watchCollection('schedCtrl.specialistService.specialists', () => this.updateColumns());
+    $scope.$watchCollection('schedCtrl.specialistService.selected', () => this.updateColumns());
     $scope.$on('records:updated', () => this.updateColumns());
 
     this.timeGap = 1;
@@ -122,11 +122,11 @@ export class ScheduleCtrl {
   }
 
   private getSpecialistsByDate(date: Date): ISpecialist[] {
-    return this.specialistService.specialists.filter((user) => user.schedule.days.includes(date.getDay()));
+    return this.specialistService.selected.filter((user) => user.schedule.days.includes(date.getDay()));
   }
 
   public updateColumns(): void {
-    const {filterDate, specialists} = this.specialistService;
-    this.columns = (filterDate && specialists.length) ? this.generateDates(filterDate).map(d => this.createColumns(d)).flat() : [];
+    const {filterDate, selected} = this.specialistService;
+    this.columns = (filterDate && selected.length) ? this.generateDates(filterDate).map(d => this.createColumns(d)).flat() : [];
   }
 }

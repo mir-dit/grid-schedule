@@ -61,16 +61,16 @@ export class SpecialistsController {
 
   private checkBySpeciality(specialty: string): void {
     this.getSpecialistsBySpeciality(specialty)
-        .filter((specialist) => !this.specialistService.specialists.includes(specialist))
-        .forEach((specialist) => this.specialistService.specialists.push(specialist));
+        .filter((specialist) => !this.specialistService.selected.includes(specialist))
+        .forEach((specialist) => this.specialistService.selected.push(specialist));
   }
 
   public handleValueChange(): void {
     if (typeof this.value !== 'object') return;
     const value = this.value as ISpecialist;
     if (value.id) {
-      if (!this.specialistService.specialists.includes(value)) {
-        this.specialistService.specialists.push(value);
+      if (!this.specialistService.selected.includes(value)) {
+        this.specialistService.selected.push(value);
         this.buildTree();
       }
     } else {
@@ -81,6 +81,7 @@ export class SpecialistsController {
   }
 
   public handleCheckboxChange(item: ITreeItem): void {
+    console.log(item)
     if (item.key.startsWith('s')) {
       const specialties = asideDictionary.specialists.specialties;
       const speciality = Object.keys(specialties).find((key) => specialties[key] === item.label) || item.label;
@@ -89,34 +90,35 @@ export class SpecialistsController {
       } else {
         this.getSpecialistsBySpeciality(speciality)
             .forEach((specialist) => {
-              const index = this.specialistService.specialists.indexOf(specialist);
+              const index = this.specialistService.selected.indexOf(specialist);
               if (index !== -1) {
-                this.specialistService.specialists.splice(index, 1);
+                this.specialistService.selected.splice(index, 1);
               }
             });
       }
     } else {
       const specialist = this.specialistService.getSpecialistById(Number(item.key));
       if (item.checked) {
-        this.specialistService.specialists.push(specialist);
+        this.specialistService.selected.push(specialist);
       } else {
-        this.specialistService.specialists.splice(this.specialistService.specialists.indexOf(specialist), 1);
+        this.specialistService.selected.splice(this.specialistService.selected.indexOf(specialist), 1);
       }
     }
     this.buildTree();
   }
 
   private handleSelect = (): void => {
-    this.specialistService.specialists = this.specialists.slice();
+    this.specialistService.selected = this.specialists.slice();
     this.buildTree();
   }
 
   private handleUnselect = (): void => {
-    this.specialistService.specialists = [];
+    this.specialistService.selected = [];
     this.buildTree();
   }
 
   public handleOrderChange(): void {
+    this.order
     this.buildTree();
   }
 
@@ -128,7 +130,7 @@ export class SpecialistsController {
     return specialists.map((specialist) => ({
       key: String(specialist.id),
       label: `${specialist.name} (к.${specialist.cabinet}${addSpeciality ? ', ' + specialist.specialty : ''})`,
-      checked: this.specialistService.specialists.includes(specialist),
+      checked: this.specialistService.selected.includes(specialist),
     }));
   }
 
