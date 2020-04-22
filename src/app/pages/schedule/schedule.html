@@ -2,10 +2,10 @@
 
     <div class="page-header container-fluid schedule__header">
         <div class="row">
-            <div class="col-xs-8">
-                <h2 class="schedule__title">{{'schedule.title' | dictionary}}</h2>
+            <div class="col-sm-12 col-md-8">
+                <h2 class="schedule__title">{{ 'schedule.title' | dictionary }}</h2>
             </div>
-            <div class="col-xs-4">
+            <div class="col-sm-12 col-md-4">
                 <div class="btn-group schedule__time-gap">
                     <label class="btn btn-success" ng-model="timeGap" btn-radio="1" uncheckable ng-change="updateColumns()">{{'schedule.oneDay' | dictionary}}</label>
                     <label class="btn btn-success" ng-model="timeGap" btn-radio="2" uncheckable ng-change="updateColumns()">{{'schedule.twoDays' | dictionary}}</label>
@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <div class="container-fluid" ng-if="columns.length">
+    <div class="container-fluid py-15" ng-if="columns.length">
         <app-table columns="columns" on-select="handleTableSelect"></app-table>
     </div>
 
