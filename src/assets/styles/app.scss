@@ -22,8 +22,9 @@ html, body {
 @import "@app/pages/schedule/schedule";
 
 // Components
-@import "@components/aside/aside";
+@import '@components/aside/aside';
 @import '@components/table/table';
 @import '@components/popup/popup';
 @import '@components/scheduleMenu/schedule-menu';
 @import '@components/tree/tree';
+@import '@components/datepicker/datepicker';
