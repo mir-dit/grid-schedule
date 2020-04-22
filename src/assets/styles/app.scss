@@ -16,8 +16,10 @@ html, body {
 @import "modules/header";
 @import "modules/main";
 @import "modules/footer";
-@import "modules/schedule";
 @import "modules/scroll";
+
+//pages
+@import "@app/pages/schedule/schedule";
 
 // Components
 @import "@components/aside/aside";

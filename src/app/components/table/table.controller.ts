@@ -18,7 +18,7 @@ export interface ITableScope extends ng.IScope {
   heights: ITableHeigts | null;
   headerLockedHeight: number;
   maxRolledHeight: number;
-  onSelect: (event: MouseEvent, cell: ICellTime, column: Column, patient?: ICellPatient) => void;
+  onSelect: (params: {event: MouseEvent, cell: ICellTime, column: Column, patient?: ICellPatient}) => void;
   handleCellClick: (event: MouseEvent, cell: ICellTime, column: Column, patient?: ICellPatient) => void;
 }
 
@@ -48,7 +48,7 @@ export class TableCtrl {
 
   private handleCellClick = (event: MouseEvent, cell: ICellTime, column: Column, patient?: ICellPatient): void => {
     event.stopPropagation();
-    this.$scope.onSelect(event, cell, column, patient);
+    this.$scope.onSelect({event, cell, column, patient});
   }
 
   private resetScroll(): void {

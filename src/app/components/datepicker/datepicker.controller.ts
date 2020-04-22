@@ -18,29 +18,27 @@ const config: IDatepicker = {
   },
 };
 
-interface IDatepickerScope extends ng.IScope {
-  show: boolean;
-  config: IDatepicker;
-  val: Date | string;
-  value: Date | null;
-  handleValueChange: () => void;
-  onChange: (value: Date | null) => void;
-}
-
 export class DatepickerController {
-  constructor(private $scope: IDatepickerScope) {
-    $scope.show = false;
-    $scope.config = config;
 
-    $scope.$watch('value', () => {
-      if ($scope.val !== $scope.value) {
-        $scope.val = $scope.value;
+  public show: boolean = false;
+  public config: IDatepicker = config;
+  public value: Date | null;
+  public val: Date | string;
+  public onChange: (params: {value: Date | null}) => void;
+
+  constructor(private $scope: ng.IScope) {
+    $scope.$watch('dateCtrl.value', () => {
+      if (this.val !== this.value) {
+        this.val = this.value;
       }
     });
-    $scope.handleValueChange = this.handleValueChange;
   }
 
-  private handleValueChange = (): void => {
-    this.$scope.onChange(this.$scope.val instanceof Date ? this.$scope.val : null);
+  public handleValueChange(): void {
+    this.onChange({value: this.val instanceof Date ? this.val : null});
+  }
+
+  public toggleDatePicker(): void {
+    this.show = !this.show;
   }
 }

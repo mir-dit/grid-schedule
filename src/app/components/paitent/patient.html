@@ -1,27 +1,28 @@
 <div class="d-flex justify-space-between align-items-center mb-10">
     <label for="patient-input" class="custom-label">{{'aside.patient.label' | dictionary}}</label>
     <div class="aside__field-actions">
-        <app-dropdown icon="'glyphicon glyphicon-user'" disabled="!inputState.patient" items="dropdownItems"></app-dropdown>
+        <app-dropdown icon="'glyphicon glyphicon-user'" disabled="!patCtrl.patientService.current" items="patCtrl.dropdownItems"></app-dropdown>
     </div>
 </div>
 
-<div class="input-group" ng-style="inputState.patient && { display: 'none' }">
+<div class="input-group" ng-style="patCtrl.patientService.current && { display: 'none' }">
     <input
         id="patient-input"
         type="text"
         class="form-control"
         spellcheck="false"
         placeholder="{{'aside.patient.placeholder' | dictionary}}"
-        ng-model="value"
-        typeahead="patient as patient.name for patient in patients | filter:{$:$viewValue} | limitTo:8"
+        typeahead="patient as patient.name for patient in patCtrl.patients | filter:{$:$viewValue} | limitTo:8"
         typeahead-min-length="3"
-        typeahead-template-url="patientTypeahead"
-        typeahead-no-results="noResults"
+        typeahead-template-url="patientTypeahead.html"
+        typeahead-no-results="patCtrl.noResults"
         typeahead-select-on-exact="true"
         typeahead-select-on-blur="true"
-        ng-blur="handleBlur()"
+        typeahead-on-select="patCtrl.handleSelect($item)"
+        ng-model="patCtrl.value"
+        ng-blur="patCtrl.handleBlur()"
     />
-    <ul ng-if="noResults" class="dropdown-menu" style="display: block;">
+    <ul ng-if="patCtrl.noResults" class="dropdown-menu" style="display: block;">
         <li><a>{{'aside.patient.noResults' | dictionary}}</a></li>
     </ul>
     <button type="button" class="btn input-group-addon aside__field-btn">
@@ -29,8 +30,8 @@
     </button>
 </div>
 
-<div class="aside__patient" ng-if="inputState.patient">
-    <div>{{inputState.patient.name}},</div>
-    <div>{{inputState.patient.birthday | date: 'dd.MM.yyyy'}} г.р.</div>
-    <div>{{'aside.patient.oms' | dictionary}}: {{inputState.patient.oms}}</div>
+<div class="aside__patient" ng-if="patCtrl.patientService.current">
+    <div>{{patCtrl.patientService.current.name}},</div>
+    <div>{{patCtrl.patientService.current.birthday | date: 'dd.MM.yyyy'}} г.р.</div>
+    <div>{{'aside.patient.oms' | dictionary}}: {{patCtrl.patientService.current.oms}}</div>
 </div>

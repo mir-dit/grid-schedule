@@ -1,46 +1,36 @@
-import {IScheduleService} from '@app/pages/schedule/schedule.service';
 import {IPatient} from '@mocks/user';
 import asideDictionary from '@src/dictionary/aside';
 import {IDropdownItem} from '../dropdown/dropdown.directive';
-import {IInputService, IInputState} from '@app/services/input.service';
-
-export interface IPatientScope extends ng.IScope {
-  inputState: IInputState;
-  noResults: boolean;
-  value: IPatient | string;
-  patients: IPatient[];
-  handleBlur: () => void;
-  dropdownItems: IDropdownItem[];
-}
+import {PatientService} from '@app/services/patient.service';
 
 export class PatientController {
-  static $inject: readonly string[] = ['$scope', 'ScheduleService', '$templateCache', 'InputService'];
+  static $inject: readonly string[] = ['$templateCache', 'PatientService'];
 
-  constructor(private $scope: IPatientScope, scheduleService: IScheduleService, $templateCache: ng.ITemplateCacheService, private inputService: IInputService) {
-    $templateCache.put('patientTypeahead', require('./typeahead.html'));
-    $scope.value = '';
-    $scope.inputState = inputService.state;
-    $scope.patients = scheduleService.getPatients();
-    $scope.dropdownItems = [{
-      label: asideDictionary.patient.exit,
-      icon: 'glyphicon glyphicon-off',
-      onClick(): void {
-        $scope.value = '';
-      },
-    }];
+  public value: IPatient | string = '';
+  public noResults: boolean;
+  public patients: IPatient[] = this.patientService.getAll();
 
-    $scope.$watch('value', this.handleValueChange);
-    $scope.handleBlur = this.handleBlur;
+  constructor($templateCache: ng.ITemplateCacheService, private patientService: PatientService) {
+    $templateCache.put('patientTypeahead.html', require('./typeahead.html'));
   }
 
-  private handleBlur = (): void => {
-    if (this.$scope.noResults) {
-      this.$scope.noResults = false;
-      this.$scope.value = '';
+  public dropdownItems: IDropdownItem[] = [{
+    label: asideDictionary.patient.exit,
+    icon: 'glyphicon glyphicon-off',
+    onClick: (): void => {
+      this.value = '';
+      this.patientService.setCurrent(null);
+    },
+  }];
+
+  public handleBlur(): void {
+    if (this.noResults) {
+      this.noResults = false;
+      this.value = '';
     }
   }
 
-  private handleValueChange = (): void => {
-    this.inputService.state.patient = typeof this.$scope.value === 'object' ? this.$scope.value : null;
+  public handleSelect($item: IPatient): void {
+    this.patientService.setCurrent($item?.id || null);
   }
 }

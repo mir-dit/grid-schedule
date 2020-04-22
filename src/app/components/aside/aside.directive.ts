@@ -4,7 +4,7 @@ export class AsideDirective implements ng.IDirective {
   restrict = 'E';
   template = require('./aside.html');
   controller = AsideController;
-  scope = {};
+  controllerAs = 'asCtrl'
 
   static factory() {
     return (): ng.IDirective => new AsideDirective();
