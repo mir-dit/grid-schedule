@@ -15,13 +15,13 @@
         class="form-control"
         spellcheck="false"
         placeholder="{{'aside.specialists.placeholder' | dictionary}}"
-        ng-model="value"
-        ng-change="specCtrl.handleValueChange()"
+        ng-model="specCtrl.value"
         typeahead="typeahead as typeahead.name for typeahead in specCtrl.typeaheads | filter:{name:$viewValue} | limitTo:8"
         typeahead-min-length="3"
         typeahead-no-results="specCtrl.noResults"
         typeahead-select-on-exact="true"
         typeahead-select-on-blur="true"
+        typeahead-on-select="specCtrl.handleValueChange($item)"
         ng-blur="specCtrl.handleBlur()"
     />
     <ul ng-if="specCtrl.noResults" class="dropdown-menu" style="display: block;">

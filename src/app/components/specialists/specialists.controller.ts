@@ -64,17 +64,14 @@ export class SpecialistsController {
         .forEach((specialist) => this.specialistService.selected.push(specialist));
   }
 
-  public handleValueChange(): void {
-    if (typeof this.value !== 'object') return;
-    const value = this.value as ISpecialist;
-    if (value.id) {
-      if (!this.specialistService.selected.includes(value)) {
-        this.specialistService.selected.push(value);
+  public handleValueChange($item: ISpecialist): void {
+    if ($item?.id) {
+      if (!this.specialistService.selected.includes($item)) {
+        this.specialistService.selected.push($item);
         this.buildTree();
       }
     } else {
-      const value = this.value as ISpeciality;
-      this.checkBySpeciality(value.specialty);
+      this.checkBySpeciality($item.specialty);
       this.buildTree();
     }
   }
