@@ -1,7 +1,7 @@
 <div class="d-flex justify-space-between align-items-center mb-10">
     <div>
         <label for="specialists-input" class="custom-label">{{'aside.specialists.label' | dictionary}}</label>
-        <span>({{specCtrl.inputState.specialists.length}}/{{specialistsSize}})</span>
+        <span>({{specCtrl.specialistService.selected.length}}/{{specCtrl.specialists.length}})</span>
     </div>
     <div class="aside__field-actions">
         <app-dropdown icon="'glyphicon glyphicon-filter'" items="specCtrl.dropdownItems"></app-dropdown>

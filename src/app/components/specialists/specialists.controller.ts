@@ -19,7 +19,6 @@ export class SpecialistsController {
 
   private specialists: ISpecialist[] = [];
   public value: ISpecialist | string = '';
-  public specialistsSize: number;
   public typeaheads: (ISpecialist | ISpeciality)[];
   public order: Order = Order.specialty;
   public dropdownItems: IDropdownItem[];
@@ -118,7 +117,6 @@ export class SpecialistsController {
   }
 
   public handleOrderChange(): void {
-    this.order
     this.buildTree();
   }
 
