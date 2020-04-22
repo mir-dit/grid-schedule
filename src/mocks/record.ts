@@ -15,8 +15,8 @@ export const records: IRecord[] = [
     id: 1,
     message: 'Врач не принимает',
     userId: 3,
-    start: new Date(2019, 4, 1, 10, 30),
-    end: new Date(2019, 4, 1, 11, 0),
+    start: new Date(2020, 4, 22, 10, 30),
+    end: new Date(2020, 4, 22, 11, 0),
     type: 'secondary',
   },
   {

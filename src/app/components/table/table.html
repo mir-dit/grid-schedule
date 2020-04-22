@@ -40,10 +40,12 @@
                     'table__cell-used': cell.patient,
                     'table__cell-cross': cell.cross,
                     'table__cell_selectable': cell.time,
-                }">
+                }"
+                tooltip="{{ generateTooltip(cell) }}"
+            >
                     <span class="table__text">{{ cell.reason || (cell.time | date: 'HH:mm') }}</span>
-                    <span class="table__patient" ng-if="cell.patient" ng-click="handleCellClick($event, cell, column, cell.patient)" tooltip="{{ cell.patient.name }}">{{ cell.patient.name }}</span>
-                    <span class="table__patient" ng-if="cell.patient2" ng-click="handleCellClick($event, cell, column, cell.patient)" tooltip="{{ cell.patient2.name }}">{{ cell.patient2.name }}</span>
+                    <span class="table__patient" ng-if="cell.patient" ng-click="handleCellClick($event, cell, column, cell.patient)">{{ cell.patient.name }}</span>
+                    <span class="table__patient" ng-if="cell.patient2" ng-click="handleCellClick($event, cell, column, cell.patient2)">{{ cell.patient2.name }}</span>
             </div>
         </div>
     </div>
