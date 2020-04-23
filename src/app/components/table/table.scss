@@ -10,10 +10,6 @@ $cell-height: 30px;
     height: 70vh;
     min-height: 615px;
     width: 100%;
-    // TODO попытка поправить zindex tooltip
-    //&__header-cell {
-    //    z-index: 1!important;
-    //}
     &__column {
         @include bg("empty");
         margin-right: 8px;
@@ -38,7 +34,6 @@ $cell-height: 30px;
 
         &_rolled {
             background-color: $bg-color;
-            // TODO попытка поправить zindex tooltip
             z-index: 15;
             height: $border-size;
         }
@@ -51,7 +46,6 @@ $cell-height: 30px;
                 margin-top: unset;
                 border-radius: 2px 2px 0 0;
                 border-bottom: unset;
-                // TODO попытка поправить zindex tooltip
                 z-index: 15;
             }
         }
@@ -59,7 +53,6 @@ $cell-height: 30px;
         &-cell {
             position: relative;
             padding: 4px 12px;
-            // TODO попытка поправить zindex tooltip
             z-index: 10;
         }
 
@@ -126,7 +119,7 @@ $cell-height: 30px;
     &__body {
         position: relative;
         display: flex;
-        z-index: 5;
+        //z-index: 5;
 
         &-column_busy {
             border-radius: 0 0 2px 2px ;
