@@ -13,3 +13,7 @@
 .active button:hover {
     background-color: map-get($datepicker-colors, 'hover');
 }
+
+.aside__field-btn.aside__field-btn--datepicker {
+  width: 48px;
+}

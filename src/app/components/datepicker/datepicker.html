@@ -7,13 +7,13 @@
         id="datepicker-input"
         type="text"
         class="form-control"
-        datepicker-popup="{{config.format}}"
-        ng-model="val"
-        ng-change="handleValueChange()"
-        is-open="show"
-        min-date="{{config.minDate}}"
-        max-date="{{config.maxDate}}"
-        datepicker-options="{{config.options}}"
+        datepicker-popup="{{dateCtrl.config.format}}"
+        ng-model="dateCtrl.val"
+        ng-change="dateCtrl.handleValueChange()"
+        is-open="dateCtrl.show"
+        min-date="{{dateCtrl.config.minDate}}"
+        max-date="{{dateCtrl.config.maxDate}}"
+        datepicker-options="{{dateCtrl.config.options}}"
         close-text="Ок"
         clear-text="Отменить"
         placeholder="{{'aside.datepicker.placeholder' | dictionary}}"
@@ -22,7 +22,7 @@
         custom-class="getClass(date)"
         close-on-date-selection="false"
     />
-    <button type="button" class="btn btn-default" ng-click="show = !show">
+    <button type="button" class="btn btn-default input-group-addon aside__field-btn aside__field-btn--datepicker" ng-click="dateCtrl.toggleDatePicker()">
         <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
         <i class="caret" style="margin-left: 3px;"></i>
     </button>

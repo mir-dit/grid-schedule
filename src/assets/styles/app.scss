@@ -16,13 +16,15 @@ html, body {
 @import "modules/header";
 @import "modules/main";
 @import "modules/footer";
-@import "modules/schedule";
 @import "modules/scroll";
 
+//pages
+@import "@app/pages/schedule/schedule";
+
 // Components
-@import "@components/aside/aside";
+@import '@components/aside/aside';
 @import '@components/table/table';
 @import '@components/popup/popup';
 @import '@components/scheduleMenu/schedule-menu';
 @import '@components/tree/tree';
-@import '@components/datepicker/datepicker'
+@import '@components/datepicker/datepicker';

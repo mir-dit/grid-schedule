@@ -10,11 +10,10 @@ $cell-height: 30px;
     height: 70vh;
     min-height: 615px;
     width: 100%;
-
     &__column {
         @include bg("empty");
-        margin-right: 5px;
-        width: 170px;
+        margin-right: 8px;
+        width: 190px;
         flex-shrink: 0;
 
         &_busy {
@@ -22,7 +21,9 @@ $cell-height: 30px;
             border: solid $border-size map_get($table-colors, "busy-border");
         }
     }
-
+    &__column:last-child {
+        margin-right: 0;
+    }
 
     &__header {
         display: flex;
@@ -30,7 +31,7 @@ $cell-height: 30px;
         &_scrolled {
             position: absolute;
         }
-        
+
         &_rolled {
             background-color: $bg-color;
             z-index: 15;
@@ -48,13 +49,13 @@ $cell-height: 30px;
                 z-index: 15;
             }
         }
-    
+
         &-cell {
             position: relative;
             padding: 4px 12px;
             z-index: 10;
         }
-    
+
         &-date {
             @include bg("date");
             border-radius: 2px 2px 0 0;
@@ -71,7 +72,7 @@ $cell-height: 30px;
                 color: $white;
                 border-bottom: 1px solid map_get($table-colors, "hr");
             }
-        
+
             &-specialty{
                 @include bg("doctor-info");
                 color: $white;
@@ -81,23 +82,23 @@ $cell-height: 30px;
 
         &-address {
             color: $black;
-    
+
             &_free {
                 @include bg("address-free");
             }
-    
+
             &_busy {
                 @include bg("address-busy");
             }
         }
-    
+
         &-interval {
             color: $black;
-    
+
             &_free {
                 @include bg("interval-free");
             }
-    
+
             &_rolled {
                 height: 50px;
                 cursor: pointer;

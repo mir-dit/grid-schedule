@@ -1,10 +1,10 @@
 <div class="d-flex justify-space-between align-items-center mb-10">
     <div>
         <label for="specialists-input" class="custom-label">{{'aside.specialists.label' | dictionary}}</label>
-        <span>({{inputState.specialists.length}}/{{specialistsSize}})</span>
+        <span>({{specCtrl.specialistService.selected.length}}/{{specCtrl.specialists.length}})</span>
     </div>
     <div class="aside__field-actions">
-        <app-dropdown icon="'glyphicon glyphicon-filter'" items="dropdownItems"></app-dropdown>
+        <app-dropdown icon="'glyphicon glyphicon-filter'" items="specCtrl.dropdownItems"></app-dropdown>
     </div>
 </div>
 
@@ -15,18 +15,19 @@
         class="form-control"
         spellcheck="false"
         placeholder="{{'aside.specialists.placeholder' | dictionary}}"
-        ng-model="value"
-        typeahead="typeahead as typeahead.name for typeahead in typeaheads | filter:{name:$viewValue} | limitTo:8"
+        ng-model="specCtrl.value"
+        typeahead="typeahead as typeahead.name for typeahead in specCtrl.typeaheads | filter:{name:$viewValue} | limitTo:8"
         typeahead-min-length="3"
-        typeahead-no-results="noResults"
+        typeahead-no-results="specCtrl.noResults"
         typeahead-select-on-exact="true"
         typeahead-select-on-blur="true"
-        ng-blur="handleBlur()"
+        typeahead-on-select="specCtrl.handleValueChange($item)"
+        ng-blur="specCtrl.handleBlur()"
     />
-    <ul ng-if="noResults" class="dropdown-menu" style="display: block;">
+    <ul ng-if="specCtrl.noResults" class="dropdown-menu" style="display: block;">
         <li><a>{{'aside.specialists.noResults' | dictionary}}</a></li>
     </ul>
-    <div ng-show="value" ng-click="handleClear()" class="aside__specialists-clear">
+    <div ng-show="specCtrl.value" ng-click="specCtrl.handleClear()" class="aside__specialists-clear">
         <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
     </div>
     <button type="button" class="btn input-group-addon aside__field-btn">
@@ -35,8 +36,8 @@
 </div>
 
 <div class="btn-group mb-50">
-    <label class="btn btn-default btn-sm" ng-model="order" btn-radio="0" ng-change="handleOrderChange()">По специальностям</label>
-    <label class="btn btn-default btn-sm" ng-model="order" btn-radio="1" ng-change="handleOrderChange()">По алфавиту</label>
+    <label class="btn btn-default btn-sm" ng-model="specCtrl.order" btn-radio="0" ng-change="specCtrl.handleOrderChange()">По специальностям</label>
+    <label class="btn btn-default btn-sm" ng-model="specCtrl.order" btn-radio="1" ng-change="specCtrl.handleOrderChange()">По алфавиту</label>
 </div>
 
-<app-tree items="tree" on-checkbox-change="handleCheckboxChange"></app-tree>
+<app-tree items="specCtrl.tree" on-checkbox-change="specCtrl.handleCheckboxChange(item)"></app-tree>

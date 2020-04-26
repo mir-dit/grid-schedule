@@ -2,7 +2,7 @@
     <div class="tree__item">
         <div class="checkbox">
             <label>
-                <input type="checkbox" ng-model="item.checked" ng-change="onCheckboxChange(item)">
+                <input type="checkbox" ng-model="item.checked" ng-change="handleCheckboxChange(item)">
                 {{item.label}}
             </label>
         </div>
@@ -12,6 +12,6 @@
     </div>
 </script>
 
-<div class="tree" init-plugin="scrollbar" params="{wheelSpeed: 0.15}">
+<div class="tree" init-plugin="scrollbar" params="{wheelSpeed: 0.5}">
     <div ng-repeat="item in items track by item.key" ng-include="'treeItem'"></div>
 </div>

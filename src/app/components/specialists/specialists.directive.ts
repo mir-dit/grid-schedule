@@ -4,7 +4,7 @@ export class SpecialistsDirective implements ng.IDirective {
   restrict = 'E';
   template = require('./specialists.html');
   controller = SpecialistsController;
-  scope = {};
+  controllerAs = 'specCtrl';
 
   static factory() {
     return (): ng.IDirective => new SpecialistsDirective();

@@ -1,4 +1,11 @@
 .aside {
+  box-shadow: 4px -1px 12px -4px rgba(0, 0, 0, 0.58);
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: $accent-gray;
+  height: calc(100vh - 115px);
+  position: relative;
+  z-index: 100;
   .input-group {
     width: 100%;
     display: flex;
@@ -41,3 +48,4 @@
     margin: 12px 0 0;
   }
 }
+

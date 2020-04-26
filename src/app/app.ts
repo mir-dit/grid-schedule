@@ -12,14 +12,15 @@ import {InitPluginDirective} from './directives/initPlugin.directive';
 import {tableOrderColumnFilter} from './filters/tableOrderColumn.filter';
 import {DatepickerDirective} from '@components/datepicker/datepicker.directive';
 import {DropdownDirective} from '@components/dropdown/dropdown.directive';
-import {PopupDirective} from '@components/popup/popup.direcive';
-import {ScheduleService} from './pages/schedule/schedule.service';
+import {PopupDirective} from '@components/popup/popup.directive';
 import {ScheduleMenuDirective} from '@components/scheduleMenu/scheduleMenu.directive';
 import {dictionaryFilter} from './filters/dictionary.filter';
 import {PatientDirective} from '@components/paitent/patient.directive';
 import {SpecialistsDirective} from '@components/specialists/specialists.directive';
-import {TreeDirective} from './components/tree/tree.directive';
-import {InputService} from './services/input.service';
+import {TreeDirective} from '@components/tree/tree.directive';
+import {PatientService} from './services/patient.service';
+import {RecordService} from './services/record.service';
+import {SpecialistService} from './services/specialist.service';
 
 const Application = (): object => {
   return {
@@ -50,6 +51,7 @@ app.directive('appScheduleMenu', ScheduleMenuDirective.factory());
 app.directive('appPatient', PatientDirective.factory());
 app.directive('appSpecialists', SpecialistsDirective.factory());
 app.directive('appTree', TreeDirective.factory());
-app.service('ScheduleService', ScheduleService);
-app.service('InputService', InputService);
+app.service('PatientService', PatientService);
+app.service('RecordService', RecordService);
+app.service('SpecialistService', SpecialistService);
 app.config(['$routeProvider', routes]);

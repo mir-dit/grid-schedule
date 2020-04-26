@@ -1,58 +1,20 @@
-import {IPopupPosition} from '../popup/popup.controller';
-import {IScheduleService} from '../../pages/schedule/schedule.service';
-import {IPatient} from '../../../mocks/user';
-
-export interface ISheldureMenuSelectedTime {
-  start: Date;
-  end: Date;
-}
-
-export interface ISheldureMenuSelected {
-  position: IPopupPosition;
-  time: ISheldureMenuSelectedTime;
-  specialistId: number;
-}
-
-export interface ISheldureMenuSelectedPatient extends ISheldureMenuSelected {
-  patientId: number;
-  recordId: number;
-  patient: string;
-  canAdd: boolean;
-}
-
-interface ISheldureMenuInfo {
-  patient: string;
-  date: Date;
-  doctor: string;
-  address: string;
-  oms: string;
-}
-
-export interface IScheduleMenuScope extends ng.IScope {
-  selectedPatient: IPatient;
-  selected: ISheldureMenuSelected | ISheldureMenuSelectedPatient;
-  onClose: () => void;
-  created: boolean;
-  cancel: boolean;
-  info: ISheldureMenuInfo | null;
-  handleCreate: () => void;
-  handleCancel: () => void;
-  handleReturn: () => void;
-  handleCancelButton: () => void;
-  handleInfo: () => void;
-  handleInfoClose: () => void;
-}
+import {IRecordService} from "@app/services/record.service";
+import {ISpecialistService} from "@app/services/specialist.service";
+import {IPatientService} from "@app/services/patient.service";
+import {IScheduleMenuScope, ISheldureMenuSelectedPatient} from "@components/scheduleMenu/scheduleMenu.model";
 
 export class ScheduleMenuCtrl {
-  static $inject = ['$scope', '$timeout', 'ScheduleService'];
+  static $inject = ['$scope', '$timeout', 'RecordService', 'SpecialistService', 'PatientService'];
 
   private createdTimeout: ng.IPromise<void> = null;
 
-  constructor(private $scope: IScheduleMenuScope, private $timeout: ng.ITimeoutService, private scheduleService: IScheduleService) {
+  constructor(private $scope: IScheduleMenuScope, private $timeout: ng.ITimeoutService, private recordService: IRecordService,
+              private specialistService: ISpecialistService, private patientService: IPatientService) {
     $scope.created = false;
     $scope.cancel = false;
     $scope.info = null;
     $scope.$watch('selected', this.handleSelectedChange);
+
 
     $scope.handleCreate = this.handleCreate;
     $scope.handleCancel = this.handleCancel;
@@ -83,7 +45,7 @@ export class ScheduleMenuCtrl {
       this.createdTimeout = null;
       this.$scope.onClose();
     }, 3000);
-    this.scheduleService.addPrimaryRecord(this.$scope.selectedPatient, this.$scope.selected.specialistId, this.$scope.selected.time.start, this.$scope.selected.time.end);
+    this.recordService.addPrimaryRecord(this.$scope.selectedPatient, this.$scope.selected.specialistId, this.$scope.selected.time.start, this.$scope.selected.time.end);
   }
 
   private handleCancel = (): void => {
@@ -96,14 +58,14 @@ export class ScheduleMenuCtrl {
   }
 
   private handleCancelButton = (): void => {
-    this.scheduleService.removeRecord((this.$scope.selected as ISheldureMenuSelectedPatient).recordId);
+    this.recordService.removeRecord((this.$scope.selected as ISheldureMenuSelectedPatient).recordId);
     this.handleReturn();
   }
 
   private handleInfo = (): void => {
     const selected = this.$scope.selected as ISheldureMenuSelectedPatient;
-    const specialist = this.scheduleService.getSpecialistById(selected.specialistId);
-    const user = this.scheduleService.getPatientById(selected.patientId);
+    const specialist = this.specialistService.getSpecialistById(selected.specialistId);
+    const user = this.patientService.getPatientById(selected.patientId);
     this.$scope.info = {
       patient: selected.patient,
       date: selected.time.start,

@@ -1,10 +1,18 @@
+import {ITreeItem, ITreeScope} from '@components/tree/tree.model';
+
 export class TreeDirective implements ng.IDirective {
   restrict = 'E';
   template = require('./tree.html');
   scope = {
     items: '=',
-    onCheckboxChange: '=',
+    onCheckboxChange: '&',
   };
+
+  link = (scope: ITreeScope): void => {
+    scope.handleCheckboxChange = (item: ITreeItem) => {
+      scope.onCheckboxChange({item});
+    };
+  }
 
   static factory() {
     return (): ng.IDirective => new TreeDirective();

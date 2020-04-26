@@ -29,22 +29,30 @@ interface IDatepickerScope extends ng.IScope {
 }
 
 export class DatepickerController {
+  public show = false;
+  public config: IDatepicker = config;
+  public value: Date | null;
+  public val: Date | string;
+  public onChange: (params: {value: Date | null}) => void;
+
   constructor(private $scope: IDatepickerScope, $templateCache: ng.ITemplateCacheService) {
     $templateCache.put('datepickerPopup', require('./popup.html'));
     $scope.show = false;
     $scope.config = config;
 
-    $scope.$watch('value', () => {
-      if ($scope.val !== $scope.value) {
-        $scope.val = $scope.value;
+    $scope.$watch('dateCtrl.value', () => {
+      if (this.val !== this.value) {
+        this.val = this.value;
       }
     });
-    $scope.handleValueChange = this.handleValueChange;
-    $scope.getClass = this.getClass;
   }
 
-  private handleValueChange = (): void => {
-    this.$scope.onChange(this.$scope.val instanceof Date ? this.$scope.val : null);
+  public handleValueChange(): void {
+    this.onChange({value: this.val instanceof Date ? this.val : null});
+  }
+
+  public toggleDatePicker(): void {
+    this.show = !this.show;
   }
 
   private getClass(date: Date): string {

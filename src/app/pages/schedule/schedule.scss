@@ -1,6 +1,9 @@
 .schedule {
     &__header {
-        border-bottom: 1px solid $hr-color;
+        margin: 0 0 0 0;
+        padding: 10px 15px 12px 15px;
+        border-bottom: 1px solid $dark-gray;
+        background-color: $accent-gray;
     }
 
     &__title {
@@ -20,5 +23,4 @@
         height: 70vh;
         min-height: 615px;
     }
-
 }
