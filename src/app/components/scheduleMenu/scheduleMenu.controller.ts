@@ -1,7 +1,7 @@
-import {IRecordService} from "@app/services/record.service";
-import {ISpecialistService} from "@app/services/specialist.service";
-import {IPatientService} from "@app/services/patient.service";
-import {IScheduleMenuScope, ISheldureMenuSelectedPatient} from "@components/scheduleMenu/scheduleMenu.model";
+import {IRecordService} from '@app/services/record.service';
+import {ISpecialistService} from '@app/services/specialist.service';
+import {IPatientService} from '@app/services/patient.service';
+import {IScheduleMenuScope, ISheldureMenuSelectedPatient} from '@components/scheduleMenu/scheduleMenu.model';
 
 export class ScheduleMenuCtrl {
   static $inject = ['$scope', '$timeout', 'RecordService', 'SpecialistService', 'PatientService'];

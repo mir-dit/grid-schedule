@@ -9,7 +9,7 @@ export class TreeDirective implements ng.IDirective {
   };
 
   link = (scope: ITreeScope): void => {
-    scope.handleCheckboxChange = (item: ITreeItem) => {
+    scope.handleCheckboxChange = (item: ITreeItem): void => {
       scope.onCheckboxChange({item});
     };
   }
