@@ -1,5 +1,6 @@
 import PerfectScrollbar from 'perfect-scrollbar';
 import {IEntry} from '../models/entry.model';
+import {setTime} from "@app/helpers/date";
 
 interface ICurrentScope extends ng.IScope {
   params: IEntry|undefined;
@@ -31,9 +32,10 @@ export class InitPluginDirective implements ng.IDirective {
       theme: 'custom-scroll',
       wheelSpeed: 2,
       wheelPropagation: true,
-      minScrollbarLength: 20,
+      minScrollbarLength: 20
     };
     PerfectScrollbar.initialize(elem[0], {...defaultOptions, ...scope.params});
+    setTimeout(() =>  PerfectScrollbar.update(elem[0]), 0);
     elem.bind('ps-scroll-y', (event) => scope.$emit('ps-scroll-y', event.target));
   }
 }
