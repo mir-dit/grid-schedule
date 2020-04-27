@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-3 col-lg-2 p-0">
                     <div class="page-aside">
-                        <app-aside></app-aside>
+                        <app-aside ng-if="layoutCtrl.asideName" name="{{layoutCtrl.asideName}}"></app-aside>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-9 col-lg-10 p-0">

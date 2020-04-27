@@ -6,6 +6,7 @@ import {ISheldureMenuSelected, ISheldureMenuSelectedPatient} from '@components/s
 import {IPatientService} from '@app/services/patient.service';
 import {IRecordService} from '@app/services/record.service';
 import {ISpecialistService} from '@app/services/specialist.service';
+import {IAsideImpScope} from '@app/models/scopes.model';
 
 export class ScheduleCtrl {
   static $inject = ['$scope', 'SpecialistService', 'PatientService', 'RecordService'];
@@ -14,10 +15,11 @@ export class ScheduleCtrl {
   public scheduleMenu: ISheldureMenuSelected | ISheldureMenuSelectedPatient | null = null;
   public columns: Column[];
 
-  constructor(private $scope: ng.IScope, private specialistService: ISpecialistService, private patientService: IPatientService, private recordService: IRecordService) {
+  constructor(private $scope: IAsideImpScope, private specialistService: ISpecialistService, private patientService: IPatientService, private recordService: IRecordService) {
     $scope.$watch('schedCtrl.specialistService.filterDate', () => this.updateColumns());
     $scope.$watchCollection('schedCtrl.specialistService.selected', () => this.updateColumns());
     $scope.$on('records:updated', () => this.updateColumns());
+    $scope.aside = 'schedule';
 
     this.timeGap = 1;
     this.updateColumns();

@@ -2,10 +2,14 @@ import {setTime} from '@app/helpers/date';
 import {ISpecialistService} from "@app/services/specialist.service";
 
 export class AsideController {
-  static $inject: readonly string[] = ['$scope', 'SpecialistService'];
+  static $inject: readonly string[] = ['$scope', '$templateCache', 'SpecialistService'];
 
-  constructor(private $scope: ng.IScope, private specialistService: ISpecialistService) {
+  public name: string;
+  public templateUrl: string = `aside.${this.name}.tpl`;
+
+  constructor(private $scope: ng.IScope, private $templateCache: ng.ITemplateCacheService, private specialistService: ISpecialistService) {
     $scope.$watchCollection('asCtrl.specialistService.selected', () => this.handleSpecialistsChange());
+    $templateCache.put(this.templateUrl, require(`./templates/${this.name}.html`));
   }
 
   public handleDateChange(value: Date | null): void {
