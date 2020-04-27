@@ -1,4 +1,4 @@
-import {Column, ICellTime, ICellPatient} from './table.model';
+import {Column, ICellTime, ICellPatient, Cell} from './table.model';
 
 const BORDER_SIZE = 2;
 
@@ -9,6 +9,7 @@ interface ITableHeigts {
 }
 
 export interface ITableScope extends ng.IScope {
+  generateTooltip: (cell: ICellTime) => string;
   columns: Column[];
   offset: number;
   element: ng.IAugmentedJQuery;
@@ -42,7 +43,7 @@ export class TableCtrl {
     });
     $scope.$watch('offset', this.resetUnrolled);
     $scope.unroll = this.unroll;
-
+    $scope.generateTooltip = (cell: ICellTime) => this.generateTooltip(cell);
     $scope.handleCellClick = this.handleCellClick;
   }
 
@@ -94,5 +95,12 @@ export class TableCtrl {
       specialty: this.getMaxHeight(columns, HeaderColumnDiv.specialty),
       address: this.getMaxHeight(columns, HeaderColumnDiv.address),
     };
+  }
+
+  public generateTooltip(cell: ICellTime): string {
+    if(cell.patient) {
+      return cell.patient.name
+    }
+    return Date.now() < cell.time.getTime() ? 'Время доступно для записи' : 'Запись на прошедший временной интервал недоступна';
   }
 }
