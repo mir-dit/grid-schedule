@@ -28,6 +28,7 @@ export class InitPluginDirective implements ng.IDirective {
 
   static initScrollbar(elem: ng.IAugmentedJQuery, scope: ICurrentScope): void {
     const defaultOptions = {
+      theme: 'custom-scroll',
       wheelSpeed: 2,
       wheelPropagation: true,
       minScrollbarLength: 20,

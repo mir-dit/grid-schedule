@@ -6,6 +6,25 @@ $dark-gray: #949494;
 $accent-gray: #e6e6e6;
 $light-orange: #eba740;
 $dark-blue: #002248;
+// Scroll
+$ps-theme-custom: (
+        border-radius: 4px,
+        rail-default-opacity: 0.6,
+        rail-container-hover-opacity: 0.6,
+        rail-hover-opacity: 0.9,
+        bar-bg: #eeeeee,
+        bar-container-hover-bg: #3a91a4,
+        bar-hover-bg: #3a91a4,
+        rail-hover-bg: #fff,
+        scrollbar-x-rail-bottom: 3px,
+        scrollbar-x-rail-height: 8px,
+        scrollbar-x-bottom: 0,
+        scrollbar-x-height: 8px,
+        scrollbar-y-rail-right: 3px,
+        scrollbar-y-rail-width: 8px,
+        scrollbar-y-right: 0,
+        scrollbar-y-width: 8px,
+);
 
 $bg-color: $gray;
 $hr-color: #d1d1d3;

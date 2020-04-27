@@ -3,12 +3,30 @@
     z-index: 100;
 }
 
-.ps-theme-my-theme-name {
-    @include ps-container(map-merge($ps-theme-default, (
-            border-radius: 0,
-            scrollbar-x-rail-height: 20px,
-            scrollbar-x-height: 20px,
-            scrollbar-y-rail-width: 20px,
-            scrollbar-y-width: 20px,)
+.ps-theme-custom-scroll {
+    @include ps-container(map-merge($ps-theme-custom, (
+            border-radius: 3px,
+            scrollbar-x-rail-height: 12px,
+            scrollbar-x-height: 12px,
+            scrollbar-y-rail-width: 12px,
+            scrollbar-y-width: 12px,)
     ));
+    .ps-scrollbar-y-rail {
+        //&::before {
+        //    content: '';
+        //    position: absolute;
+        //    top: -20px;
+        //    width: 12px;
+        //    height: 12px;
+        //    background-color: royalblue;
+        //}
+        //&::after {
+        //    content: '';
+        //    position: absolute;
+        //    bottom: -20px;
+        //    width: 12px;
+        //    height: 12px;
+        //    background-color: aqua;
+        //}
+    }
 }
