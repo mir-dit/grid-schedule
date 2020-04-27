@@ -1,3 +1,5 @@
+import {setTime} from '@app/helpers/date';
+
 interface IDatepicker {
   format: string;
   minDate: Date;
@@ -19,13 +21,8 @@ const config: IDatepicker = {
 };
 
 interface IDatepickerScope extends ng.IScope {
-  show: boolean;
-  config: IDatepicker;
-  val: Date | string;
-  value: Date | null;
-  handleValueChange: () => void;
-  onChange: (value: Date | null) => void;
-  getClass: (date: Date) => string;
+  handleCancel: () => void;
+  handleOk: () => void;
 }
 
 export class DatepickerController {
@@ -35,10 +32,8 @@ export class DatepickerController {
   public val: Date | string;
   public onChange: (params: {value: Date | null}) => void;
 
-  constructor(private $scope: IDatepickerScope, $templateCache: ng.ITemplateCacheService) {
+  constructor($scope: IDatepickerScope, $templateCache: ng.ITemplateCacheService) {
     $templateCache.put('datepickerPopup', require('./popup.html'));
-    $scope.show = false;
-    $scope.config = config;
 
     $scope.$watch('dateCtrl.value', () => {
       if (this.val !== this.value) {
@@ -46,10 +41,11 @@ export class DatepickerController {
       }
     });
 
-    $scope.getClass = this.getClass;
+    $scope.handleCancel = this.handleCancel;
+    $scope.handleOk = this.handleOk;
   }
 
-  public handleValueChange(): void {
+  public handleAccept(): void {
     this.onChange({value: this.val instanceof Date ? this.val : null});
   }
 
@@ -57,10 +53,23 @@ export class DatepickerController {
     this.show = !this.show;
   }
 
-  private getClass(date: Date): string {
-    if (date < config.minDate) {
-      return 'date disabled';
-    }
-    return 'date active';
+  public handleCancel = (): void => {
+    console.log(123);
+    this.val = this.value;
+    this.handleAccept();
+  }
+
+  public handleOk = (): void => {
+    this.handleAccept();
+  }
+
+  public getClass(date: Date, mode: string): string {
+    return 'datepicker__date' + (mode === 'day' ? ' ' + this.getDateState(date) : '');
+  }
+
+  private getDateState(date: Date): string {
+    if (this.val instanceof Date && +date === +setTime(this.val, date)) return 'datepicker__selected datepicker__active';
+    if (date < config.minDate) return 'datepicker__previous';
+    return 'datepicker__active';
   }
 }

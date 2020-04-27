@@ -9,7 +9,6 @@
         class="form-control"
         datepicker-popup="{{dateCtrl.config.format}}"
         ng-model="dateCtrl.val"
-        ng-change="dateCtrl.handleValueChange()"
         is-open="dateCtrl.show"
         min-date="{{dateCtrl.config.minDate}}"
         max-date="{{dateCtrl.config.maxDate}}"
@@ -19,7 +18,7 @@
         placeholder="{{'aside.datepicker.placeholder' | dictionary}}"
         on-open-focus="false"
         datepicker-popup-template-url="datepickerPopup"
-        custom-class="getClass(date)"
+        custom-class="dateCtrl.getClass(date, mode)"
         close-on-date-selection="false"
     />
     <button type="button" class="btn btn-default input-group-addon aside__field-btn aside__field-btn--datepicker" ng-click="dateCtrl.toggleDatePicker()">
