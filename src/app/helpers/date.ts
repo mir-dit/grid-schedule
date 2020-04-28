@@ -22,3 +22,10 @@ export function setTime(date: Date, time: Date): Date {
   clone.setMilliseconds(time.getMilliseconds());
   return clone;
 }
+
+export function getDate(params: { date?: Date, hour?: number, minute?: number}) {
+  const newDate = params.date ? new Date(params.date) : new Date();
+  if (params?.hour) newDate.setHours(params.hour);
+  if (params?.minute) newDate.setMinutes(params.minute);
+  return newDate;
+}

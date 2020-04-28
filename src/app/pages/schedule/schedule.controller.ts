@@ -1,7 +1,7 @@
 import {Column, Cell, ICellTime, ICellAffairs, ICellPatient} from '@components/table/table.model';
 import {ISpecialist} from '@mocks/user';
 import {IRecord} from '@mocks/record';
-import {addDays, setTime, addMinutes} from '@app/helpers/date';
+import {addDays, setTime, addMinutes, getDate} from '@app/helpers/date';
 import {ISheldureMenuSelected, ISheldureMenuSelectedPatient} from '@components/scheduleMenu/scheduleMenu.model';
 import {IPatientService} from '@app/services/patient.service';
 import {IRecordService} from '@app/services/record.service';
@@ -82,10 +82,20 @@ export class ScheduleCtrl {
     const times: Date[] = this.getUserTimes(user, date);
     const cells: Cell[] = [];
     const addedAffairs: IRecord[] = [];
-    const affairs: IRecord[] = this.recordService.getUserRecordsBetweenDates(user, date, nextDate).filter(({type}: IRecord) => type !== 'danger' && type !== 'primary');
+    const affairs: IRecord[] = this.recordService.records.filter(({type, userId}: IRecord) => userId === user.id && type === 'secondary');
     for (const time of times) {
       const used: IRecord[] = this.recordService.getUserRecordsIncludesDate(user, time).filter(({type}: IRecord) => type === 'primary');
-      const affair = affairs.find(({start, end}: IRecord) => start <= time && time <= end);
+      console.log(affairs);
+      const affair = affairs.find(({timeStart, timeEnd, regularly}: IRecord) => {
+        const day = time.getDay();
+        if (!regularly?.includes(day)) {
+          return false;
+        }
+        console.log(getDate({date, hour: timeStart.hour, minute: timeStart.minute}));
+        return  getDate({date, hour: timeStart.hour, minute: timeStart.minute}) <= time
+                &&
+                time <= getDate({date, hour: timeEnd.hour, minute: timeEnd.minute})
+      });
       if (affair) {
         if (!addedAffairs.includes(affair)) {
           addedAffairs.push(affair);
