@@ -1,4 +1,5 @@
 import {setTime} from '@app/helpers/date';
+import {IRootScope} from '@app/rootScope';
 
 interface IDatepicker {
   format: string;
@@ -20,11 +21,6 @@ const config: IDatepicker = {
   },
 };
 
-interface IDatepickerScope extends ng.IScope {
-  handleCancel: () => void;
-  handleOk: () => void;
-}
-
 export class DatepickerController {
   public show = false;
   public config: IDatepicker = config;
@@ -32,17 +28,20 @@ export class DatepickerController {
   public val: Date | string;
   public onChange: (params: {value: Date | null}) => void;
 
-  constructor($scope: IDatepickerScope, $templateCache: ng.ITemplateCacheService) {
+  constructor($scope: ng.IScope, $templateCache: ng.ITemplateCacheService, $rootScope: IRootScope) {
     $templateCache.put('datepickerPopup', require('./popup.html'));
 
-    $scope.$watch('dateCtrl.value', () => {
-      if (this.val !== this.value) {
-        this.val = this.value;
-      }
-    });
+    $scope.$watch('dateCtrl.value', this.resetVal);
+    $scope.$watch('dateCtrl.show', this.resetVal);
 
-    $scope.handleCancel = this.handleCancel;
-    $scope.handleOk = this.handleOk;
+    $rootScope.handleCancel = this.handleCancel;
+    $rootScope.handleOk = this.handleOk;
+  }
+
+  private resetVal = (): void => {
+    if (this.val !== this.value) {
+      this.val = this.value;
+    }
   }
 
   public handleAccept(): void {
@@ -54,8 +53,7 @@ export class DatepickerController {
   }
 
   public handleCancel = (): void => {
-    console.log(123);
-    this.val = this.value;
+    this.resetVal();
     this.handleAccept();
   }
 

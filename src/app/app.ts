@@ -35,9 +35,6 @@ const app: ng.IModule = angular.module(moduleName, [
   router,
   bootstrap,
 ]);
-app.run(function($rootScope){
-  $rootScope.data = {root: () => 'root'}
-})
 app.directive(moduleName, Application);
 app.controller('ScheduleCtrl', ScheduleCtrl);
 app.directive('appTable', TableDirective.factory());

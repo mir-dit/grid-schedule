@@ -2,8 +2,8 @@
     <li ng-transclude></li>
     <li ng-if="showButtonBar" style="padding:10px 9px 2px">
         <span class="pull-right">
-            <button type="button" class="btn btn-sm btn-danger" ng-click="dateCtrl.handleCancel();close();">{{getText('clear')}}</button>
-            <button type="button" style="margin-left:10px" class="btn btn-sm btn-success pull-right" ng-click="dateCtrl.handleOk();close()">{{getText('close')}} {{$root.data.root()}}</button>
+            <button type="button" class="btn btn-sm btn-danger" ng-click="$root.handleCancel();close();">{{getText('clear')}}</button>
+            <button type="button" style="margin-left:10px" class="btn btn-sm btn-success pull-right" ng-click="$root.handleOk();close()">{{getText('close')}}</button>
         </span>
     </li>
 </ul>
