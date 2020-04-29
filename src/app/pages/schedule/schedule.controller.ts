@@ -85,13 +85,11 @@ export class ScheduleCtrl {
     const affairs: IRecord[] = this.recordService.records.filter(({type, userId}: IRecord) => userId === user.id && type === 'secondary');
     for (const time of times) {
       const used: IRecord[] = this.recordService.getUserRecordsIncludesDate(user, time).filter(({type}: IRecord) => type === 'primary');
-      console.log(affairs);
       const affair = affairs.find(({timeStart, timeEnd, regularly}: IRecord) => {
         const day = time.getDay();
         if (!regularly?.includes(day)) {
           return false;
         }
-        console.log(getDate({date, hour: timeStart.hour, minute: timeStart.minute}));
         return  getDate({date, hour: timeStart.hour, minute: timeStart.minute}) <= time
                 &&
                 time <= getDate({date, hour: timeEnd.hour, minute: timeEnd.minute})
@@ -140,5 +138,6 @@ export class ScheduleCtrl {
   public updateColumns(): void {
     const {filterDate, selected} = this.specialistService;
     this.columns = (filterDate && selected.length) ? this.generateDates(filterDate).map(d => this.createColumns(d)).flat() : [];
+    this.$scope.$broadcast('scroll:update');
   }
 }
