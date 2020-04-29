@@ -6,27 +6,10 @@
 .ps-theme-custom-scroll {
     @include ps-container(map-merge($ps-theme-custom, (
             border-radius: 3px,
-            scrollbar-x-rail-height: 12px,
-            scrollbar-x-height: 12px,
-            scrollbar-y-rail-width: 12px,
-            scrollbar-y-width: 12px,)
+            scrollbar-x-rail-height: 6px,
+            scrollbar-x-height: 6px,
+            scrollbar-y-rail-width: 6px,
+            scrollbar-y-width: 6px,)
     ));
-    .ps-scrollbar-y-rail {
-        //&::before {
-        //    content: '';
-        //    position: absolute;
-        //    top: -20px;
-        //    width: 12px;
-        //    height: 12px;
-        //    background-color: royalblue;
-        //}
-        //&::after {
-        //    content: '';
-        //    position: absolute;
-        //    bottom: -20px;
-        //    width: 12px;
-        //    height: 12px;
-        //    background-color: aqua;
-        //}
-    }
+    .ps-scrollbar-y-rail {}
 }
