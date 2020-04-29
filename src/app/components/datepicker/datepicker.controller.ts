@@ -1,10 +1,10 @@
-import {setTime} from '@app/helpers/date';
+import {setTime, addDays} from '@app/helpers/date';
 import {IRootScope} from '@app/rootScope';
 
 interface IDatepicker {
   format: string;
   minDate: Date;
-  maxDate: Date;
+  maxDate?: Date;
   options: {
     startingDay: number;
     maxMode: string;
@@ -14,7 +14,7 @@ interface IDatepicker {
 const config: IDatepicker = {
   format: 'dd.MM.yyyy',
   minDate: setTime(new Date(), new Date(2020, 10, 20, 0, 0, 0)),
-  maxDate: new Date(2025, 1, 1),
+  maxDate: setTime(addDays(new Date(), 14), new Date(2020, 10, 20, 0, 0, 0)),
   options: {
     startingDay: 1,
     maxMode: 'month',
@@ -63,17 +63,12 @@ export class DatepickerController {
   }
 
   public getClass(date: Date, mode: string): string {
-    return 'datepicker__date ' + (mode === 'day' ? this.getDayClass(date) : this.getMonthClass(date));
+    return 'datepicker__date ' + (mode === 'day' ? this.getDayClass(date) : '');
   }
 
   private getDayClass(date: Date): string {
-    if (date < config.minDate) return 'datepicker__day datepicker__previous';
+    if (date < config.minDate || date > config.maxDate) return 'datepicker__day datepicker__disabled';
     return 'datepicker__day datepicker__active';
-  }
-
-  private getMonthClass(date: Date): string {
-    if (this.val instanceof Date && +date === +setTime(this.val, date)) return 'datepicker__selected';
-    return '';
   }
 
   public generateTooltip(): string {

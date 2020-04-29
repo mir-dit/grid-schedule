@@ -8,7 +8,7 @@
         }
     }
 
-    &__previous {
+    &__disabled {
         background-color: map-get($datepicker-colors, 'disabled');
     }
 
