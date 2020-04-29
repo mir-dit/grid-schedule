@@ -1,4 +1,4 @@
-import {Column, ICellTime, ICellPatient, Cell} from './table.model';
+import {Column, ICellTime, ICellPatient, ICellAffairs} from './table.model';
 
 const BORDER_SIZE = 2;
 
@@ -97,10 +97,13 @@ export class TableCtrl {
     };
   }
 
-  public generateTooltip(cell: ICellTime): string {
-    if(cell.patient) {
+  public generateTooltip(cell: ICellAffairs | ICellTime): string {
+    if("reason" in cell && cell.reason) {
+      return
+    }
+    if("patient" in cell && cell.patient) {
       return cell.patient.name
     }
-    return Date.now() < cell.time.getTime() ? 'Время доступно для записи' : 'Запись на прошедший временной интервал недоступна';
+    return "time" in cell && Date.now() < cell.time?.getTime() ? 'Время доступно для записи' : 'Запись на прошедший временной интервал недоступна';
   }
 }
