@@ -27,6 +27,7 @@ export class DatepickerController {
   public value: Date | null;
   public val: Date | string;
   public onChange: (params: {value: Date | null}) => void;
+  public active: boolean;
 
   constructor($scope: ng.IScope, $templateCache: ng.ITemplateCacheService, $rootScope: IRootScope) {
     $templateCache.put('datepickerPopup', require('./popup.html'));
@@ -69,5 +70,9 @@ export class DatepickerController {
     if (this.val instanceof Date && +date === +setTime(this.val, date)) return 'datepicker__selected datepicker__active';
     if (date < config.minDate) return 'datepicker__previous';
     return 'datepicker__active';
+  }
+
+  public generateTooltip(): string {
+    return this.active ? '' : 'Выберите доступный ресурс';
   }
 }
