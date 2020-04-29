@@ -6,18 +6,18 @@ interface IDatepicker {
   minDate: Date;
   maxDate: Date;
   options: {
-    formatYear: string;
     startingDay: number;
+    maxMode: string;
   };
 }
 
 const config: IDatepicker = {
   format: 'dd.MM.yyyy',
-  minDate: new Date(),
+  minDate: setTime(new Date(), new Date(2020, 10, 20, 0, 0, 0)),
   maxDate: new Date(2025, 1, 1),
   options: {
-    formatYear: 'yy',
     startingDay: 1,
+    maxMode: 'month',
   },
 };
 
@@ -63,13 +63,17 @@ export class DatepickerController {
   }
 
   public getClass(date: Date, mode: string): string {
-    return 'datepicker__date' + (mode === 'day' ? ' ' + this.getDateState(date) : '');
+    return 'datepicker__date ' + (mode === 'day' ? this.getDayClass(date) : this.getMonthClass(date));
   }
 
-  private getDateState(date: Date): string {
-    if (this.val instanceof Date && +date === +setTime(this.val, date)) return 'datepicker__selected datepicker__active';
-    if (date < config.minDate) return 'datepicker__previous';
-    return 'datepicker__active';
+  private getDayClass(date: Date): string {
+    if (date < config.minDate) return 'datepicker__day datepicker__previous';
+    return 'datepicker__day datepicker__active';
+  }
+
+  private getMonthClass(date: Date): string {
+    if (this.val instanceof Date && +date === +setTime(this.val, date)) return 'datepicker__selected';
+    return '';
   }
 
   public generateTooltip(): string {
