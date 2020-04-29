@@ -8,14 +8,14 @@ $light-orange: #eba740;
 $dark-blue: #002248;
 // Scroll
 $ps-theme-custom: (
-        border-radius: 4px,
+        border-radius: 7px,
         rail-default-opacity: 0.6,
-        rail-container-hover-opacity: 1,
-        rail-hover-opacity: 1,
+        rail-container-hover-opacity: 0.8,
+        rail-hover-opacity: 0.8,
         bar-bg: transparent,
         bar-container-hover-bg: #3a91a4,
         bar-hover-bg: #3a91a4,
-        rail-hover-bg: transparent,
+        rail-hover-bg: #fff,
         scrollbar-x-rail-bottom: 3px,
         scrollbar-x-rail-height: 8px,
         scrollbar-x-bottom: 0,
