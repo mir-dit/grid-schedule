@@ -1,5 +1,7 @@
 import {setTime, addDays} from '@app/helpers/date';
 import {IRootScope} from '@app/rootScope';
+import {ISpecialistService} from '@app/services/specialist.service';
+import {IRecordService} from '@app/services/record.service';
 
 interface IDatepicker {
   format: string;
@@ -28,8 +30,15 @@ export class DatepickerController {
   public val: Date | string;
   public onChange: (params: {value: Date | null}) => void;
   public active: boolean;
+  static $inject: readonly string[] = ['$scope', '$templateCache', '$rootScope', 'SpecialistService', 'RecordService'];
 
-  constructor($scope: ng.IScope, $templateCache: ng.ITemplateCacheService, $rootScope: IRootScope) {
+  constructor(
+      $scope: ng.IScope,
+      $templateCache: ng.ITemplateCacheService,
+      $rootScope: IRootScope,
+    private specialistService: ISpecialistService,
+    private recordService: IRecordService,
+  ) {
     $templateCache.put('datepickerPopup', require('./popup.html'));
 
     $scope.$watch('dateCtrl.value', this.resetVal);
@@ -63,12 +72,26 @@ export class DatepickerController {
   }
 
   public getClass(date: Date, mode: string): string {
-    return 'datepicker__date ' + (mode === 'day' ? this.getDayClass(date) : '');
+    return 'datepicker__date ' + (mode === 'day' ? 'datepicker__day ' + this.getDayClass(date) : '');
+  }
+
+  private checkIfDateHasFreeTime(date: Date): boolean {
+    return this.specialistService.getSpecialists()
+        .filter((specialist) => {
+          if (!specialist.schedule.days.includes(date.getDay())) return false;
+          if (this.recordService.getUserRecordsIncludesDate(specialist, date).find(({type}) => type === 'danger')) return false;
+          const worktime = specialist.schedule.end.getTime() - specialist.schedule.start.getTime();
+          const usedtime = this.recordService.getUserRecordsBetweenDates(specialist, date, addDays(date, 1))
+              .filter(({type}) => type !== 'danger')
+              .map(({end, start, type}) => (end.getTime() - start.getTime()) / (type === 'primary' ? 2 : 1))
+              .reduce((acc, time) => acc + time, 0);
+          return worktime > usedtime;
+        }).length > 0;
   }
 
   private getDayClass(date: Date): string {
-    if (date < config.minDate || date > config.maxDate) return 'datepicker__day datepicker__disabled';
-    return 'datepicker__day datepicker__active';
+    if (date < config.minDate || date > config.maxDate) return 'datepicker__disabled';
+    return this.checkIfDateHasFreeTime(date) ? 'datepicker__active' : '';
   }
 
   public generateTooltip(): string {
