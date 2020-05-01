@@ -1,4 +1,5 @@
 import * as angular from 'angular';
+import './locale.js';
 import * as router from 'angular-route';
 import bootstrap from 'angular-ui-bootstrap';
 import {routes} from './app.routes';

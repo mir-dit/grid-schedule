@@ -2,24 +2,37 @@
     <label for="datepicker-input" class="custom-label">{{'aside.datepicker.label' | dictionary}}</label>
 </div>
 
-<div class="input-group datepicker">
+<div
+    class="input-group datepicker"
+    tooltip="{{dateCtrl.generateTooltip()}}"
+    tooltip-popup-delay="1000"
+    tooltip-animation="false"
+>
     <input
         id="datepicker-input"
         type="text"
         class="form-control"
         datepicker-popup="{{dateCtrl.config.format}}"
         ng-model="dateCtrl.val"
-        ng-change="dateCtrl.handleValueChange()"
         is-open="dateCtrl.show"
         min-date="{{dateCtrl.config.minDate}}"
         max-date="{{dateCtrl.config.maxDate}}"
         datepicker-options="{{dateCtrl.config.options}}"
-        close-text="Закрыть"
-        clear-text="Очистить"
-        current-text="Сегодня"
+        close-text="Ок"
+        clear-text="Отменить"
         placeholder="{{'aside.datepicker.placeholder' | dictionary}}"
+        on-open-focus="false"
+        datepicker-popup-template-url="datepickerPopup"
+        custom-class="dateCtrl.getClass(date, mode)"
+        close-on-date-selection="false"
+        ng-disabled="!dateCtrl.active"
     />
-    <button type="button" class="btn btn-default input-group-addon aside__field-btn aside__field-btn--datepicker" ng-click="dateCtrl.toggleDatePicker()">
+    <button
+        type="button"
+        class="btn btn-default input-group-addon aside__field-btn aside__field-btn--datepicker"
+        ng-click="dateCtrl.toggleDatePicker()"
+        ng-disabled="!dateCtrl.active"
+    >
         <i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>
         <i class="caret" style="margin-left: 3px;"></i>
     </button>

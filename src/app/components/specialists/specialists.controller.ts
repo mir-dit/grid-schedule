@@ -77,7 +77,7 @@ export class SpecialistsController {
   }
 
   public handleCheckboxChange(item: ITreeItem): void {
-    console.log(item)
+    console.log(item);
     if (item.key.startsWith('s')) {
       const specialties = asideDictionary.specialists.specialties;
       const speciality = Object.keys(specialties).find((key) => specialties[key] === item.label) || item.label;

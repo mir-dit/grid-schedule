@@ -19,7 +19,7 @@ export interface ITableScope extends ng.IScope {
   heights: ITableHeigts | null;
   headerLockedHeight: number;
   maxRolledHeight: number;
-  onSelect: (params: {event: MouseEvent, cell: ICellTime, column: Column, patient?: ICellPatient}) => void;
+  onSelect: (params: {event: MouseEvent; cell: ICellTime; column: Column; patient?: ICellPatient}) => void;
   handleCellClick: (event: MouseEvent, cell: ICellTime, column: Column, patient?: ICellPatient) => void;
 }
 

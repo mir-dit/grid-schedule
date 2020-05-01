@@ -9,6 +9,7 @@ export class DatepickerDirective implements ng.IDirective {
   scope = {
     value: '=',
     onChange: '&',
+    active: '=',
   };
 
   static factory() {

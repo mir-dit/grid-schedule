@@ -137,7 +137,7 @@ export class ScheduleCtrl {
 
   public updateColumns(): void {
     const {filterDate, selected} = this.specialistService;
-    this.columns = (filterDate && selected.length) ? this.generateDates(filterDate).map(d => this.createColumns(d)).flat() : [];
+    this.columns = (filterDate && selected.length) ? this.generateDates(filterDate).map((d) => this.createColumns(d)).flat() : [];
     this.$scope.$broadcast('scroll:update');
   }
 }

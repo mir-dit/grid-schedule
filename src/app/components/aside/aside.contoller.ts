@@ -1,5 +1,5 @@
 import {setTime} from '@app/helpers/date';
-import {ISpecialistService} from "@app/services/specialist.service";
+import {ISpecialistService} from '@app/services/specialist.service';
 
 export class AsideController {
   static $inject: readonly string[] = ['$scope', '$templateCache', 'SpecialistService'];
