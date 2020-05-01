@@ -1,17 +1,1 @@
-<aside class="aside">
-    <div class="aside__field">
-        <app-patient></app-patient>
-        <hr />
-    </div>
-    <div class="aside__field">
-        <app-datepicker
-            on-change="asCtrl.handleDateChange(value)"
-            value="asCtrl.specialistService.filterDate"
-            active="asCtrl.specialistService.selected.length > 0"
-        ></app-datepicker>
-        <hr />
-    </div>
-    <div class="aside__field">
-        <app-specialists></app-specialists>
-    </div>
-</aside>
+<aside class="aside" ng-include="asCtrl.templateUrl"></aside>

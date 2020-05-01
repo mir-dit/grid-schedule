@@ -1,4 +1,9 @@
 .main {
-  min-height: 88vh;
   background-color: $gray;
+  flex: 1 1 auto;
+}
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }

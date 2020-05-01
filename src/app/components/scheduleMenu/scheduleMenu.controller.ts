@@ -2,6 +2,8 @@ import {IRecordService} from '@app/services/record.service';
 import {ISpecialistService} from '@app/services/specialist.service';
 import {IPatientService} from '@app/services/patient.service';
 import {IScheduleMenuScope, ISheldureMenuSelectedPatient} from '@components/scheduleMenu/scheduleMenu.model';
+import {IPatient} from '@mocks/user';
+import {addMinutes, setTime} from '@app/helpers/date';
 
 export class ScheduleMenuCtrl {
   static $inject = ['$scope', '$timeout', 'RecordService', 'SpecialistService', 'PatientService'];
@@ -24,6 +26,24 @@ export class ScheduleMenuCtrl {
     $scope.handleInfoClose = this.handleInfoClose;
   }
 
+  private checkPaitentRules(patient: IPatient, selected: ISheldureMenuSelectedPatient): boolean {
+    if (!patient || !selected || (selected.patient && !selected.canAdd)) return false;
+    const specialist = this.specialistService.getSpecialistById(selected.specialistId);
+    const alreadyUsed = this.recordService.records
+        .filter(({type, patientId}) => type === 'primary' && patientId === patient.id)
+        .find((record) => record.start.getTime() === setTime(selected.time.start, record.start).getTime());
+    if (alreadyUsed) return false;
+    if (selected.time.end <= addMinutes(new Date(), 60 / specialist.step)) return false;
+    return true;
+  }
+
+  private checkCancelRules(selected: ISheldureMenuSelectedPatient): boolean {
+    if (!selected || !selected.patient) return false;
+    const specialist = this.specialistService.getSpecialistById(selected.specialistId);
+    if (selected.time.end <= addMinutes(new Date(), 60 / specialist.step)) return false;
+    return true;
+  }
+
   private handleSelectedChange = (): void => {
     if (this.$scope.cancel || this.$scope.info) {
       return;
@@ -34,6 +54,8 @@ export class ScheduleMenuCtrl {
     }
     this.$scope.created = false;
     this.$scope.info = null;
+    this.$scope.paitentRulesPassed = this.checkPaitentRules(this.$scope.selectedPatient, this.$scope.selected as ISheldureMenuSelectedPatient);
+    this.$scope.cancelRulesPassed = this.checkCancelRules(this.$scope.selected as ISheldureMenuSelectedPatient);
   }
 
   private handleCreate = (): void => {

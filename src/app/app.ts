@@ -6,7 +6,7 @@ import {routes} from './app.routes';
 import {TableDirective} from '@components/table/table.directive';
 import {ScheduleCtrl} from './pages/schedule/schedule.controller';
 import {tableDateFilter} from './filters/tableDate.filter';
-import {DefaultLayoutDirective} from './layouts/default/defaultLayout.directive';
+import {LayoutDirective} from './layouts/default/layout.directive';
 import {AsideDirective} from '@components/aside/aside.directive';
 import {InitPluginDirective} from './directives/initPlugin.directive';
 import {tableOrderColumnFilter} from './filters/tableOrderColumn.filter';
@@ -35,13 +35,14 @@ const app: ng.IModule = angular.module(moduleName, [
   router,
   bootstrap,
 ]);
+
 app.directive(moduleName, Application);
 app.controller('ScheduleCtrl', ScheduleCtrl);
 app.directive('appTable', TableDirective.factory());
 app.filter('tableDate', tableDateFilter);
 app.filter('tableOrderColumn', tableOrderColumnFilter);
 app.filter('dictionary', dictionaryFilter);
-app.directive('appDefaultLayout', DefaultLayoutDirective.factory());
+app.directive('appLayout', LayoutDirective.factory());
 app.directive('appAside', AsideDirective.factory());
 app.directive('appDatepicker', DatepickerDirective.factory());
 app.directive('appDropdown', DropdownDirective.factory());

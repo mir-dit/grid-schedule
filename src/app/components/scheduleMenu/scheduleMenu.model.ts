@@ -1,5 +1,5 @@
-import {IPopupPosition} from "@components/popup/popup.controller";
-import {IPatient} from "@mocks/user";
+import {IPopupPosition} from '@components/popup/popup.controller';
+import {IPatient} from '@mocks/user';
 
 export interface ISheldureMenuSelectedTime {
   start: Date;
@@ -34,6 +34,8 @@ export interface IScheduleMenuScope extends ng.IScope {
   created: boolean;
   cancel: boolean;
   info: ISheldureMenuInfo | null;
+  paitentRulesPassed: boolean;
+  cancelRulesPassed: boolean;
   handleCreate: () => void;
   handleCancel: () => void;
   handleReturn: () => void;

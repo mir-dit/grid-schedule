@@ -10,12 +10,13 @@ export interface IRecordService {
 }
 
 function loadRecords(): IRecord[] {
-  const loadedRecords = localStorage.getItem('records');
-  return loadedRecords ? JSON.parse(loadedRecords).map((record) => ({
-    ...record,
-    start: new Date(record.start),
-    end: new Date(record.end),
-  })) : records.slice();
+  // const loadedRecords = localStorage.getItem('records');
+  // return loadedRecords ? [...JSON.parse(loadedRecords).map((record) => ({
+  //   ...record,
+  //   start: new Date(record.start),
+  //   end: new Date(record.end),
+  // })), ...records] : records;
+  return [...records];
 }
 
 export class RecordService implements IRecordService {
