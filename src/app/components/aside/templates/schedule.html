@@ -3,7 +3,11 @@
     <hr />
 </div>
 <div class="aside__field">
-    <app-datepicker on-change="asCtrl.handleDateChange(value)" value="asCtrl.specialistService.filterDate"></app-datepicker>
+    <app-datepicker
+            on-change="asCtrl.handleDateChange(value)"
+            value="asCtrl.specialistService.filterDate"
+            active="asCtrl.specialistService.selected.length > 0"
+    ></app-datepicker>
     <hr />
 </div>
 <div class="aside__field">
