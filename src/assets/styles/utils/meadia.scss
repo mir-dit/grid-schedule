@@ -2,4 +2,15 @@
   .page-aside, .aside {
     min-height: auto;
   }
+
+  .main {
+    &__aside {
+      width: 100%;
+    }
+
+    &__content {
+      min-width: unset;
+      width: 100%;
+    }
+  }
 }
