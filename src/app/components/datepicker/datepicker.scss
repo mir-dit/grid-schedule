@@ -47,6 +47,22 @@
             }
         }
     }
+
+    &__actions {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px 10px 4px;
+
+        &-cancel {
+            background-color: $accent-gray;
+            padding: 5px 20px;
+        }
+
+        &-ok {
+            margin-left: 10px;
+            padding: 5px 25px;
+        }
+    }
 }
 
 .aside__field-btn.aside__field-btn--datepicker {
