@@ -7,18 +7,43 @@ export interface IPopupScope extends ng.IScope {
   element: ng.IAugmentedJQuery;
   onClose?: () => void;
   position?: IPopupPosition;
+  correction: IPopupPosition;
 }
 
 export class PopupCtrl {
-  constructor(private $scope: IPopupScope, private $window: ng.IWindowService) {
+  constructor(private $scope: IPopupScope, $window: ng.IWindowService) {
+    this.resetCorrection();
     $window.addEventListener('click', this.handleClick);
     $window.addEventListener('resize', this.handlePageChange);
     $window.addEventListener('scroll', this.handlePageChange);
+    $scope.$watch('position', this.handlePositionChange);
     $scope.$on('$destroy', () => {
       $window.removeEventListener('click', this.handleClick);
       $window.removeEventListener('resize', this.handlePageChange);
       $window.removeEventListener('scroll', this.handlePageChange);
     });
+  }
+
+  private resetCorrection(): void {
+    this.$scope.correction = {x: 0, y: 0};
+  }
+
+  private handlePositionChange = (): void => {
+    if (!this.$scope.position) this.resetCorrection();
+    const {clientWidth, clientHeight} = document.documentElement;
+    const {offsetWidth, offsetHeight} = this.$scope.element[0].getElementsByClassName('popup')[0] as HTMLElement;
+    let corrected = false;
+    if (clientWidth - offsetWidth < this.$scope.position.x) {
+      this.$scope.correction.x = -offsetWidth;
+      corrected = true;
+    }
+    if (clientHeight - offsetHeight < this.$scope.position.y) {
+      this.$scope.correction.y = -offsetHeight;
+      corrected = true;
+    }
+    if (!corrected) {
+      this.resetCorrection();
+    }
   }
 
   private handlePageChange = (): void => {
