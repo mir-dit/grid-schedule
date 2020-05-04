@@ -69,4 +69,6 @@ $datepicker-colors: (
     "disabled": #e0e0e0,
     "active": #b3e3ef,
     "hover": #3d8c9a,
+    "action-cancel": linear-gradient($white, $accent-gray),
+    "action-ok": linear-gradient(#629938, #4f7b2d),
 )

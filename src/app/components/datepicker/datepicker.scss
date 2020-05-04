@@ -54,11 +54,12 @@
         padding: 10px 10px 4px;
 
         &-cancel {
-            background-color: $accent-gray;
+            background: map-get($datepicker-colors, 'action-cancel');
             padding: 5px 20px;
         }
 
         &-ok {
+            background: map-get($datepicker-colors, 'action-ok');
             margin-left: 10px;
             padding: 5px 25px;
         }
