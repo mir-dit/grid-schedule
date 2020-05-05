@@ -6,7 +6,7 @@ function orderBy(fn: Function, columns: Column[], ...filters: string[]): Column[
 
 function tableOrderColumnFilter($filter: ng.IFilterService) {
   return (columns: Column[]): Column[] => {
-    return orderBy($filter('orderBy'), columns, '"interval"', '"specialty"', '"doctor"', '"date" | date: "d"', '"date" | date: "M"', '"date" | date: "yy"');
+    return orderBy($filter('orderBy'), columns, '"interval[0]"', '"specialty"', '"doctor"', '"date" | date: "d"', '"date" | date: "M"', '"date" | date: "yy"');
   };
 }
 

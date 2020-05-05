@@ -28,7 +28,7 @@ export interface IColumnBusy extends IColumn {
 }
 
 export interface IColumnFree extends IColumn {
-  interval: string;
+  interval: string[];
   cells: Cell[];
 }
 

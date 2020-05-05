@@ -3,19 +3,18 @@ import {ISpecialist} from '@mocks/user';
 import {IRecord} from '@mocks/record';
 import {addDays, setTime, addMinutes, getDate} from '@app/helpers/date';
 import {ISheldureMenuSelected, ISheldureMenuSelectedPatient} from '@components/scheduleMenu/scheduleMenu.model';
-import {IPatientService} from '@app/services/patient.service';
 import {IRecordService} from '@app/services/record.service';
 import {ISpecialistService} from '@app/services/specialist.service';
 import {IAsideImpScope} from '@app/models/scopes.model';
 
 export class ScheduleCtrl {
-  static $inject = ['$scope', 'SpecialistService', 'PatientService', 'RecordService'];
+  static $inject = ['$scope', 'SpecialistService', 'RecordService', '$filter'];
 
   public timeGap: number;
   public scheduleMenu: ISheldureMenuSelected | ISheldureMenuSelectedPatient | null = null;
   public columns: Column[];
 
-  constructor(private $scope: IAsideImpScope, private specialistService: ISpecialistService, private patientService: IPatientService, private recordService: IRecordService) {
+  constructor(private $scope: IAsideImpScope, private specialistService: ISpecialistService, private recordService: IRecordService, private $filter: ng.IFilterService) {
     $scope.$watch('schedCtrl.specialistService.filterDate', () => this.updateColumns());
     $scope.$watchCollection('schedCtrl.specialistService.selected', () => this.updateColumns());
     $scope.$on('records:updated', () => this.updateColumns());
@@ -90,9 +89,8 @@ export class ScheduleCtrl {
         if (!regularly?.includes(day)) {
           return false;
         }
-        return  getDate({date, hour: timeStart.hour, minute: timeStart.minute}) <= time
-                &&
-                time <= getDate({date, hour: timeEnd.hour, minute: timeEnd.minute})
+        return getDate({date, hour: timeStart.hour, minute: timeStart.minute}) <= time &&
+                time <= getDate({date, hour: timeEnd.hour, minute: timeEnd.minute});
       });
       if (affair) {
         if (!addedAffairs.includes(affair)) {
@@ -114,6 +112,21 @@ export class ScheduleCtrl {
     return cells;
   }
 
+  private formatTime(from: Date, to: Date): string {
+    return `${this.$filter('date')(from, 'HH:mm')} - ${this.$filter('date')(to, 'HH:mm')}`;
+  }
+
+  private getSpecialistInterval(user: ISpecialist, date: Date): string[] {
+    const interval: string[] = this.recordService.records
+        .filter(({type, userId, regularly}: IRecord) => {
+          if (userId !== user.id || type !== 'secondary') return false;
+          if (!regularly?.includes(date.getDay())) return false;
+          return true;
+        })
+        .map(({message, timeStart, timeEnd}) => `${message} (${this.formatTime(getDate(timeStart), getDate(timeEnd))})`);
+    return [this.formatTime(user.schedule.start, user.schedule.end), ...interval];
+  }
+
   private createColumns(date: Date): Column[] {
     return this.getSpecialistsByDate(date).map((user: ISpecialist) => {
       const busy = this.recordService.getUserRecordsIncludesDate(user, date).find(({type}: IRecord) => type === 'danger');
@@ -124,7 +137,7 @@ export class ScheduleCtrl {
         specialty: user.specialty,
         address: `${user.hospital}, (к.${user.cabinet})`,
         ...(busy ? {busy: busy.message} : {
-          interval: user.schedule.title,
+          interval: this.getSpecialistInterval(user, date),
           cells: this.createCells(user, date),
         }),
       };
