@@ -40,6 +40,7 @@ export class DatepickerController {
     private recordService: IRecordService,
   ) {
     $templateCache.put('datepickerPopup', require('./popup.html'));
+    $templateCache.put('datepickerTemplate', require('./template.html'));
 
     $scope.$watch('dateCtrl.value', this.resetVal);
     $scope.$watch('dateCtrl.show', this.resetVal);

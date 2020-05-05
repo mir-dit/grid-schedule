@@ -48,6 +48,23 @@
         }
     }
 
+    &__template {
+        th:first-of-type button, th:last-of-type button {
+            border: unset;
+        }
+
+        th:nth-of-type(2) button {
+            background: map-get($datepicker-colors, 'action-cancel');
+            display: block;
+            width: 90% !important;
+            margin: 0 auto;
+
+            &:disabled {
+                opacity: 1;
+            }
+        }
+    }
+
     &__actions {
         display: flex;
         justify-content: flex-end;
