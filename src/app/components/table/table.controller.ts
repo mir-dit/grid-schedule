@@ -9,7 +9,7 @@ interface ITableHeigts {
 }
 
 export interface ITableScope extends ng.IScope {
-  generateTooltip: (cell: ICellTime) => string;
+  generateTooltip: (cell: ICellTime, patientName: string | undefined) => string;
   columns: Column[];
   offset: number;
   element: ng.IAugmentedJQuery;
@@ -43,7 +43,7 @@ export class TableCtrl {
     });
     $scope.$watch('offset', this.resetUnrolled);
     $scope.unroll = this.unroll;
-    $scope.generateTooltip = (cell: ICellTime) => this.generateTooltip(cell);
+    $scope.generateTooltip = this.generateTooltip;
     $scope.handleCellClick = this.handleCellClick;
   }
 
@@ -97,13 +97,9 @@ export class TableCtrl {
     };
   }
 
-  public generateTooltip(cell: ICellAffairs | ICellTime): string {
-    if("reason" in cell && cell.reason) {
-      return
-    }
-    if("patient" in cell && cell.patient) {
-      return cell.patient.name
-    }
-    return "time" in cell && Date.now() < cell.time?.getTime() ? 'Время доступно для записи' : 'Запись на прошедший временной интервал недоступна';
+  public generateTooltip = (cell: ICellAffairs | ICellTime, patientName: string | undefined): string => {
+    if ('reason' in cell && cell.reason) return;
+    if ('patient' in cell) return patientName;
+    return 'time' in cell && Date.now() < cell.time?.getTime() ? 'Время доступно для записи' : 'Запись на прошедший временной интервал недоступна';
   }
 }
