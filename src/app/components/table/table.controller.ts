@@ -31,7 +31,7 @@ enum HeaderColumnDiv {
 }
 
 export class TableCtrl {
-  constructor(private $scope: ITableScope, $timeout: ng.ITimeoutService) {
+  constructor(private $scope: ITableScope, $timeout: ng.ITimeoutService,  private $filter: ng.IFilterService) {
     $scope.offset = 0;
     $scope.rolled = [];
     $scope.unrolledIndex = null;
@@ -100,6 +100,6 @@ export class TableCtrl {
   public generateTooltip = (cell: ICellAffairs | ICellTime, patientName: string | undefined): string => {
     if ('reason' in cell && cell.reason) return;
     if ('patient' in cell) return patientName;
-    return 'time' in cell && Date.now() < cell.time?.getTime() ? 'Время доступно для записи' : 'Запись на прошедший временной интервал недоступна';
+    return 'time' in cell && Date.now() < cell.time?.getTime() ? this.$filter('dictionary')('message.recordAvailable'): this.$filter('dictionary')('message.recordNotAvailable');
   }
 }

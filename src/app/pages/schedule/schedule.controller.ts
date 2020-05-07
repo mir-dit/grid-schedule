@@ -109,6 +109,10 @@ export class ScheduleCtrl {
         cells.push(used.length ? this.createUsedCell(time, used) : {time});
       }
     }
+    // Добавление "Врач не принимает" для всех врачей работающие мнее чем до 20:00
+    if (times[times.length - 1].getHours() < 19) {
+      cells.push({reason: this.$filter('dictionary')('message.doctorDoesNotAccept')})
+    }
     return cells;
   }
 
