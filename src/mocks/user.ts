@@ -17,7 +17,6 @@ export interface ISpecialist extends IUser {
 }
 
 export interface ISchedule {
-    title: string;
     start: Date; // ~
     end: Date; // ~
     days: number[]; // days of week, 0 = Sunday
@@ -31,7 +30,6 @@ export const users: Users = [
     name: 'Елисеева Е.Е.',
     specialty: 'офтальмолог',
     schedule: {
-      title: '08:00 - 18:00 Работа с документами (14:30 - 14:55) Работа с документами (16:20 - 16:40)',
       start: new Date(new Date().setHours(8, 0)),
       end: new Date(new Date().setHours(18, 0)),
       days: [1, 2, 3, 4, 5],
@@ -46,7 +44,6 @@ export const users: Users = [
     name: 'Константинова-Щедрина А.А.',
     specialty: 'офтальмолог',
     schedule: {
-      title: '09:00 - 21:00',
       start: new Date(new Date().setHours(8, 0)),
       end: new Date(new Date().setHours(21, 0)),
       days: [2, 3, 4, 5, 6],
@@ -60,7 +57,6 @@ export const users: Users = [
     name: 'Сидорова С.С.',
     specialty: 'терапевт',
     schedule: {
-      title: '08:00 - 15:00',
       start: new Date(new Date().setHours(8, 0)),
       end: new Date(new Date().setHours(15, 0)),
       days: [1, 2, 3, 4],
@@ -74,7 +70,6 @@ export const users: Users = [
     name: 'Сидорова С.С.',
     specialty: 'терапевт',
     schedule: {
-      title: '14:00 - 18:00',
       start: new Date(new Date().setHours(14, 0)),
       end: new Date(new Date().setHours(18, 0)),
       days: [5, 6],
@@ -88,7 +83,6 @@ export const users: Users = [
     name: 'Григовьева Г.Г.',
     specialty: 'терапевт',
     schedule: {
-      title: '10:00 - 20:00 Врач не работает (14:00 - 15:00)',
       start: new Date(new Date().setHours(10, 0)),
       end: new Date(new Date().setHours(20, 0)),
       days: [1, 2, 3, 4, 5],

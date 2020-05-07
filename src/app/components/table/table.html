@@ -18,7 +18,9 @@
                     'table__header-interval_busy': column.busy,
                     'table__header-interval_rolled': offset > rolled[$index] && unrolledIndex !== $index,
                 }">
-                    <span ng-if="column.interval && !(offset > rolled[$index] && unrolledIndex !== $index)">{{ column.interval }}</span>
+                    <span ng-if="column.interval && !(offset > rolled[$index] && unrolledIndex !== $index)">
+                        <div ng-repeat="interval in column.interval">{{ interval }}</div>
+                    </span>
                     <span ng-if="column.interval && offset > rolled[$index] && unrolledIndex !== $index">
                         <span class="glyphicon glyphicon-triangle-right table__icon" aria-hidden="true"></span>
                         <span>Врач работает</span>
