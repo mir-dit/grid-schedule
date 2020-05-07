@@ -1,9 +1,11 @@
 <ul class="dropdown-menu" ng-if="isOpen" style="display: block" ng-style="{top: position.top+'px', left: position.left+'px'}" ng-keydown="keydown($event)" ng-click="$event.stopPropagation()">
     <li ng-transclude></li>
-    <li ng-if="showButtonBar" style="padding:10px 9px 2px">
-        <span class="pull-right">
-            <button type="button" class="btn btn-sm btn-danger" ng-click="$root.handleCancel();close();">{{getText('clear')}}</button>
-            <button type="button" style="margin-left:10px" class="btn btn-sm btn-success pull-right" ng-click="$root.handleOk();close()">{{getText('close')}}</button>
-        </span>
+    <li ng-if="showButtonBar" class="datepicker__actions">
+        <button type="button" class="btn btn-sm btn-default datepicker__actions-cancel" ng-click="$root.handleCancel();close();">
+            <span class="glyphicon glyphicon-remove mr-5" aria-hidden="true"></span>Отменить
+        </button>
+        <button type="button" class="btn btn-sm btn-success datepicker__actions-ok " ng-click="$root.handleOk();close()">
+            <span class="glyphicon glyphicon-ok mr-5" aria-hidden="true"></span>Ок
+        </button>
     </li>
 </ul>
