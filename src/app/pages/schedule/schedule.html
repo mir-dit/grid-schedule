@@ -1,16 +1,10 @@
 <div>
-    <div class="container-fluid schedule__header">
-        <div class="row">
-            <div class="col-sm-12 col-md-8">
-                <h2 class="schedule__title">{{ 'schedule.title' | dictionary }}</h2>
-            </div>
-            <div class="col-sm-12 col-md-4">
-                <div class="btn-group schedule__time-gap">
-                    <label class="btn btn-success" ng-model="schedCtrl.timeGap" btn-radio="1" uncheckable ng-change="schedCtrl.updateColumns()">{{'schedule.oneDay' | dictionary}}</label>
-                    <label class="btn btn-success" ng-model="schedCtrl.timeGap" btn-radio="2" uncheckable ng-change="schedCtrl.updateColumns()">{{'schedule.twoDays' | dictionary}}</label>
-                    <label class="btn btn-success" ng-model="schedCtrl.timeGap" btn-radio="7" uncheckable ng-change="schedCtrl.updateColumns()">{{'schedule.week' | dictionary }}</label>
-                </div>
-            </div>
+    <div class="schedule__header">
+        <h2 class="schedule__title">{{ 'schedule.title' | dictionary }}</h2>
+        <div class="btn-group">
+            <label class="btn btn-success" ng-model="schedCtrl.timeGap" btn-radio="1" uncheckable ng-change="schedCtrl.updateColumns()">{{'schedule.oneDay' | dictionary}}</label>
+            <label class="btn btn-success" ng-model="schedCtrl.timeGap" btn-radio="2" uncheckable ng-change="schedCtrl.updateColumns()">{{'schedule.twoDays' | dictionary}}</label>
+            <label class="btn btn-success" ng-model="schedCtrl.timeGap" btn-radio="7" uncheckable ng-change="schedCtrl.updateColumns()">{{'schedule.week' | dictionary }}</label>
         </div>
     </div>
 
