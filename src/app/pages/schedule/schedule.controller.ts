@@ -6,15 +6,16 @@ import {ISheldureMenuSelected, ISheldureMenuSelectedPatient} from '@components/s
 import {IRecordService} from '@app/services/record.service';
 import {ISpecialistService} from '@app/services/specialist.service';
 import {IAsideImpScope} from '@app/models/scopes.model';
+import {IPatientService} from '@app/services/patient.service';
 
 export class ScheduleCtrl {
-  static $inject = ['$scope', 'SpecialistService', 'RecordService', '$filter'];
+  static $inject = ['$scope', 'SpecialistService', 'PatientService', 'RecordService', '$filter'];
 
   public timeGap: number;
   public scheduleMenu: ISheldureMenuSelected | ISheldureMenuSelectedPatient | null = null;
   public columns: Column[];
 
-  constructor(private $scope: IAsideImpScope, private specialistService: ISpecialistService, private recordService: IRecordService, private $filter: ng.IFilterService) {
+  constructor(private $scope: IAsideImpScope, private specialistService: ISpecialistService, public patientService: IPatientService, private recordService: IRecordService, private $filter: ng.IFilterService) {
     $scope.$watch('schedCtrl.specialistService.filterDate', () => this.updateColumns());
     $scope.$watchCollection('schedCtrl.specialistService.selected', () => this.updateColumns());
     $scope.$on('records:updated', () => this.updateColumns());
@@ -111,7 +112,7 @@ export class ScheduleCtrl {
     }
     // Добавление "Врач не принимает" для всех врачей работающие мнее чем до 20:00
     if (times[times.length - 1].getHours() < 19) {
-      cells.push({reason: this.$filter('dictionary')('message.doctorDoesNotAccept')})
+      cells.push({reason: this.$filter('dictionary')('message.doctorDoesNotAccept')});
     }
     return cells;
   }

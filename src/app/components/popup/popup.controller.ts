@@ -29,7 +29,7 @@ export class PopupCtrl {
   }
 
   private handlePositionChange = (): void => {
-    if (!this.$scope.position) this.resetCorrection();
+    if (!this.$scope.position) return this.resetCorrection();
     const {clientWidth, clientHeight} = document.documentElement;
     const {offsetWidth, offsetHeight} = this.$scope.element[0].getElementsByClassName('popup')[0] as HTMLElement;
     let corrected = false;
