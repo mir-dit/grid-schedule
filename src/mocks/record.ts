@@ -61,6 +61,51 @@ export const records: IRecord[] = [
     type: 'secondary',
   },
   {
+    id: 9,
+    message: 'Работа с документами',
+    userId: 1,
+    regularly: [1, 2, 3, 4, 5],
+    timeStart: {
+      hour: 14,
+      minute: 30
+    },
+    timeEnd: {
+      hour: 14,
+      minute: 55
+    },
+    type: 'secondary',
+  },
+  {
+    id: 10,
+    message: 'Работа с документами',
+    userId: 1,
+    regularly: [1, 2, 3, 4, 5],
+    timeStart: {
+      hour: 16,
+      minute: 20
+    },
+    timeEnd: {
+      hour: 16,
+      minute: 40
+    },
+    type: 'secondary',
+  },
+  {
+    id: 11,
+    message: 'Врач не работает',
+    userId: 1,
+    regularly: [1, 2, 3, 4, 5],
+    timeStart: {
+      hour: 8,
+      minute: 0
+    },
+    timeEnd: {
+      hour: 10,
+      minute: 0
+    },
+    type: 'secondary',
+  },
+  {
     id: 6,
     message: 'Иванов И. И.',
     userId: 5,

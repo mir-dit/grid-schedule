@@ -44,7 +44,7 @@ export const users: Users = [
     name: 'Константинова-Щедрина А.А.',
     specialty: 'офтальмолог',
     schedule: {
-      start: new Date(new Date().setHours(8, 0)),
+      start: new Date(new Date().setHours(9, 0)),
       end: new Date(new Date().setHours(21, 0)),
       days: [2, 3, 4, 5, 6],
     },

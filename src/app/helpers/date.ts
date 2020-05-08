@@ -25,7 +25,7 @@ export function setTime(date: Date, time: Date): Date {
 
 export function getDate(params: { date?: Date, hour?: number, minute?: number}) {
   const newDate = params.date ? new Date(params.date) : new Date();
-  if (params?.hour) newDate.setHours(params.hour);
-  if (params?.minute) newDate.setMinutes(params.minute);
+  if (Number.isInteger(params.hour)) newDate.setHours(params.hour);
+  if (Number.isInteger(params.minute)) newDate.setMinutes(params.minute);
   return newDate;
 }
