@@ -113,6 +113,9 @@ export class ScheduleCtrl {
     if (times[times.length - 1].getHours() < 19) {
       cells.push({reason: this.$filter('dictionary')('message.doctorDoesNotAccept')})
     }
+    if (times[0].getHours() > 8) {
+      cells.unshift({reason: this.$filter('dictionary')('message.doctorDoesNotAccept')})
+    }
     return cells;
   }
 
