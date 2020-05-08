@@ -31,7 +31,7 @@ export class ScheduleMenuCtrl {
     const specialist = this.specialistService.getSpecialistById(selected.specialistId);
     const alreadyUsed = this.recordService.records
         .filter(({type, patientId}) => type === 'primary' && patientId === patient.id)
-        .find((record) => record.start.getTime() === setTime(selected.time.start, record.start).getTime());
+        .find((record) => record.start.getTime() === selected.time.start.getTime());
     if (alreadyUsed) return false;
     if (selected.time.end <= addMinutes(new Date(), 60 / specialist.step)) return false;
     return true;

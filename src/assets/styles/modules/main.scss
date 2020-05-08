@@ -1,6 +1,20 @@
 .main {
   background-color: $gray;
   flex: 1 1 auto;
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__aside {
+    width: 300px;
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 615px;
+  }
 }
 .app-wrapper {
   display: flex;

@@ -1,3 +1,7 @@
-<div class="popup" ng-class="{ 'popup_centered': !position }" ng-style="{ left: position.x + 'px', top: position.y + 'px' }">
+<div
+    class="popup"
+    ng-class="{ 'popup_centered': !position }"
+    ng-style="position ? { left: (position.x + correction.x) + 'px', top: (position.y + correction.y) + 'px' } : {}"
+>
     <ng-transclude></ng-transclude>
 </div>

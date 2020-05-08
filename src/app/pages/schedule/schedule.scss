@@ -4,15 +4,14 @@
         padding: 10px 15px 12px 15px;
         border-bottom: 1px solid $dark-gray;
         background-color: $accent-gray;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
     }
 
     &__title {
         margin-top: 0;
         margin-bottom: 0;
-    }
-
-    &__time-gap {
-        float: right;
     }
 
     &__noinput {

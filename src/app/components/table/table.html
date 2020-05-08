@@ -18,7 +18,9 @@
                     'table__header-interval_busy': column.busy,
                     'table__header-interval_rolled': offset > rolled[$index] && unrolledIndex !== $index,
                 }">
-                    <span ng-if="column.interval && !(offset > rolled[$index] && unrolledIndex !== $index)">{{ column.interval }}</span>
+                    <span ng-if="column.interval && !(offset > rolled[$index] && unrolledIndex !== $index)">
+                        <div ng-repeat="interval in column.interval">{{ interval }}</div>
+                    </span>
                     <span ng-if="column.interval && offset > rolled[$index] && unrolledIndex !== $index">
                         <span class="glyphicon glyphicon-triangle-right table__icon" aria-hidden="true"></span>
                         <span>Врач работает</span>
@@ -46,8 +48,20 @@
                 tooltip-animation="false"
             >
                     <span class="table__text">{{ cell.reason || (cell.time | date: 'HH:mm') }}</span>
-                    <span class="table__patient" ng-if="cell.patient" ng-click="handleCellClick($event, cell, column, cell.patient)">{{ cell.patient.name }}</span>
-                    <span class="table__patient" ng-if="cell.patient2" ng-click="handleCellClick($event, cell, column, cell.patient2)">{{ cell.patient2.name }}</span>
+                    <span
+                        class="table__patient"
+                        ng-if="cell.patient"
+                        ng-click="handleCellClick($event, cell, column, cell.patient)"
+                        tooltip="{{ generateTooltip(cell, cell.patient.name) }}"
+                        ng-bind="cell.patient.name"
+                    ></span>
+                    <span
+                        class="table__patient"
+                        ng-if="cell.patient2"
+                        ng-click="handleCellClick($event, cell, column, cell.patient2)"
+                        tooltip="{{ generateTooltip(cell, cell.patient2.name) }}"
+                        ng-bind="cell.patient2.name"
+                    ></span>
             </div>
         </div>
     </div>

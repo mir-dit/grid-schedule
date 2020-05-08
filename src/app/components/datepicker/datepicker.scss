@@ -47,6 +47,40 @@
             }
         }
     }
+
+    &__template {
+        th:first-of-type button, th:last-of-type button {
+            border: unset;
+        }
+
+        th:nth-of-type(2) button {
+            background: map-get($datepicker-colors, 'action-cancel');
+            display: block;
+            width: 90% !important;
+            margin: 0 auto;
+
+            &:disabled {
+                opacity: 1;
+            }
+        }
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px 10px 4px;
+
+        &-cancel {
+            background: map-get($datepicker-colors, 'action-cancel');
+            padding: 5px 20px;
+        }
+
+        &-ok {
+            background: map-get($datepicker-colors, 'action-ok');
+            margin-left: 10px;
+            padding: 5px 25px;
+        }
+    }
 }
 
 .aside__field-btn.aside__field-btn--datepicker {
