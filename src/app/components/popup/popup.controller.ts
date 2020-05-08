@@ -29,21 +29,13 @@ export class PopupCtrl {
   }
 
   private handlePositionChange = (): void => {
-    if (!this.$scope.position) this.resetCorrection();
+    if (!this.$scope.position) return this.resetCorrection();
     const {clientWidth, clientHeight} = document.documentElement;
     const {offsetWidth, offsetHeight} = this.$scope.element[0].getElementsByClassName('popup')[0] as HTMLElement;
-    let corrected = false;
-    if (clientWidth - offsetWidth < this.$scope.position.x) {
-      this.$scope.correction.x = -offsetWidth;
-      corrected = true;
-    }
-    if (clientHeight - offsetHeight < this.$scope.position.y) {
-      this.$scope.correction.y = -offsetHeight;
-      corrected = true;
-    }
-    if (!corrected) {
-      this.resetCorrection();
-    }
+    this.$scope.correction = {
+      x: (clientWidth - offsetWidth < this.$scope.position.x) ? -offsetWidth : 0,
+      y: (clientHeight - offsetHeight < this.$scope.position.y) ? -offsetHeight : 0,
+    };
   }
 
   private handlePageChange = (): void => {
