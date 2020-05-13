@@ -31,7 +31,10 @@ export class SpecialistsController {
       name: asideDictionary.specialists.specialties[specialty] || specialty,
       specialty,
     }));
-    this.typeaheads = [...this.specialists, ...specialities];
+    this.typeaheads = [...this.specialists
+        .filter(({name, specialty}, i, arr) => arr.findIndex((specialist) => specialist.name === name && specialist.specialty === specialty) === i),
+    ...specialities,
+    ];
     this.dropdownItems = [
       {
         label: asideDictionary.specialists.select,
@@ -66,8 +69,10 @@ export class SpecialistsController {
 
   public handleValueChange($item: ISpecialist): void {
     if ($item?.id) {
-      if (!this.specialistService.selected.includes($item)) {
-        this.specialistService.selected.push($item);
+      const selectedSpecialists = this.specialists
+          .filter((specialist) => !this.specialistService.selected.includes(specialist) && specialist.name === $item.name && specialist.specialty === $item.specialty);
+      if (selectedSpecialists.length) {
+        this.specialistService.selected = [...this.specialistService.selected, ...selectedSpecialists];
         this.buildTree();
       }
     } else {
