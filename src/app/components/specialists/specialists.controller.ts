@@ -15,7 +15,7 @@ interface ISpeciality {
 }
 
 export class SpecialistsController {
-  static $inject: readonly string[] = ['$timeout', 'SpecialistService'];
+  static $inject: readonly string[] = ['SpecialistService'];
 
   private specialists: ISpecialist[] = [];
   public value: ISpecialist | string = '';
@@ -25,7 +25,7 @@ export class SpecialistsController {
   public noResults: boolean;
   public tree: ITreeItem[];
 
-  constructor(private $timeout: ng.ITimeoutService, private specialistService: ISpecialistService) {
+  constructor(private specialistService: ISpecialistService) {
     this.specialists = this.specialistService.getSpecialists();
     const specialities: ISpeciality[] = this.getSpecialities().map((specialty) => ({
       name: asideDictionary.specialists.specialties[specialty] || specialty,
@@ -120,10 +120,15 @@ export class SpecialistsController {
     return this.specialists.filter((specialist) => specialist.specialty === specialty);
   }
 
+  private getSpecialistLabel(specialist: ISpecialist, addSpeciality: boolean): string {
+    const label = `${specialist.name}, ${specialist.hospital} каб.${specialist.cabinet}`;
+    return addSpeciality ? `${label} (${specialist.specialty[0].toUpperCase() + specialist.specialty.slice(1)})` : label;
+  }
+
   private buildTreeNames(specialists: ISpecialist[], addSpeciality: boolean): ITreeItem[] {
     return specialists.map((specialist) => ({
       key: String(specialist.id),
-      label: `${specialist.name} (к.${specialist.cabinet}${addSpeciality ? ', ' + specialist.specialty : ''})`,
+      label: this.getSpecialistLabel(specialist, addSpeciality),
       checked: this.specialistService.selected.includes(specialist),
     }));
   }
