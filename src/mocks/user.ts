@@ -80,7 +80,7 @@ export const users: Users = [
   },
   {
     id: 5,
-    name: 'Григовьева Г.Г.',
+    name: 'Григорьева Г.Г.',
     specialty: 'терапевт',
     schedule: {
       start: new Date(new Date().setHours(10, 0)),
