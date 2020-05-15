@@ -3,6 +3,7 @@ import {ITreeItem} from '../tree/tree.model';
 import {IDropdownItem} from '../dropdown/dropdown.directive';
 import asideDictionary from '@src/dictionary/aside';
 import {ISpecialistService} from '@app/services/specialist.service';
+import {setTime} from '@app/helpers/date';
 
 enum Order {
   specialty,
@@ -61,10 +62,17 @@ export class SpecialistsController {
     this.value = '';
   }
 
+  private setNowDate(): void {
+    if (!this.specialistService.filterDate && this.specialistService.selected.length) {
+      this.specialistService.filterDate = setTime(new Date(), new Date(2020, 1));
+    }
+  }
+
   private checkBySpeciality(specialty: string): void {
     this.getSpecialistsBySpeciality(specialty)
         .filter((specialist) => !this.specialistService.selected.includes(specialist))
         .forEach((specialist) => this.specialistService.selected.push(specialist));
+    this.setNowDate();
   }
 
   public handleValueChange($item: ISpecialist): void {
@@ -74,6 +82,7 @@ export class SpecialistsController {
       if (selectedSpecialists.length) {
         this.specialistService.selected = [...this.specialistService.selected, ...selectedSpecialists];
         this.buildTree();
+        this.setNowDate();
       }
     } else {
       this.checkBySpeciality($item.specialty);
@@ -100,6 +109,7 @@ export class SpecialistsController {
       const specialist = this.specialistService.getSpecialistById(Number(item.key));
       if (item.checked) {
         this.specialistService.selected.push(specialist);
+        this.setNowDate();
       } else {
         this.specialistService.selected.splice(this.specialistService.selected.indexOf(specialist), 1);
       }
