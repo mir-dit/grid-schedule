@@ -46,7 +46,7 @@ export const users: Users = [
     schedule: {
       start: new Date(new Date().setHours(9, 0)),
       end: new Date(new Date().setHours(21, 0)),
-      days: [2, 3, 4, 5, 6],
+      days: [3, 4, 5, 6],
     },
     hospital: 'ГП №128',
     cabinet: '150',
