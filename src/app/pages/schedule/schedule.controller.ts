@@ -113,6 +113,7 @@ export class ScheduleCtrl {
     if (times[times.length - 1].getHours() < 19) {
       cells.push({reason: this.$filter('dictionary')('message.doctorDoesNotAccept')})
     }
+    // Добавление "Врач не принимает" для всех врачей начинающих работу больше чем в 8:00
     if (times[0].getHours() > 8) {
       cells.unshift({reason: this.$filter('dictionary')('message.doctorDoesNotAccept')})
     }
