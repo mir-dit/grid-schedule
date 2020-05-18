@@ -15,7 +15,7 @@ interface ISpeciality {
 }
 
 export class SpecialistsController {
-  static $inject: readonly string[] = ['$timeout', 'SpecialistService'];
+  static $inject: readonly string[] = ['SpecialistService'];
 
   private specialists: ISpecialist[] = [];
   public value: ISpecialist | string = '';
@@ -25,13 +25,16 @@ export class SpecialistsController {
   public noResults: boolean;
   public tree: ITreeItem[];
 
-  constructor(private $timeout: ng.ITimeoutService, private specialistService: ISpecialistService) {
+  constructor(private specialistService: ISpecialistService) {
     this.specialists = this.specialistService.getSpecialists();
     const specialities: ISpeciality[] = this.getSpecialities().map((specialty) => ({
       name: asideDictionary.specialists.specialties[specialty] || specialty,
       specialty,
     }));
-    this.typeaheads = [...this.specialists, ...specialities];
+    this.typeaheads = [...this.specialists
+        .filter(({name, specialty}, i, arr) => arr.findIndex((specialist) => specialist.name === name && specialist.specialty === specialty) === i),
+    ...specialities,
+    ];
     this.dropdownItems = [
       {
         label: asideDictionary.specialists.select,
@@ -66,8 +69,10 @@ export class SpecialistsController {
 
   public handleValueChange($item: ISpecialist): void {
     if ($item?.id) {
-      if (!this.specialistService.selected.includes($item)) {
-        this.specialistService.selected.push($item);
+      const selectedSpecialists = this.specialists
+          .filter((specialist) => !this.specialistService.selected.includes(specialist) && specialist.name === $item.name && specialist.specialty === $item.specialty);
+      if (selectedSpecialists.length) {
+        this.specialistService.selected = [...this.specialistService.selected, ...selectedSpecialists];
         this.buildTree();
       }
     } else {
@@ -77,7 +82,6 @@ export class SpecialistsController {
   }
 
   public handleCheckboxChange(item: ITreeItem): void {
-    console.log(item);
     if (item.key.startsWith('s')) {
       const specialties = asideDictionary.specialists.specialties;
       const speciality = Object.keys(specialties).find((key) => specialties[key] === item.label) || item.label;
@@ -121,10 +125,15 @@ export class SpecialistsController {
     return this.specialists.filter((specialist) => specialist.specialty === specialty);
   }
 
+  private getSpecialistLabel(specialist: ISpecialist, addSpeciality: boolean): string {
+    const label = `${specialist.name}, ${specialist.hospital} каб.${specialist.cabinet}`;
+    return addSpeciality ? `${label} (${specialist.specialty[0].toUpperCase() + specialist.specialty.slice(1)})` : label;
+  }
+
   private buildTreeNames(specialists: ISpecialist[], addSpeciality: boolean): ITreeItem[] {
     return specialists.map((specialist) => ({
       key: String(specialist.id),
-      label: `${specialist.name} (к.${specialist.cabinet}${addSpeciality ? ', ' + specialist.specialty : ''})`,
+      label: this.getSpecialistLabel(specialist, addSpeciality),
       checked: this.specialistService.selected.includes(specialist),
     }));
   }

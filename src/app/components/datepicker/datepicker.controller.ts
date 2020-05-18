@@ -1,5 +1,5 @@
 import {setTime, addDays} from '@app/helpers/date';
-import {IRootScope} from '@app/rootScope';
+import {IRootScope} from '@app/models/rootScope.model';
 import {ISpecialistService} from '@app/services/specialist.service';
 import {IRecordService} from '@app/services/record.service';
 

@@ -23,9 +23,10 @@ export function setTime(date: Date, time: Date): Date {
   return clone;
 }
 
-export function getDate(params: { date?: Date, hour?: number, minute?: number}) {
+export function getDate(params: { date?: Date; hour?: number; minute?: number; day?: number}): Date {
   const newDate = params.date ? new Date(params.date) : new Date();
-  if (params?.hour) newDate.setHours(params.hour);
-  if (params?.minute) newDate.setMinutes(params.minute);
+  if (Number.isInteger(params.hour)) newDate.setHours(params.hour);
+  if (Number.isInteger(params.minute)) newDate.setMinutes(params.minute);
+  if (Number.isInteger(params.day)) while (newDate.getDay() !== params.day) newDate.setDate(newDate.getDate() + 1);
   return newDate;
 }
