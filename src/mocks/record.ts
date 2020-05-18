@@ -87,4 +87,34 @@ export const records: IRecord[] = [
     type: 'primary',
     patientId: 8,
   },
+  {
+    id: 9,
+    message: 'Врач не принемает',
+    userId: 3,
+    regularly: [2, 3, 4, 5],
+    timeStart: {
+      hour: 8,
+      minute: 0
+    },
+    timeEnd: {
+      hour: 10,
+      minute: 0
+    },
+    type: 'secondary',
+  },
+  {
+    id: 10,
+    message: 'Врач не принемает',
+    userId: 2,
+    regularly: [1, 3, 4, 5],
+    timeStart: {
+      hour: 8,
+      minute: 0
+    },
+    timeEnd: {
+      hour: 9,
+      minute: 0
+    },
+    type: 'secondary',
+  },
 ];

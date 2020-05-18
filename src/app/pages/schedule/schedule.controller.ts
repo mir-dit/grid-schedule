@@ -110,7 +110,7 @@ export class ScheduleCtrl {
       }
     }
     // Добавление "Врач не принимает" для всех врачей работающие мнее чем до 20:00
-    if (times[times.length - 1].getHours() < 19) {
+    if (times[times.length - 1].getHours() < 20) {
       cells.push({reason: this.$filter('dictionary')('message.doctorDoesNotAccept')})
     }
     // Добавление "Врач не принимает" для всех врачей начинающих работу больше чем в 8:00
