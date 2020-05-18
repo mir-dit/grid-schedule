@@ -148,4 +148,19 @@ export const records: IRecord[] = [
     },
     type: 'secondary',
   },
+  {
+    id: 11,
+    message: 'Врач не принимает',
+    userId: 2,
+    regularly: [2],
+    timeStart: {
+      hour: 9,
+      minute: 0
+    },
+    timeEnd: {
+      hour: 21,
+      minute: 0
+    },
+    type: 'secondary',
+  },
 ];
