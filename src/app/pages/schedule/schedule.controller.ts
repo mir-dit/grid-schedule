@@ -110,9 +110,6 @@ export class ScheduleCtrl {
         cells.push(used.length ? this.createUsedCell(time, used) : {time});
       }
     }
-    // console.debug(user.schedule.start.getHours())
-    // console.debug(user.schedule.end.getHours())
-    // console.debug(affairs)
 
     // Добавление "Врач не принимает" для всех врачей начинающих работу больше чем в 8:00
     if (times[0].getHours() > 8) {
@@ -129,7 +126,6 @@ export class ScheduleCtrl {
     if(cells.length === doctorDoesNotAccept.length) {
       cells = [{reason: this.$filter('dictionary')('message.doctorDoesNotAccept')}]
     }
-
 
     return cells;
   }
