@@ -129,22 +129,6 @@ export class ScheduleCtrl {
     if(cells.length === doctorDoesNotAccept.length) {
       cells = [{reason: this.$filter('dictionary')('message.doctorDoesNotAccept')}]
     }
-    if(affairs.length) {
-      /*
-      let affairStart = {hour: 24, minute: 0}
-      let affairEnd = {hour: 0, minute: 0}
-      const userStart = {hour: user.schedule.start.getHours(), minute: user.schedule.start.getMinutes()}
-      const userEnd = {hour: user.schedule.end.getHours(), minute: user.schedule.end.getMinutes()}
-      affairs.forEach((el) => {
-       if (el.timeStart.hour < affairStart.hour) {affairStart = el.timeStart}
-       if (el.timeEnd.hour > affairEnd.hour) {affairEnd = el.timeEnd}
-      })
-      if (userStart.hour === affairStart.hour && userStart.minute === affairStart.minute
-          && userEnd.hour === affairEnd.hour && userEnd.minute === affairEnd.minute) {
-        cells = [{reason: this.$filter('dictionary')('message.doctorDoesNotAccept')}]
-      }
-      */
-    }
 
 
     return cells;

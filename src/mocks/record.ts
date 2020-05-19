@@ -133,21 +133,6 @@ export const records: IRecord[] = [
     },
     type: 'secondary',
   },
-/*  {
-    id: 10,
-    message: 'Врач не принемает',
-    userId: 2,
-    regularly: [1, 3, 4, 5],
-    timeStart: {
-      hour: 8,
-      minute: 0
-    },
-    timeEnd: {
-      hour: 9,
-      minute: 0
-    },
-    type: 'secondary',
-  },*/
   {
     id: 11,
     message: 'Врач не принимает',
