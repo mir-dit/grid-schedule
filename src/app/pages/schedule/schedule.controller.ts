@@ -80,7 +80,7 @@ export class ScheduleCtrl {
   private createCells(user: ISpecialist, date: Date): Cell[] {
     const nextDate: Date = addDays(date, 1);
     const times: Date[] = this.getUserTimes(user, date);
-    const cells: Cell[] = [];
+    let cells: Cell[] = [];
     const addedAffairs: IRecord[] = [];
     const affairs: IRecord[] = this.recordService.records.filter(({type, userId}: IRecord) => userId === user.id && type === 'secondary');
     for (const time of times) {
@@ -110,12 +110,26 @@ export class ScheduleCtrl {
         cells.push(used.length ? this.createUsedCell(time, used) : {time});
       }
     }
-    // Добавление "Врач не принимает" для всех врачей работающие мнее чем до 20:00
-    if (times[times.length - 1].getHours() < 19) {
-      cells.push({reason: this.$filter('dictionary')('message.doctorDoesNotAccept')});
+
+    // Добавление "Врач не принимает" для всех врачей начинающих работу больше чем в 8:00
+    if (times[0].getHours() > 8) {
+      cells.unshift({reason: this.$filter('dictionary')('message.doctorDoesNotAccept')})
     }
+
+    // Добавление "Врач не принимает" для всех врачей работающие мнее чем до 20:00
+    if (times[times.length - 1].getHours() < 20) {
+      cells.push({reason: this.$filter('dictionary')('message.doctorDoesNotAccept')})
+    }
+
+    // Очистка множества уведомлений "Врач не принимает" подряд
+    const doctorDoesNotAccept = cells.filter((cell) => (cell as ICellAffairs).reason === this.$filter('dictionary')('message.doctorDoesNotAccept'));
+    if(cells.length === doctorDoesNotAccept.length) {
+      cells = [{reason: this.$filter('dictionary')('message.doctorDoesNotAccept')}]
+    }
+
     return cells;
   }
+
 
   private formatTime(from: Date, to: Date): string {
     return `${this.$filter('date')(from, 'HH:mm')} - ${this.$filter('date')(to, 'HH:mm')}`;
