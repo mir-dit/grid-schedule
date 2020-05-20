@@ -19,7 +19,7 @@ export interface IRecord {
   };
 }
 
-export type IRecordType = 'secondary' | 'success' | 'danger' | 'primary'
+export type IRecordType = 'secondary' | 'success' | 'danger' | 'primary' | 'main'
 
 export const records: IRecord[] = [
   {
@@ -125,27 +125,102 @@ export const records: IRecord[] = [
     regularly: [2, 3, 4, 5],
     timeStart: {
       hour: 8,
-      minute: 0
+      minute: 0,
     },
     timeEnd: {
       hour: 10,
-      minute: 0
+      minute: 0,
     },
     type: 'secondary',
   },
   {
-    id: 11,
+    id: 10,
     message: 'Врач не принимает',
     userId: 2,
     regularly: [2],
     timeStart: {
       hour: 9,
-      minute: 0
+      minute: 0,
     },
     timeEnd: {
       hour: 21,
-      minute: 0
+      minute: 0,
     },
     type: 'secondary',
+  },
+  {
+    id: 11,
+    message: 'Запись на прием',
+    userId: 5,
+    regularly: [1, 2, 3, 4, 5],
+    timeStart: {
+      hour: 10,
+      minute: 0,
+    },
+    timeEnd: {
+      hour: 20,
+      minute: 0,
+    },
+    type: 'main',
+  },
+  {
+    id: 12,
+    message: 'Запись на прием',
+    userId: 3,
+    regularly: [1, 2, 3, 4],
+    timeStart: {
+      hour: 10,
+      minute: 0,
+    },
+    timeEnd: {
+      hour: 15,
+      minute: 0,
+    },
+    type: 'main',
+  },
+  {
+    id: 13,
+    message: 'Запись на прием',
+    userId: 4,
+    regularly: [5, 6],
+    timeStart: {
+      hour: 14,
+      minute: 0,
+    },
+    timeEnd: {
+      hour: 18,
+      minute: 0,
+    },
+    type: 'main',
+  },
+  {
+    id: 14,
+    message: 'Запись на прием',
+    userId: 1,
+    regularly: [1, 2, 3, 4, 5],
+    timeStart: {
+      hour: 10,
+      minute: 0,
+    },
+    timeEnd: {
+      hour: 17,
+      minute: 45,
+    },
+    type: 'main',
+  },
+  {
+    id: 14,
+    message: 'Запись на прием',
+    userId: 2,
+    regularly: [3, 4, 5, 6],
+    timeStart: {
+      hour: 9,
+      minute: 0,
+    },
+    timeEnd: {
+      hour: 21,
+      minute: 0,
+    },
+    type: 'main',
   },
 ];
