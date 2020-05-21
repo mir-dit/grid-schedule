@@ -55,9 +55,14 @@ export class ScheduleCtrl {
     return dates;
   }
 
+  private getUserMain(user: ISpecialist, day: number): IRecord {
+    return this.recordService.records.find(({userId, type, regularly}) => type === 'main' && userId === user.id && regularly.includes(day));
+  }
+
   private getUserTimes(user: ISpecialist, date: Date): Date[] {
-    const start: Date = setTime(date, user.schedule.start);
-    const end: Date = setTime(date, user.schedule.end);
+    const main = this.getUserMain(user, date.getDay());
+    const start: Date = setTime(date, getDate({date, ...main.timeStart}));
+    const end: Date = setTime(date, getDate({date, ...main.timeEnd}));
     const times: Date[] = [start];
     const diff: number = 60 / user.step;
     do {
@@ -165,7 +170,7 @@ export class ScheduleCtrl {
   }
 
   private getSpecialistsByDate(date: Date): ISpecialist[] {
-    return this.specialistService.selected.filter((user) => user.schedule.days.includes(date.getDay()));
+    return this.specialistService.selected.filter((user) => user.schedule.days.includes(date.getDay()) && this.getUserMain(user, date.getDay()));
   }
 
   public updateColumns(): void {
