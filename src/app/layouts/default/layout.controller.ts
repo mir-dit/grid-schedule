@@ -1,3 +1,5 @@
+import {IAsideImpScope} from '@app/models/scopes.model';
+
 export class LayoutController {
   static $inject = ['$route', '$timeout'];
 
@@ -5,7 +7,7 @@ export class LayoutController {
 
   constructor($route: ng.route.IRouteService, $timeout: ng.ITimeoutService) {
     $timeout(() => {
-      this.asideName = ($route?.current as any)?.scope?.aside;
+      this.asideName = ($route?.current.locals.$scope as IAsideImpScope).aside;
     });
   }
 }
