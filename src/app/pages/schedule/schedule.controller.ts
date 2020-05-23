@@ -7,6 +7,7 @@ import {IRecordService} from '@app/services/record.service';
 import {ISpecialistService} from '@app/services/specialist.service';
 import {IAsideImpScope} from '@app/models/scopes.model';
 import {IPatientService} from '@app/services/patient.service';
+import messageDictionary from '@src/dictionary/message';
 
 export class ScheduleCtrl {
   static $inject = ['$scope', 'SpecialistService', 'PatientService', 'RecordService', '$filter'];
@@ -54,9 +55,14 @@ export class ScheduleCtrl {
     return dates;
   }
 
+  private getUserMain(user: ISpecialist, day: number): IRecord {
+    return this.recordService.records.find(({userId, type, regularly}) => type === 'main' && userId === user.id && regularly.includes(day));
+  }
+
   private getUserTimes(user: ISpecialist, date: Date): Date[] {
-    const start: Date = setTime(date, user.schedule.start);
-    const end: Date = setTime(date, user.schedule.end);
+    const main = this.getUserMain(user, date.getDay());
+    const start: Date = setTime(date, getDate({date, ...main.timeStart}));
+    const end: Date = setTime(date, getDate({date, ...main.timeEnd}));
     const times: Date[] = [start];
     const diff: number = 60 / user.step;
     do {
@@ -78,9 +84,9 @@ export class ScheduleCtrl {
   }
 
   private createCells(user: ISpecialist, date: Date): Cell[] {
-    const nextDate: Date = addDays(date, 1);
+    // const nextDate: Date = addDays(date, 1);
     const times: Date[] = this.getUserTimes(user, date);
-    let cells: Cell[] = [];
+    const cells: Cell[] = [];
     const addedAffairs: IRecord[] = [];
     const affairs: IRecord[] = this.recordService.records.filter(({type, userId}: IRecord) => userId === user.id && type === 'secondary');
     for (const time of times) {
@@ -113,18 +119,18 @@ export class ScheduleCtrl {
 
     // Добавление "Врач не принимает" для всех врачей начинающих работу больше чем в 8:00
     if (times[0].getHours() > 8) {
-      cells.unshift({reason: this.$filter('dictionary')('message.doctorDoesNotAccept')})
+      cells.unshift({reason: messageDictionary.doctorDoesNotAccept});
     }
 
     // Добавление "Врач не принимает" для всех врачей работающие мнее чем до 20:00
     if (times[times.length - 1].getHours() < 20) {
-      cells.push({reason: this.$filter('dictionary')('message.doctorDoesNotAccept')})
+      cells.push({reason: messageDictionary.doctorDoesNotAccept});
     }
 
     // Очистка множества уведомлений "Врач не принимает" подряд
-    const doctorDoesNotAccept = cells.filter((cell) => (cell as ICellAffairs).reason === this.$filter('dictionary')('message.doctorDoesNotAccept'));
-    if(cells.length === doctorDoesNotAccept.length) {
-      cells = [{reason: this.$filter('dictionary')('message.doctorDoesNotAccept')}]
+    const doctorDoesNotAccept = cells.filter((cell) => (cell as ICellAffairs).reason === messageDictionary.doctorDoesNotAccept);
+    if (cells.length === doctorDoesNotAccept.length) {
+      return [{reason: messageDictionary.doctorDoesNotAccept}];
     }
 
     return cells;
@@ -164,7 +170,7 @@ export class ScheduleCtrl {
   }
 
   private getSpecialistsByDate(date: Date): ISpecialist[] {
-    return this.specialistService.selected.filter((user) => user.schedule.days.includes(date.getDay()));
+    return this.specialistService.selected.filter((user) => user.schedule.days.includes(date.getDay()) && this.getUserMain(user, date.getDay()));
   }
 
   public updateColumns(): void {
