@@ -11,6 +11,7 @@ export interface IPopupScope extends ng.IScope {
 }
 
 export class PopupCtrl {
+  static $inject: readonly string[] = ['$scope', '$window'];
   constructor(private $scope: IPopupScope, $window: ng.IWindowService) {
     this.resetCorrection();
     $window.addEventListener('click', this.handleClick);

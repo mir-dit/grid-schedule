@@ -26,6 +26,7 @@
     "file-loader": "^6.0.0",
     "html-loader": "^1.0.0",
     "html-webpack-plugin": "^4.0.3",
+    "ng-annotate-webpack-plugin": "^0.3.0",
     "node-sass": "^4.13.1",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^8.0.2",
@@ -36,7 +37,7 @@
   },
   "scripts": {
     "build-dev": "webpack --mode development",
-    "build-prod": "webpack -p --mode production"
+    "build-prod": "webpack -p --mode production --config='webpack.config.prod.js'"
   },
   "repository": {
     "type": "git",

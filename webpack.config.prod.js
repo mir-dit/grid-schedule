@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const NgAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 const config = {
     entry: {
@@ -78,25 +78,14 @@ const config = {
         }
     },
     target: 'web',
-    devtool: 'eval',
-    watch: true,
-    watchOptions: {
-        poll: 1000,
-        ignored: /node_modules/,
-    },
+    stats: 'errors-only',
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/index.html',
         }),
-        new BrowserSyncPlugin({
-            host: 'localhost',
-            port: 3001,
-            server: {
-                baseDir: 'dist',
-                directory: true,
-            },
-            startPath: '/index.html',
-        }),
+        new NgAnnotatePlugin({
+            add: true,
+        })
     ]
 };
 

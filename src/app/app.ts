@@ -53,6 +53,6 @@ app.directive('appPatient', PatientDirective.factory());
 app.directive('appSpecialists', SpecialistsDirective.factory());
 app.directive('appTree', TreeDirective.factory());
 app.service('PatientService', PatientService);
-app.service('RecordService', RecordService);
+app.service('RecordService', ['$rootScope', RecordService]);
 app.service('SpecialistService', SpecialistService);
 app.config(['$routeProvider', routes]);
