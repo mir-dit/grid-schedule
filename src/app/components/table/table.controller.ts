@@ -31,7 +31,7 @@ enum HeaderColumnDiv {
 }
 
 export class TableCtrl {
-  constructor(private $scope: ITableScope, $timeout: ng.ITimeoutService,  private $filter: ng.IFilterService) {
+  constructor(private $scope: ITableScope, $timeout: ng.ITimeoutService, private $filter: ng.IFilterService) {
     $scope.offset = 0;
     $scope.rolled = [];
     $scope.unrolledIndex = null;

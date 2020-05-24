@@ -3,7 +3,7 @@ import {ISpecialistService} from '@app/services/specialist.service';
 import {IPatientService} from '@app/services/patient.service';
 import {IScheduleMenuScope, ISheldureMenuSelectedPatient} from '@components/scheduleMenu/scheduleMenu.model';
 import {IPatient} from '@mocks/user';
-import {addMinutes, setTime} from '@app/helpers/date';
+import {addMinutes} from '@app/helpers/date';
 
 export class ScheduleMenuCtrl {
   static $inject = ['$scope', '$timeout', 'RecordService', 'SpecialistService', 'PatientService'];

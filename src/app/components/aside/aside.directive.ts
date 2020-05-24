@@ -7,7 +7,7 @@ export class AsideDirective implements ng.IDirective {
   controllerAs = 'asCtrl'
   bindToController = true;
   scope = {
-    name: '@'
+    name: '@',
   };
 
 
